@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .menu-title{border-bottom:solid 1px; width:75px;}
+            .left-area{float:left; box-sizing: border-box;}
+            .right-area{float:right; box-sizing: border-box;}
+            .number-field{text-align:right}
+            .data-field{text-align:center;}
+            .hyper-field{color: blue; text-decoration: underline; cursor:pointer;}
+            .input-box-area{border: solid 1px; width:230px;}
+            .label-field{text-align:right;}
+            .label-area{width:70px;}
+            .list-area{width:75vw;}
+            .input-area{width:calc(230px - 80px);}
+            div.input-area>div>input{width:125px;}
+            .total-field{border: none; text-align: right;}
+            .save-button{width:100%;}
+        </style>
+    </head>
+    <body>
+        <div class="menu-title">전표등록</div>
+        <div>
+            <div class="left-area input-box-area">
+                <div class="left-area label-area">
+                    <div class="label-field">입력일자</div>
+                    <div class="label-field">거래처</div>
+                    <div class="label-field">차대번호</div>
+                    <div class="label-field">품목</div>
+                    <div class="label-field">수량</div>
+                    <div class="label-field">금액</div>
+                    <div class="label-field">추가공임</div>
+                    <div class="label-field">합계</div>
+                </div>
+                <div class="right-area input-area">
+                    <div><input type="date"></div>
+                    <div><input type="text"></div>
+                    <div><input type="number" min="0"></div>
+                    <div><input type="text"></div>
+                    <div><input type="number" min="0"></div>
+                    <div><input type="number" min="0"></div>
+                    <div><input type="number" min="0"></div>
+                    <div><input class="total-field" type="number" min="0" readonly="true" value="0"></div>
+                </div>
+                <div><input class="save-button" type="button" value="입력하기"></div>
+            </div>
+            <div class="right-area list-area">
+                <table>
+                    <tr>
+                        <th>순번</th>
+                        <th>주문일자</th>
+                        <th>차대번호</th>
+                        <th>품목</th>
+                        <th>수량</th>
+                        <th>금액</th>
+                        <th>추가공임</th>
+                        <th>합계</th>
+                    </tr>
+                    <tr>
+                        <td class="number-field">1</td>
+                        <td class="data-field">2021-07-18</td>
+                        <td>1234</td>
+                        <td class="hyper-field">CDI유니트</td>
+                        <td class="number-field">1</td>
+                        <td class="number-field">500,000</td>
+                        <td class="number-field">0</td>
+                        <td class="number-field">500,000</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
