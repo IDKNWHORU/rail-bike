@@ -26,11 +26,11 @@ public class Controller {
     }
 
     @GetMapping("/item")
-    public String item(){
+    public Map<String, Object> item(){
         Map<String, Object> result = new HashMap<>();
         
         result = itemMapper.selectItem();
 
-        return result.get("item_code").toString();
+        return result;
     }
 }

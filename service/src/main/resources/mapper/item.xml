@@ -3,8 +3,12 @@
 <mapper namespace="rail.bike.demo.db.ItemMapper">
 
     <select id="selectItem" resultType="hashMap">
-        select *
-          from tb_item_mstr
+        select item_code
+              ,fn_code_name(item_code, 'item') item_name
+              ,unit_code
+              ,fn_code_name(unit_code, 'unit') unit_name
+              ,price
+          from rail.tb_item_mstr
     </select>
 
 </mapper>
