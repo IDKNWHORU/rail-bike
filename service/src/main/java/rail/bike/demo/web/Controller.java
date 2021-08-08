@@ -27,10 +27,6 @@ public class Controller {
 
     @GetMapping("/item")
     public Map<String, Object> item(){
-        Map<String, Object> result = new HashMap<>();
-        
-        result = itemMapper.selectItem();
-
-        return result;
+        return itemMapper.selectItem();
     }
 }
