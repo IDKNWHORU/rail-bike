@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <script>
+            var httpRequest;
+
+            const makeRequest = () => {
+                httpRequest = new XMLHttpRequest();
+
+                if(!httpRequest){
+                    console.error(`Can't make XMLHTTP instance.`);
+                    return false;
+                }
+
+                httpRequest.onreadystatechange = alertContents;
+                httpRequest.open('GET', '/item');
+                httpRequest.send();
+            }
+
+            const alertContents = () => {
+                try {
+                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        if (httpRequest.status === 200) {
+                            const item_code = document.querySelector('#item_code');
+                            const item_name = document.querySelector('#item_name');
+                            const unit_name = document.querySelector('#unit_name');
+                            const price = document.querySelector('#price');
+                            const order = document.querySelector('#order');
+                            const resultMap = JSON.parse(httpRequest.responseText);
+
+                            item_code.value = resultMap.item_code;
+                            item_name.value = resultMap.item_name;
+                            unit_name.value = resultMap.unit_name;
+                            price.value = resultMap.price;
+                            order.value = resultMap.order;
+
+                            const row = document.querySelector('#item_rows');
+                            debugger;
+                        } else {
+                            console.error('request에 뭔가 문제가 있어요.');
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Caught Exception : ${error.message}`);
+                }
+            }
+            window.onload = () => {
+                makeRequest();
+            }
+        </script>
+        <title>품목등록</title>
+    </head>
+    <body>
+        <div>
+            <input type="button" value="추가" style="margin-left: 84vw;">
+        </div>
+        <table border="1">
+            <tr>
+                <th>
+                    품목코드
+                </th>
+                <th>
+                    품목명
+                </th>
+                <th>
+                    단위
+                </th>
+                <th>
+                    가격
+                </th>
+                <th>
+                    순번
+                </th>
+            </tr>
+            <tr id="item_rows">
+                <td>
+                    <input id="item_code" type="text" >
+                </td>
+                <td>
+                    <input id="item_name" type="text" >
+                </td>
+                <td>
+                    <input id="unit_name" type="text" >
+                </td>
+                <td>
+                    <input id="price" type="number" min="0" >
+                </td>
+                <td>
+                    <input id="order" type="number" min="0" >
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
