@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <script>
             var httpRequest;
+            let myRowTag;
 
             const makeRequest = () => {
                 httpRequest = new XMLHttpRequest();
@@ -34,9 +35,6 @@
                             unit_name.value = resultMap.unit_name;
                             price.value = resultMap.price;
                             order.value = resultMap.order;
-
-                            const row = document.querySelector('#item_rows');
-                            debugger;
                         } else {
                             console.error('request에 뭔가 문제가 있어요.');
                         }
@@ -45,7 +43,21 @@
                     console.error(`Caught Exception : ${error.message}`);
                 }
             }
+
+            const addRow = () => {
+                const myTable = document.querySelector('#item_table');
+                const cloneRowNode = myRowTag.cloneNode(true);
+                cloneRowNode.querySelector('#item_code').value = '';
+                cloneRowNode.querySelector('#item_name').value = '';
+                cloneRowNode.querySelector('#unit_name').value = '';
+                cloneRowNode.querySelector('#price').value = '';
+                cloneRowNode.querySelector('#order').value = '';
+                myTable.tBodies[0].appendChild(cloneRowNode);
+            }
+
             window.onload = () => {
+                myRowTag = document.querySelector('#item_rows');
+
                 makeRequest();
             }
         </script>
@@ -53,9 +65,9 @@
     </head>
     <body>
         <div>
-            <input type="button" value="추가" style="margin-left: 84vw;">
+            <input type="button" value="추가" style="margin-left: 84vw;" onclick="addRow()">
         </div>
-        <table border="1">
+        <table id="item_table" border="1">
             <tr>
                 <th>
                     품목코드
