@@ -20,7 +20,7 @@ class ApplicationTests {
 
 	@Test
 	public void callMainPage() throws Exception{
-		String result = "root directory";
+		String result = "index";
 
 		assertEquals(controller.root(), result);
 	}

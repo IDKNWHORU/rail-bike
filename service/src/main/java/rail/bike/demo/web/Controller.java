@@ -19,12 +19,6 @@ public class Controller {
         this.itemDao = itemDao;
     }
 
-    
-    @GetMapping("/")
-    public String root(){
-        return "root directory";
-    }
-
     @GetMapping("/item")
     public Map<String, Object> item(){
         return itemMapper.selectItem();
