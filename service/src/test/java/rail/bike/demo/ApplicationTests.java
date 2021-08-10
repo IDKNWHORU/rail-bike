@@ -18,13 +18,6 @@ class ApplicationTests {
 	@Autowired
 	private Controller controller;
 
-	@Test
-	public void callMainPage() throws Exception{
-		String result = "index";
-
-		assertEquals(controller.root(), result);
-	}
-
 	public boolean itemEquals(Map<String, Object> item1, Map<String, Object> item2){
 		for(String key : item1.keySet()){
 			if(!item1.get(key).toString().equals(item2.get(key).toString()))
@@ -43,6 +36,6 @@ class ApplicationTests {
 		result.put("unit_name", "조");
 		result.put("price", "35000");
 
-		assertTrue(itemEquals(controller.item(), result));
+		assertTrue(itemEquals(controller.loadItemList().get(0), result));
 	}
 }
