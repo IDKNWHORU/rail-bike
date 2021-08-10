@@ -1,5 +1,6 @@
 package rail.bike.demo.db;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,7 +12,7 @@ public class ItemDao {
     public ItemDao(SqlSession sqlSession){
         this.sqlSession = sqlSession;
     }
-    public Map<String, Object> getItem() {
-        return sqlSession.selectMap("rail.bike.demo.db.ItemMapper.selectItem", "");
+    public List<Map<String, Object>> getItem() {
+        return sqlSession.selectList("rail.bike.demo.db.ItemMapper.selectItem");
     }
 }

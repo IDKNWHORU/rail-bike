@@ -1,6 +1,6 @@
 package rail.bike.demo.web;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class Controller {
     }
 
     @GetMapping("/item")
-    public Map<String, Object> item(){
+    public List<Map<String, Object>> item(){
         return itemMapper.selectItem();
     }
 }

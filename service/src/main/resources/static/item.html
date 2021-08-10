@@ -23,18 +23,26 @@
                 try {
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
-                            const item_code = document.querySelector('#item_code');
-                            const item_name = document.querySelector('#item_name');
-                            const unit_name = document.querySelector('#unit_name');
-                            const price = document.querySelector('#price');
-                            const order = document.querySelector('#order');
-                            const resultMap = JSON.parse(httpRequest.responseText);
+                            const resultList = JSON.parse(httpRequest.responseText);
 
-                            item_code.value = resultMap.item_code;
-                            item_name.value = resultMap.item_name;
-                            unit_name.value = resultMap.unit_name;
-                            price.value = resultMap.price;
-                            order.value = resultMap.order;
+                            resultList.forEach((resultMap)=>{
+                                addItemRow();
+                                
+                                const rowTags = document.querySelectorAll('#item_rows');
+                                const rowTag = rowTags[rowTags.length-1];
+    
+                                const item_code = rowTag.querySelector('#item_code');
+                                const item_name = rowTag.querySelector('#item_name');
+                                const unit_name = rowTag.querySelector('#unit_name');
+                                const price = rowTag.querySelector('#price');
+                                const order = rowTag.querySelector('#order');
+    
+                                item_code.value = resultMap.item_code;
+                                item_name.value = resultMap.item_name;
+                                unit_name.value = resultMap.unit_name;
+                                price.value = resultMap.price;
+                                order.value = resultMap.order;
+                            })
                         } else {
                             console.error('request에 뭔가 문제가 있어요.');
                         }
@@ -44,7 +52,7 @@
                 }
             }
 
-            const addRow = () => {
+            const addItemRow = () => {
                 const myTable = document.querySelector('#item_table');
                 const cloneRowNode = myRowTag.cloneNode(true);
                 cloneRowNode.querySelector('#item_code').value = '';
@@ -53,6 +61,13 @@
                 cloneRowNode.querySelector('#price').value = '';
                 cloneRowNode.querySelector('#order').value = '';
                 myTable.tBodies[0].appendChild(cloneRowNode);
+            }
+
+            const saveItemInfo = () => {
+
+            }
+            const deleteItemInfo = () => {
+
             }
 
             window.onload = () => {
@@ -64,9 +79,6 @@
         <title>품목등록</title>
     </head>
     <body>
-        <div>
-            <input type="button" value="추가" style="margin-left: 84vw;" onclick="addRow()">
-        </div>
         <table id="item_table" border="1">
             <tr>
                 <th>
@@ -100,6 +112,12 @@
                 </td>
                 <td>
                     <input id="order" type="number" min="0" >
+                </td>
+                <td>
+                    <input type="button" onclick="saveItemInfo()" value="저장">
+                </td>
+                <td>
+                    <input type="button" onclick="deleteItemInfo()" value="삭제">
                 </td>
             </tr>
         </table>
