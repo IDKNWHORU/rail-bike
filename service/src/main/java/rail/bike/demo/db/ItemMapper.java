@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemMapper {
     List<Map<String, Object>> selectItem();
+    int insertItem(Map<String, Object> itemInfo);
+    int deleteItem(Map<String, Object> itemInfo);
 }

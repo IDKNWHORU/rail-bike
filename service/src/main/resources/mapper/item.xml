@@ -12,4 +12,11 @@
           from rail.tb_item_mstr
     </select>
 
+    <select id="insertItem" parameterType="hashMap" resultType="int">
+        select fn_put_item(#{item_code}, #{item_name}, #{unit_name}, #{price}, #{order})
+    </select>
+
+    <select id="deleteItem" parameterType="hashMap" resultType="int">
+        select fn_delete_item(#{item_code})
+    </select>
 </mapper>

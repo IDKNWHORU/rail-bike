@@ -63,11 +63,62 @@
                 myTable.tBodies[0].appendChild(cloneRowNode);
             }
 
-            const saveItemInfo = () => {
+            const saveItemInfo = (button) => {
+                const saveRow = button.closest('tr');
 
+                httpRequest = new XMLHttpRequest();
+                const item_code = saveRow.querySelector('#item_code').value;
+                const item_name = saveRow.querySelector('#item_name').value;
+                const unit_name = saveRow.querySelector('#unit_name').value;
+                const price = saveRow.querySelector('#price').value;
+                const order = saveRow.querySelector('#order').value;
+
+                const queryStr = `item_code=${item_code}&item_name=${encodeURIComponent(item_name)}&unit_name=${encodeURIComponent(unit_name)}&price=${price}&order=${order}`;
+
+                if(!httpRequest){
+                    console.error(`Can't make XMLHTTP instance.`);
+                    return false;
+                }
+
+                httpRequest.onreadystatechange = saveContents;
+                httpRequest.open('PUT', '/item');
+                httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                httpRequest.send(queryStr);
             }
-            const deleteItemInfo = () => {
 
+            const saveContents = () => {
+                try {
+                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        if (httpRequest.status === 200) {
+                            if(httpRequest.responseText === 1){
+                                makeRequest();
+                            }
+                        } else {
+                            console.error('request에 뭔가 문제가 있어요.');
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Caught Exception : ${error.message}`);
+                }
+            }
+
+            const deleteItemInfo = (button) => {
+                const saveRow = button.closest('tr');
+
+                httpRequest = new XMLHttpRequest();
+                const item_code = saveRow.querySelector('#item_code').value;
+
+                const queryStr = `item_code=${item_code}`;
+
+                if(!httpRequest){
+                    console.error(`Can't make XMLHTTP instance.`);
+                    return false;
+                }
+
+                httpRequest.onreadystatechange = saveContents;
+                httpRequest.open('DELETE', '/item');
+                httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                httpRequest.send(queryStr);
             }
 
             window.onload = () => {
@@ -114,10 +165,10 @@
                     <input id="order" type="number" min="0" >
                 </td>
                 <td>
-                    <input type="button" onclick="saveItemInfo()" value="저장">
+                    <input type="button" onclick="saveItemInfo(this)" value="저장">
                 </td>
                 <td>
-                    <input type="button" onclick="deleteItemInfo()" value="삭제">
+                    <input type="button" onclick="deleteItemInfo(this)" value="삭제">
                 </td>
             </tr>
         </table>
