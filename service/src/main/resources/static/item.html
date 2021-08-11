@@ -37,6 +37,7 @@
                                 const price = rowTag.querySelector('#price');
                                 const order = rowTag.querySelector('#order');
     
+                                item_code.readOnly = true;
                                 item_code.value = resultMap.item_code;
                                 item_name.value = resultMap.item_name;
                                 unit_name.value = resultMap.unit_name;
@@ -90,7 +91,14 @@
                 try {
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
-                            if(httpRequest.responseText === 1){
+                            if(httpRequest.responseText === "1"){
+                                const rowTags = document.querySelectorAll('#item_rows');
+                                const parent = rowTags[0].parentNode;
+
+                                for(let index = 1; index < rowTags.length; index++){
+                                    parent.removeChild(rowTags[index]);
+                                }
+                                
                                 makeRequest();
                             }
                         } else {
