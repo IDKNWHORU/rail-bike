@@ -19,4 +19,21 @@
     <select id="deleteItem" parameterType="hashMap" resultType="int">
         select fn_delete_item(#{item_code})
     </select>
+
+    <select id="selectOrderList" resultType="hashMap">
+        select row_number() over() order_seq
+             , order_info.*
+             , item_price + labor total_price
+          from (
+                select order_uniq
+                     , order_date
+                     , bike_number
+                     , item_code
+                     , fn_code_name(item_code, 'item') item_name
+                     , count
+                     , (select price from tb_item_mstr tim where tim.item_code = tom.item_code) * count item_price
+                     , labor
+                  from tb_order_mstr tom
+               ) order_info
+    </select>
 </mapper>

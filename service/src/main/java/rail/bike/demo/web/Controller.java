@@ -36,4 +36,9 @@ public class Controller {
     public int deleteItemInfo(@RequestParam Map<String, Object> itemInfo){
         return itemMapper.deleteItem(itemInfo);
     }
+
+    @GetMapping("/order")
+    public List<Map<String, Object>> loadOrderList(){
+        return itemMapper.selectOrderList();
+    }
 }

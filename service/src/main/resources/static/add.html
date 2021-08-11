@@ -18,6 +18,41 @@
             .total-field{border: none; text-align: right;}
             .save-button{width:100%;}
         </style>
+        <script>
+            const makeRequest = () => {
+                httpRequest = new XMLHttpRequest();
+
+                if(!httpRequest){
+                    console.error(`Can't make XMLHTTP instance.`);
+                    return false;
+                }
+
+                httpRequest.onreadystatechange = alertContents;
+                httpRequest.open('GET', '/order');
+                httpRequest.send();
+            }
+
+            const alertContents = () => {
+                try {
+                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        if (httpRequest.status === 200) {
+                            const resultList = JSON.parse(httpRequest.responseText);
+
+                        } else {
+                            console.error('request에 뭔가 문제가 있어요.');
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Caught Exception : ${error.message}`);
+                }
+            }
+
+
+            window.onload = () =>{
+                makeRequest();
+            }
+
+        </script>
     </head>
     <body>
         <div class="menu-title">전표등록</div>
