@@ -7,7 +7,7 @@
             .left-area{float:left; box-sizing: border-box;}
             .right-area{float:right; box-sizing: border-box;}
             .number-field{text-align:right}
-            .data-field{text-align:center;}
+            .date-field{text-align:center;}
             .hyper-field{color: blue; text-decoration: underline; cursor:pointer;}
             .input-box-area{border: solid 1px; width:230px;}
             .label-field{text-align:right;}
@@ -37,7 +37,26 @@
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
                             const resultList = JSON.parse(httpRequest.responseText);
+                            const order = document.querySelector('.order_row');
 
+                            const orderField = document.querySelector('.order-field');
+                            const dateField     = document.querySelector('.date-field');
+                            const carField      = document.querySelector('.car-field');
+                            const itemField     = document.querySelector('.item-field');
+                            const quantityField = document.querySelector('.quantity-field');
+                            const priceField    = document.querySelector('.price-field');
+                            const overpayField  = document.querySelector('.overpay-field');
+                            const sumField      = document.querySelector('.sum-field');
+
+                            orderField.innerText = resultList[0].order_seq;
+                            dateField.innerText = resultList[0].order_date;
+                            carField.innerText = resultList[0].bike_number;
+                            itemField.innerText = resultList[0].item_name;
+                            quantityField.innerText = resultList[0].count;
+                            priceField.innerText = resultList[0].item_price;
+                            overpayField.innerText = resultList[0].labor;
+                            sumField.innerText = resultList[0].total_price;
+                            
                         } else {
                             console.error('request에 뭔가 문제가 있어요.');
                         }
@@ -92,15 +111,15 @@
                         <th>추가공임</th>
                         <th>합계</th>
                     </tr>
-                    <tr>
-                        <td class="number-field">1</td>
-                        <td class="data-field">2021-07-18</td>
-                        <td>1234</td>
-                        <td class="hyper-field">CDI유니트</td>
-                        <td class="number-field">1</td>
-                        <td class="number-field">500,000</td>
-                        <td class="number-field">0</td>
-                        <td class="number-field">500,000</td>
+                    <tr id="order_row">
+                        <td class="order-field number-field"></td>
+                        <td class="date-field"></td>
+                        <td class="car-field number-field"></td>
+                        <td class="item-field hyper-field"></td>
+                        <td class="quantity-field number-field"></td>
+                        <td class="price-field number-field"></td>
+                        <td class="overpay-field number-field"></td>
+                        <td class="sum-field"></td>
                     </tr>
                 </table>
             </div>
