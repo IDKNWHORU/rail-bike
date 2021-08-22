@@ -2,6 +2,11 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8">
+        <style>
+            .readonly{
+                background-color:#bbbbbb;
+            }
+        </style>
         <script>
             var httpRequest;
             let myRowTag;
@@ -38,6 +43,7 @@
                                 const order = rowTag.querySelector('#order');
     
                                 item_code.readOnly = true;
+                                item_code.classList.add('readonly');
                                 item_code.value = resultMap.item_code;
                                 item_name.value = resultMap.item_name;
                                 unit_name.value = resultMap.unit_name;
