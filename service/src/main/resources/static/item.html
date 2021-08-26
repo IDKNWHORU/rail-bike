@@ -2,54 +2,31 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8">
+        <script src="./js/ajax/Ajax.js"></script>
         <script>
-            var httpRequest;
             let myRowTag;
 
-            const makeRequest = () => {
-                httpRequest = new XMLHttpRequest();
+            const alertContents = (responseResult) => {
+                const resultList = JSON.parse(responseResult.responseText);
 
-                if(!httpRequest){
-                    console.error(`Can't make XMLHTTP instance.`);
-                    return false;
-                }
+                resultList.forEach((resultMap)=>{
+                    addItemRow();
+                    
+                    const rowTags = document.querySelectorAll('#item_rows');
+                    const rowTag = rowTags[rowTags.length-1];
 
-                httpRequest.onreadystatechange = alertContents;
-                httpRequest.open('GET', '/item');
-                httpRequest.send();
-            }
+                    const item_code = rowTag.querySelector('#item_code');
+                    const item_name = rowTag.querySelector('#item_name');
+                    const unit_name = rowTag.querySelector('#unit_name');
+                    const price = rowTag.querySelector('#price');
+                    const order = rowTag.querySelector('#order');
 
-            const alertContents = () => {
-                try {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            const resultList = JSON.parse(httpRequest.responseText);
-
-                            resultList.forEach((resultMap)=>{
-                                addItemRow();
-                                
-                                const rowTags = document.querySelectorAll('#item_rows');
-                                const rowTag = rowTags[rowTags.length-1];
-    
-                                const item_code = rowTag.querySelector('#item_code');
-                                const item_name = rowTag.querySelector('#item_name');
-                                const unit_name = rowTag.querySelector('#unit_name');
-                                const price = rowTag.querySelector('#price');
-                                const order = rowTag.querySelector('#order');
-    
-                                item_code.value = resultMap.item_code;
-                                item_name.value = resultMap.item_name;
-                                unit_name.value = resultMap.unit_name;
-                                price.value = resultMap.price;
-                                order.value = resultMap.order;
-                            })
-                        } else {
-                            console.error('request에 뭔가 문제가 있어요.');
-                        }
-                    }
-                } catch (error) {
-                    console.error(`Caught Exception : ${error.message}`);
-                }
+                    item_code.value = resultMap.item_code;
+                    item_name.value = resultMap.item_name;
+                    unit_name.value = resultMap.unit_name;
+                    price.value = resultMap.price;
+                    order.value = resultMap.order;
+                })
             }
 
             const addItemRow = () => {
@@ -124,7 +101,7 @@
             window.onload = () => {
                 myRowTag = document.querySelector('#item_rows');
 
-                makeRequest();
+                makeRequest(alertContents, 'GET', '/item');
             }
         </script>
         <title>품목등록</title>
