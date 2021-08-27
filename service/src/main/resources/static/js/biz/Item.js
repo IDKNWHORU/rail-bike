@@ -1,3 +1,21 @@
+const addItemRow = () => {
+    const myTable = document.querySelector('#item_table');
+    const cloneRowNode = myRowTag.cloneNode(true);
+    cloneRowNode.querySelector('#item_code').value = '';
+    cloneRowNode.querySelector('#item_name').value = '';
+    cloneRowNode.querySelector('#unit_name').value = '';
+    cloneRowNode.querySelector('#price').value = '';
+    cloneRowNode.querySelector('#order').value = '';
+    myTable.tBodies[0].appendChild(cloneRowNode);
+}
+
+const removeDuplicatedRecord = () => {
+    const item_rows = document.querySelectorAll('#item_rows');
+
+    for(let index=1; index < item_rows.length; index++)
+        item_rows[index].parentElement.removeChild(item_rows[index]);
+}
+
 const searchItemList = (itemList = []) => {
     removeDuplicatedRecord();
     itemList.forEach((itemMap)=>{
