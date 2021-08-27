@@ -2,6 +2,7 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8">
+        <link href="./css/biz/Item.css" rel="stylesheet">
         <script src="./js/ajax/Ajax.js"></script>
         <script src="./js/biz/Item.js"></script>
         <script>
@@ -50,21 +51,12 @@
     <body>
         <table id="item_table" border="1">
             <tr>
-                <th>
-                    품목코드
-                </th>
-                <th>
-                    품목명
-                </th>
-                <th>
-                    단위
-                </th>
-                <th>
-                    가격
-                </th>
-                <th>
-                    순번
-                </th>
+                <th>품목코드</th>
+                <th>품목명</th>
+                <th>단위</th>
+                <th>가격</th>
+                <th>순번</th>
+                <th colspan="2">FUNCTION</th>
             </tr>
             <tr id="item_rows">
                 <td>
@@ -83,10 +75,10 @@
                     <input id="order" type="number" min="0" value="0">
                 </td>
                 <td>
-                    <input type="button" onclick="saveItemInfo(this)" value="저장">
+                    <input id="save" class="save-button" type="button" onclick="saveItemInfo(this)" value="저장">
                 </td>
                 <td>
-                    <input type="button" onclick="deleteItemInfo(this)" value="삭제">
+                    <input id="delete" class="save-button" type="button" onclick="deleteItemInfo(this)" value="삭제">
                 </td>
             </tr>
         </table>
