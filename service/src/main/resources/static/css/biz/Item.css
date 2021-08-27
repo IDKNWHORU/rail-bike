@@ -7,5 +7,5 @@ input:hover{cursor: pointer;}
 .delete{width:70px;height:26px;}
 .delete-button:focus{background-color:#bbbbbb;}
 #item_table>tbody>tr:nth-child(1){background-color: #ffdf;}
-.input-readOnly{background-color:#dddddd;}
-.input-readOnly:focus{background-color:#dddddd;}
+.item-code:read-only{background-color:#dddddd;}
+.item-code:read-only:focus{background-color:#dddddd;}
