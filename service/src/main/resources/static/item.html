@@ -8,7 +8,8 @@
 
             const alertContents = (responseResult) => {
                 const resultList = JSON.parse(responseResult.responseText);
-
+                
+                removeDuplicatedRecord();
                 resultList.forEach((resultMap)=>{
                     addItemRow();
                     
@@ -26,7 +27,7 @@
                     unit_name.value = resultMap.unit_name;
                     price.value = resultMap.price;
                     order.value = resultMap.order;
-                })
+                });
             }
 
             const addItemRow = () => {
@@ -77,6 +78,13 @@
                 httpRequest.open('DELETE', '/item');
                 httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 httpRequest.send(queryStr);
+            }
+
+            const removeDuplicatedRecord = () => {
+                const item_rows = document.querySelectorAll('#item_rows');
+
+                for(let index=1; index < item_rows.length; index++)
+                    item_rows[index].parentElement.removeChild(item_rows[index]);
             }
 
             window.onload = () => {
