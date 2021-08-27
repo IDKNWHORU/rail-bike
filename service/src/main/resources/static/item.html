@@ -37,7 +37,23 @@
             }
 
             const search = (responseResult) => {
-                searchItemList(JSON.parse(responseResult.responseText));
+                const itemCodes = Array.from(document.querySelectorAll('#item_code')).slice(1);
+                const itemList = JSON.parse(responseResult.responseText)??[];
+                const itemRows = Array.from(document.querySelectorAll('#item_rows')).slice(1);
+                const tableBody = document.querySelector('#item_table>tbody');
+
+                itemRows.forEach(row => removeDuplicatedRecord(row.parentElement, row));
+
+                for(let index=0; index < itemList.length; index++){
+                    addItemRow(tableBody, myRowTag.cloneNode(true));
+
+                    const columns = document.querySelectorAll(`#item_rows:nth-child(${index+3})>td>input[type="text"], #item_rows:nth-child(${index+3})>td>input[type="number"]`);
+
+                    Array.from(columns)
+                         .forEach(column => searchItemList(column, itemList[index], column.getAttribute('role')));
+                }
+
+                itemCodes.forEach(itemCode => changeAttributeReadOnly(itemCode));
             }
 
             window.onload = () => {
@@ -60,19 +76,19 @@
             </tr>
             <tr id="item_rows">
                 <td>
-                    <input id="item_code" class="item-code" type="text" >
+                    <input id="item_code" class="item-code" type="text" role="item_code">
                 </td>
                 <td>
-                    <input id="item_name" type="text" >
+                    <input id="item_name" type="text" role="item_name">
                 </td>
                 <td>
-                    <input id="unit_name" type="text" >
+                    <input id="unit_name" type="text" role="unit_name">
                 </td>
                 <td>
-                    <input id="price" type="number" min="0" value="0">
+                    <input id="price" type="number" min="0" value="0" role="price">
                 </td>
                 <td>
-                    <input id="order" type="number" min="0" value="0">
+                    <input id="order" type="number" min="0" value="0" role="order">
                 </td>
                 <td>
                     <input id="save" class="save-button" type="button" onclick="saveItemInfo(this)" value="저장">
