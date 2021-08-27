@@ -1,8 +1,11 @@
 #item_table{border-spacing: 0;}
 input{height:20px;}
 input:focus{background-color:#fffeef;}
+input:hover{cursor: pointer;}
 .save-button{width:70px;height:26px;}
 .save-button:focus{background-color:#bbbbbb;}
 .delete{width:70px;height:26px;}
 .delete-button:focus{background-color:#bbbbbb;}
-#item_table>tbody>tr:nth-child(1){background-color: #1f1f;}
+#item_table>tbody>tr:nth-child(1){background-color: #ffdf;}
+.input-readOnly{background-color:#dddddd;}
+.input-readOnly:focus{background-color:#dddddd;}
