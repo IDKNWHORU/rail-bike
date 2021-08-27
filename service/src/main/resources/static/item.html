@@ -3,31 +3,12 @@
     <head>
         <meta charset="utf-8">
         <script src="./js/ajax/Ajax.js"></script>
+        <script src="./js/biz/Item.js"></script>
         <script>
             let myRowTag;
 
-            const alertContents = (responseResult) => {
-                const resultList = JSON.parse(responseResult.responseText);
-                
-                removeDuplicatedRecord();
-                resultList.forEach((resultMap)=>{
-                    addItemRow();
-                    
-                    const rowTags = document.querySelectorAll('#item_rows');
-                    const rowTag = rowTags[rowTags.length-1];
-
-                    const item_code = rowTag.querySelector('#item_code');
-                    const item_name = rowTag.querySelector('#item_name');
-                    const unit_name = rowTag.querySelector('#unit_name');
-                    const price = rowTag.querySelector('#price');
-                    const order = rowTag.querySelector('#order');
-
-                    item_code.value = resultMap.item_code;
-                    item_name.value = resultMap.item_name;
-                    unit_name.value = resultMap.unit_name;
-                    price.value = resultMap.price;
-                    order.value = resultMap.order;
-                });
+            const search = (responseResult) => {
+                searchItemList(JSON.parse(responseResult.responseText));
             }
 
             const addItemRow = () => {
@@ -57,7 +38,7 @@
 
             const saveContents = (responseResult) => {
                 if(responseResult.responseText > 0){
-                    makeRequest(alertContents, 'GET', '/item');
+                    makeRequest(search, 'GET', '/item');
                 }
             }
 
@@ -79,7 +60,7 @@
             window.onload = () => {
                 myRowTag = document.querySelector('#item_rows');
 
-                makeRequest(alertContents, 'GET', '/item');
+                makeRequest(search, 'GET', '/item');
             }
         </script>
         <title>품목등록</title>
