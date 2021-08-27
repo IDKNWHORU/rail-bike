@@ -1,9 +1,9 @@
-#item_table{border-spacing: 0;}
+.item-table{border-spacing: 0;}
 input[type="text"], input[type="number"]{height:20px;}
 input[type="text"]:focus, input[type="number"]:focus{background-color:#fffeef;}
 input[type="text"]:hover, input[type="number"]:hover{cursor: pointer;}
 .function-button{width:70px;height:26px;}
 .function-button:focus{background-color:#bbbbbb;}
-#item_table>tbody>tr:nth-child(1){background-color: #ffdf;}
+.item-table>tbody>tr:nth-child(1){background-color: #ffdf;}
 .item-code:read-only{background-color:#dddddd;}
 .item-code:read-only:focus{background-color:#dddddd;}
