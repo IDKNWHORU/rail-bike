@@ -47,10 +47,9 @@
                 for(let index=0; index < itemList.length; index++){
                     addItemRow(tableBody, myRowTag.cloneNode(true));
 
-                    const columns = document.querySelectorAll(`#item_rows:nth-child(${index+3})>td>input[type="text"], #item_rows:nth-child(${index+3})>td>input[type="number"]`);
+                    const columns = Array.from(document.querySelectorAll(`#item_rows:nth-child(${index+3})>td>input[type="text"], #item_rows:nth-child(${index+3})>td>input[type="number"]`));
 
-                    Array.from(columns)
-                         .forEach(column => searchItemList(column, itemList[index], column.getAttribute('role')));
+                    columns.forEach(column => searchItemList(column, itemList[index], column.getAttribute('role')));
                 }
 
                 itemCodes.forEach(itemCode => changeAttributeReadOnly(itemCode));
