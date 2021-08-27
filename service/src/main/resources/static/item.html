@@ -9,17 +9,21 @@
             let myRowTag;
             const requestHeader = 'application/x-www-form-urlencoded';
             const url = '/item';
+            const inputSelector = 'input[type="text"],input[type="number"]';
+            const itemCodeSelector = 'input[role="item_code"]';
+            const itemRowSelector = '.item-rows';
+            const tBodySelector = '.item-table>tbody';
 
-            const alterItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', '/item') : false;
+            const alterItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', url) : false;
 
-            const deleteItemInfo = button => makeRequest(alterItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector('input[role="item_code"]')));
+            const deleteItemInfo = button => makeRequest(alterItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector)));
 
             const deleteQueryStr = itemCode => `item_code=${itemCode.value}`;
 
             const saveItemInfo = (button) => {
                 let queryStr = "";
 
-                Array.from(button.closest('tr').querySelectorAll('input[type="text"],input[type="number"]'))
+                Array.from(button.closest('tr').querySelectorAll(inputSelector))
                      .forEach(tag => queryStr += `${tag.getAttribute('role')}=${encodeURIComponent(tag.value)}&`);
 
                 makeRequest(alterItemInfo, 'PUT', url, requestHeader, queryStr.substring(0, queryStr.length-1));
@@ -27,8 +31,8 @@
 
             const search = (responseResult) => {
                 const itemList = JSON.parse(responseResult.responseText)??[];
-                const itemRows = Array.from(document.querySelectorAll('.item-rows')).slice(1);
-                const tableBody = document.querySelector('.item-table>tbody');
+                const itemRows = Array.from(document.querySelectorAll(itemRowSelector)).slice(1);
+                const tableBody = document.querySelector(tBodySelector);
                 
                 itemRows.forEach(row => removeDuplicatedRecord(row.parentElement, row));
                 
@@ -45,7 +49,7 @@
             }
 
             window.onload = () => {
-                myRowTag = document.querySelector('.item-rows');
+                myRowTag = document.querySelector(itemRowSelector);
 
                 makeRequest(search, 'GET', url);
             }
