@@ -8,32 +8,19 @@
         <script>
             let myRowTag;
 
-            const deleteItemInfo = (button) => {
-                const saveRow = button.closest('tr');
-                const item_code = saveRow.querySelector('#item_code').value;
-                const queryStr = `item_code=${item_code}`;
+            const alterItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', '/item') : false;
 
-                makeRequest(saveContents, 'DELETE', '/item', 'application/x-www-form-urlencoded', queryStr);
-            }
+            const deleteItemInfo = button => makeRequest(alterItemInfo, 'DELETE', '/item', 'application/x-www-form-urlencoded', deleteQueryStr(button.closest('tr').querySelector('input[role="item_code"]')));
 
-            const saveContents = (responseResult) => {
-                if(responseResult.responseText > 0){
-                    makeRequest(search, 'GET', '/item');
-                }
-            }
+            const deleteQueryStr = itemCode => `item_code=${itemCode.value}`;
 
             const saveItemInfo = (button) => {
-                const saveRow = button.closest('tr');
+                let queryStr = "";
 
-                const item_code = saveRow.querySelector('#item_code').value;
-                const item_name = saveRow.querySelector('#item_name').value;
-                const unit_name = saveRow.querySelector('#unit_name').value;
-                const price = saveRow.querySelector('#price').value;
-                const order = saveRow.querySelector('#order').value;
+                Array.from(button.closest('tr').querySelectorAll('input[type="text"],input[type="number"]'))
+                     .forEach(tag => queryStr += `${tag.getAttribute('role')}=${encodeURIComponent(tag.value)}&`);
 
-                const queryStr = `item_code=${item_code}&item_name=${encodeURIComponent(item_name)}&unit_name=${encodeURIComponent(unit_name)}&price=${price}&order=${order}`;
-
-                makeRequest(saveContents, 'PUT', '/item', 'application/x-www-form-urlencoded', queryStr);
+                makeRequest(alterItemInfo, 'PUT', '/item', 'application/x-www-form-urlencoded', queryStr.substring(0, queryStr.length-1));
             }
 
             const search = (responseResult) => {
