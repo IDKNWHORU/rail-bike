@@ -1,12 +1,14 @@
 const addItemRow = () => {
     const cloneRowNode = myRowTag.cloneNode(true);
 
-    Array.from(cloneRowNode.children).forEach(node=>(node.children[0].type !== 'button') ? node.children[0].value = '' : false);
+    Array.from(myRowTag.cloneNode(true)).forEach(node=>(node.children[0].type !== 'button') ? node.children[0].value = '' : false);
 
-    document.querySelector('#item_table').tBodies[0].appendChild(cloneRowNode);
+    document.querySelector('#item_table>tbody').appendChild(cloneRowNode);
 }
 
-const removeDuplicatedRecord = () => Array.from(document.querySelectorAll('#item_rows')).slice(1).forEach(row => row.parentElement.removeChild(row));
+const removeDuplicatedRecord = () => Array.from(document.querySelectorAll('#item_rows'))
+                                          .slice(1)
+                                          .forEach(row => row.parentElement.removeChild(row));
 
 const searchItemList = (itemList = []) => {
     removeDuplicatedRecord();
