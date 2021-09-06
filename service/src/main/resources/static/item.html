@@ -60,7 +60,20 @@
 
                 makeRequest(search, 'GET', url);
 
+                getUnitInfo('GET', '/unit');
+
                 addComboBoxEvent(document.querySelector(unitNameSelector));
+            }
+
+            const getUnitInfo = (userMethod, url) => fetch(url, {method : userMethod})
+                                                     .then(res => res.json())
+                                                     .then(unitList => unitList.forEach(unitMap => unitDataList(unitMap, document.querySelector('datalist'), document.querySelector('datalist>option').cloneNode(true))));
+
+            const unitDataList = (unitMap, dataList, option) => {
+                option.value = unitMap.code;
+                option.label = unitMap.name;
+
+                dataList.appendChild(option);
             }
         </script>
         <title>품목등록</title>
