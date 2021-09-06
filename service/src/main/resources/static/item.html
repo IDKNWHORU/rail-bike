@@ -13,6 +13,11 @@
             const itemCodeSelector = 'input[role="item_code"]';
             const itemRowSelector = '.item-rows';
             const tBodySelector = '.item-table>tbody';
+            const unitNameSelector = 'input[role="unit_name"]';
+
+            const addComboBoxEvent = unitName => unitName.addEventListener('dblclick', comboDblClick);
+
+            const comboDblClick = dblClickEvent => dblClickEvent.target.blur();
 
             const getItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', url) : false;
 
@@ -41,6 +46,8 @@
                     
                     const columns = Array.from(document.querySelectorAll(`.item-rows:nth-child(${index+3})>td>input[type="text"], .item-rows:nth-child(${index+3})>td>input[type="number"]`));
                     
+                    addComboBoxEvent(document.querySelector(`.item-rows:nth-child(${index+3})>td>${unitNameSelector}`))
+
                     columns.forEach(column => searchItemList(column, itemList[index], column.getAttribute('role')));
                 }
                 
@@ -52,6 +59,7 @@
                 myRowTag = document.querySelector(itemRowSelector);
 
                 makeRequest(search, 'GET', url);
+                addComboBoxEvent(document.querySelector(unitNameSelector));
             }
         </script>
         <title>품목등록</title>
@@ -69,12 +77,20 @@
             <tr class="item-rows">
                 <td><input class="item-code" type="text" role="item_code"></td>
                 <td><input type="text" role="item_name"></td>
-                <td><input type="text" role="unit_name"></td>
+                <td><input type="text" role="unit_name" list="unit_list"></td>
                 <td><input type="number" min="0" value="0" role="price"></td>
                 <td><input type="number" min="0" value="0" role="order"></td>
                 <td><input class="function-button" type="button" onclick="saveItemInfo(this)" value="저장"></td>
                 <td><input class="function-button" type="button" onclick="deleteItemInfo(this)" value="삭제"></td>
             </tr>
         </table>
+        <datalist id="unit_list">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </datalist>
     </body>
 </html>
