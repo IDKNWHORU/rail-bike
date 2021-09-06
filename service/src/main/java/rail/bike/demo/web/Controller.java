@@ -41,4 +41,9 @@ public class Controller {
     public List<Map<String, Object>> loadOrderList(){
         return itemMapper.selectOrderList();
     }
+
+    @GetMapping("/unit")
+    public List<Map<String, String>> loadUnitList(){
+        return itemMapper.selectUnitList();
+    }
 }

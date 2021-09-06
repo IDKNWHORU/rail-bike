@@ -36,4 +36,9 @@
                   from tb_order_mstr tom
                ) order_info
     </select>
+
+    <select id="selectUnitList" resultType="hashMap">
+        select *
+          from vw_unit_info
+    </select>
 </mapper>

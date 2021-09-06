@@ -14,4 +14,5 @@ public interface ItemMapper {
     int deleteItem(Map<String, Object> itemInfo);
 
     List<Map<String, Object>> selectOrderList();
+    List<Map<String, String>> selectUnitList();
 }
