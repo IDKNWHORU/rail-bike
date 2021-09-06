@@ -2,188 +2,78 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8">
-        <style>
-            .readonly{
-                background-color:#bbbbbb;
-            }
-        </style>
+        <link href="./css/biz/Item.css" rel="stylesheet">
+        <script src="./js/ajax/Ajax.js"></script>
+        <script src="./js/biz/Item.js"></script>
         <script>
-            var httpRequest;
             let myRowTag;
+            const requestHeader = 'application/x-www-form-urlencoded';
+            const url = '/item';
+            const inputSelector = 'input[type="text"],input[type="number"]';
+            const itemCodeSelector = 'input[role="item_code"]';
+            const itemRowSelector = '.item-rows';
+            const tBodySelector = '.item-table>tbody';
 
-            const makeRequest = () => {
-                httpRequest = new XMLHttpRequest();
+            const alterItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', url) : false;
 
-                if(!httpRequest){
-                    console.error(`Can't make XMLHTTP instance.`);
-                    return false;
-                }
+            const deleteItemInfo = button => makeRequest(alterItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector)));
 
-                httpRequest.onreadystatechange = alertContents;
-                httpRequest.open('GET', '/item');
-                httpRequest.send();
-            }
-
-            const alertContents = () => {
-                try {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            const resultList = JSON.parse(httpRequest.responseText);
-
-                            resultList.forEach((resultMap)=>{
-                                addItemRow();
-                                
-                                const rowTags = document.querySelectorAll('#item_rows');
-                                const rowTag = rowTags[rowTags.length-1];
-    
-                                const item_code = rowTag.querySelector('#item_code');
-                                const item_name = rowTag.querySelector('#item_name');
-                                const unit_name = rowTag.querySelector('#unit_name');
-                                const price = rowTag.querySelector('#price');
-                                const order = rowTag.querySelector('#order');
-    
-                                item_code.readOnly = true;
-                                item_code.classList.add('readonly');
-                                item_code.value = resultMap.item_code;
-                                item_name.value = resultMap.item_name;
-                                unit_name.value = resultMap.unit_name;
-                                price.value = resultMap.price;
-                                order.value = resultMap.order;
-                            })
-                        } else {
-                            console.error('request에 뭔가 문제가 있어요.');
-                        }
-                    }
-                } catch (error) {
-                    console.error(`Caught Exception : ${error.message}`);
-                }
-            }
-
-            const addItemRow = () => {
-                const myTable = document.querySelector('#item_table');
-                const cloneRowNode = myRowTag.cloneNode(true);
-                cloneRowNode.querySelector('#item_code').value = '';
-                cloneRowNode.querySelector('#item_name').value = '';
-                cloneRowNode.querySelector('#unit_name').value = '';
-                cloneRowNode.querySelector('#price').value = '';
-                cloneRowNode.querySelector('#order').value = '';
-                myTable.tBodies[0].appendChild(cloneRowNode);
-            }
+            const deleteQueryStr = itemCode => `item_code=${itemCode.value}`;
 
             const saveItemInfo = (button) => {
-                const saveRow = button.closest('tr');
+                let queryStr = "";
 
-                httpRequest = new XMLHttpRequest();
-                const item_code = saveRow.querySelector('#item_code').value;
-                const item_name = saveRow.querySelector('#item_name').value;
-                const unit_name = saveRow.querySelector('#unit_name').value;
-                const price = saveRow.querySelector('#price').value;
-                const order = saveRow.querySelector('#order').value;
+                Array.from(button.closest('tr').querySelectorAll(inputSelector))
+                     .forEach(tag => queryStr += `${tag.getAttribute('role')}=${encodeURIComponent(tag.value)}&`);
 
-                const queryStr = `item_code=${item_code}&item_name=${encodeURIComponent(item_name)}&unit_name=${encodeURIComponent(unit_name)}&price=${price}&order=${order}`;
-
-                if(!httpRequest){
-                    console.error(`Can't make XMLHTTP instance.`);
-                    return false;
-                }
-
-                httpRequest.onreadystatechange = saveContents;
-                httpRequest.open('PUT', '/item');
-                httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                httpRequest.send(queryStr);
+                makeRequest(alterItemInfo, 'PUT', url, requestHeader, queryStr.substring(0, queryStr.length-1));
             }
 
-            const saveContents = () => {
-                try {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            if(httpRequest.responseText === "1"){
-                                const rowTags = document.querySelectorAll('#item_rows');
-                                const parent = rowTags[0].parentNode;
-
-                                for(let index = 1; index < rowTags.length; index++){
-                                    parent.removeChild(rowTags[index]);
-                                }
-                                
-                                makeRequest();
-                            }
-                        } else {
-                            console.error('request에 뭔가 문제가 있어요.');
-                        }
-                    }
-                } catch (error) {
-                    console.error(`Caught Exception : ${error.message}`);
+            const search = (responseResult) => {
+                const itemList = JSON.parse(responseResult.responseText)??[];
+                const itemRows = Array.from(document.querySelectorAll(itemRowSelector)).slice(1);
+                const tableBody = document.querySelector(tBodySelector);
+                
+                itemRows.forEach(row => removeDuplicatedRecord(row.parentElement, row));
+                
+                for(let index=0; index < itemList.length; index++){
+                    addItemRow(tableBody, myRowTag.cloneNode(true));
+                    
+                    const columns = Array.from(document.querySelectorAll(`.item-rows:nth-child(${index+3})>td>input[type="text"], .item-rows:nth-child(${index+3})>td>input[type="number"]`));
+                    
+                    columns.forEach(column => searchItemList(column, itemList[index], column.getAttribute('role')));
                 }
-            }
-
-            const deleteItemInfo = (button) => {
-                const saveRow = button.closest('tr');
-
-                httpRequest = new XMLHttpRequest();
-                const item_code = saveRow.querySelector('#item_code').value;
-
-                const queryStr = `item_code=${item_code}`;
-
-                if(!httpRequest){
-                    console.error(`Can't make XMLHTTP instance.`);
-                    return false;
-                }
-
-                httpRequest.onreadystatechange = saveContents;
-                httpRequest.open('DELETE', '/item');
-                httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                httpRequest.send(queryStr);
+                
+                const itemCodes = Array.from(document.querySelectorAll('.item-rows>td>input[role="item_code"]')).slice(1);
+                itemCodes.forEach(itemCode => changeAttributeReadOnly(itemCode));
             }
 
             window.onload = () => {
-                myRowTag = document.querySelector('#item_rows');
+                myRowTag = document.querySelector(itemRowSelector);
 
-                makeRequest();
+                makeRequest(search, 'GET', url);
             }
         </script>
         <title>품목등록</title>
     </head>
     <body>
-        <table id="item_table" border="1">
+        <table class="item-table" border="1">
             <tr>
-                <th>
-                    품목코드
-                </th>
-                <th>
-                    품목명
-                </th>
-                <th>
-                    단위
-                </th>
-                <th>
-                    가격
-                </th>
-                <th>
-                    순번
-                </th>
+                <th>품목코드</th>
+                <th>품목명</th>
+                <th>단위</th>
+                <th>가격</th>
+                <th>순번</th>
+                <th colspan="2">FUNCTION</th>
             </tr>
-            <tr id="item_rows">
-                <td>
-                    <input id="item_code" type="text" >
-                </td>
-                <td>
-                    <input id="item_name" type="text" >
-                </td>
-                <td>
-                    <input id="unit_name" type="text" >
-                </td>
-                <td>
-                    <input id="price" type="number" min="0" >
-                </td>
-                <td>
-                    <input id="order" type="number" min="0" >
-                </td>
-                <td>
-                    <input type="button" onclick="saveItemInfo(this)" value="저장">
-                </td>
-                <td>
-                    <input type="button" onclick="deleteItemInfo(this)" value="삭제">
-                </td>
+            <tr class="item-rows">
+                <td><input class="item-code" type="text" role="item_code"></td>
+                <td><input type="text" role="item_name"></td>
+                <td><input type="text" role="unit_name"></td>
+                <td><input type="number" min="0" value="0" role="price"></td>
+                <td><input type="number" min="0" value="0" role="order"></td>
+                <td><input class="function-button" type="button" onclick="saveItemInfo(this)" value="저장"></td>
+                <td><input class="function-button" type="button" onclick="deleteItemInfo(this)" value="삭제"></td>
             </tr>
         </table>
     </body>

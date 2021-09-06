@@ -9,7 +9,7 @@
               ,fn_code_name(unit_code, 'unit') unit_name
               ,price
               ,`order`
-          from rail.tb_item_mstr
+          from tb_item_mstr
     </select>
 
     <select id="insertItem" parameterType="hashMap" resultType="int">
