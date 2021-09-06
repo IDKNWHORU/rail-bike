@@ -14,9 +14,9 @@
             const itemRowSelector = '.item-rows';
             const tBodySelector = '.item-table>tbody';
 
-            const alterItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', url) : false;
+            const getItemInfo = responseResult => (responseResult.responseText > 0) ?  makeRequest(search, 'GET', url) : false;
 
-            const deleteItemInfo = button => makeRequest(alterItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector)));
+            const deleteItemInfo = button => makeRequest(getItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector)));
 
             const deleteQueryStr = itemCode => `item_code=${itemCode.value}`;
 
@@ -26,7 +26,7 @@
                 Array.from(button.closest('tr').querySelectorAll(inputSelector))
                      .forEach(tag => queryStr += `${tag.getAttribute('role')}=${encodeURIComponent(tag.value)}&`);
 
-                makeRequest(alterItemInfo, 'PUT', url, requestHeader, queryStr.substring(0, queryStr.length-1));
+                makeRequest(getItemInfo, 'PUT', url, requestHeader, queryStr.substring(0, queryStr.length-1));
             }
 
             const search = (responseResult) => {
