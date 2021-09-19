@@ -18,28 +18,11 @@
 
         const addComboBoxEvent = unitName => unitName.addEventListener('dblclick', comboDblClick);
 
-        const appendDataListOption = (unitMap, dataList, option) => {
-            option.value = unitMap.code;
-            option.label = unitMap.name;
-
-            dataList.appendChild(option);
-        }
-
         const comboDblClick = dblClickEvent => dblClickEvent.target.blur();
 
-        const getItemInfo = responseResult => (responseResult.responseText > 0) ? makeRequest(search, 'GET', url) : false;
-
-        const deleteItemInfo = button => makeRequest(getItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button
-            .closest('tr').querySelector(itemCodeSelector)));
+        const deleteItemInfo = button => makeRequest(getItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector)));
 
         const deleteQueryStr = itemCode => `item_code=${itemCode.value}`;
-
-        const getUnitInfo = (userUrl, userMethod) => makeFetch(userUrl, userMethod, (unitList)=>{
-            const dataList = document.querySelector('datalist');
-            const option = document.querySelector('datalist>option').cloneNode(true);
-
-            unitList.forEach(unitMap => appendDataListOption(unitMap, dataList, option));
-        });
 
         const saveItemInfo = (button) => {
             let queryStr = "";
@@ -50,38 +33,39 @@
             makeRequest(getItemInfo, 'PUT', url, requestHeader, queryStr.substring(0, queryStr.length - 1));
         }
 
-        const search = (responseResult) => {
-            const itemList = JSON.parse(responseResult.responseText) ?? [];
+        const search = (itemList) => {
             const itemRows = Array.from(document.querySelectorAll(itemRowSelector)).slice(1);
             const tableBody = document.querySelector(tBodySelector);
 
-            itemRows.forEach(row => removeDuplicatedRecord(row.parentElement, row));
+            removeItemList(itemRows);
 
             for (let index = 0; index < itemList.length; index++) {
-                addItemRow(tableBody, myRowTag.cloneNode(true));
+                const prefix = `.item-rows:nth-child(${index+3})>td>`;
+                const cloneRecord = myRowTag.cloneNode(true);
+                
+                addItemRow(tableBody, cloneRecord);
 
-                const columns = Array.from(document.querySelectorAll(
-                    `.item-rows:nth-child(${index+3})>td>input[type="text"], .item-rows:nth-child(${index+3})>td>input[type="number"]`
-                    ));
+                const { textFieldSelector, numberFieldSelector, unitFieldSelector } = getFieldsSelector(prefix);
+                const unitComboBox = document.querySelector(unitFieldSelector);
+                const columns = Array.from(document.querySelectorAll(`${textFieldSelector}, ${numberFieldSelector}`));
+                const itemMap = itemList[index];
 
-                addComboBoxEvent(document.querySelector(`.item-rows:nth-child(${index+3})>td>${unitNameSelector}`))
+                addComboBoxEvent(unitComboBox);
 
-                columns.forEach(column => searchItemList(column, itemList[index], column.getAttribute('role')));
+                columns.forEach(column => searchItemList(column, itemMap));
             }
+            const itemCodes = document.querySelectorAll(`${itemCodeSelector}`);
 
-            const itemCodes = Array.from(document.querySelectorAll('.item-rows>td>input[role="item_code"]')).slice(
-                1);
-            itemCodes.forEach(itemCode => changeAttributeReadOnly(itemCode));
+            Array.from(itemCodes).slice(1).forEach(changeAttributeReadOnly);
         }
 
         window.onload = () => {
+            const unitComboBox = document.querySelector(unitNameSelector);
             myRowTag = document.querySelector(itemRowSelector);
 
-            makeRequest(search, 'GET', url);
-
-            getUnitInfo('/unit', 'GET');
-
-            addComboBoxEvent(document.querySelector(unitNameSelector));
+            getItemInfo();
+            getUnitInfo('/unit');
+            addComboBoxEvent(unitComboBox);
         }
     </script>
     <title>품목등록</title>
