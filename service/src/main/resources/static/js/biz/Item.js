@@ -9,6 +9,10 @@ const appendDataListOption = (unitMap, dataList, option) => {
 
 const changeAttributeReadOnly = itemCode => itemCode.readOnly = true;
 
+const deleteTarget = button => button.closest('tr').querySelector(itemCodeSelector).value;
+
+const deleteItemInfo = button => makeFetch(`${url}/${deleteTarget(button)}`, {method:'DELETE'}, getItemInfo);
+
 const getFieldsSelector = prefix => {
     return {
         textFieldSelector : `${prefix}input[type="text"]`,

@@ -15,11 +15,7 @@
         const itemRowSelector = '.item-rows';
         const tBodySelector = '.item-table>tbody';
         const unitNameSelector = 'input[role="unit_name"]';
-
-        const deleteItemInfo = button => makeFetch(`${url}/${deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector))}`, {method:'DELETE'}, getItemInfo);
         
-        const deleteQueryStr = itemCode => itemCode.value;
-
         const saveItemInfo = (button) => {
             let queryStr = "";
 
