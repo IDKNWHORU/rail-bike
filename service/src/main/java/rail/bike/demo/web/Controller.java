@@ -5,21 +5,19 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import rail.bike.demo.db.ItemDao;
 import rail.bike.demo.db.ItemMapper;
 
 @RestController
 public class Controller {
     private ItemMapper itemMapper;
-    private ItemDao itemDao;
 
-    public Controller(ItemMapper itemMapper, ItemDao itemDao) {
+    public Controller(ItemMapper itemMapper) {
         this.itemMapper = itemMapper;
-        this.itemDao = itemDao;
     }
 
     @GetMapping("/item")
@@ -32,9 +30,9 @@ public class Controller {
         return itemMapper.insertItem(itemInfo);
     }
 
-    @DeleteMapping("/item")
-    public int deleteItemInfo(@RequestParam Map<String, Object> itemInfo){
-        return itemMapper.deleteItem(itemInfo);
+    @DeleteMapping("/item/{itemCode}")
+    public int deleteItemInfo(@PathVariable String itemCode){
+        return itemMapper.deleteItem(itemCode);
     }
 
     @GetMapping("/order")

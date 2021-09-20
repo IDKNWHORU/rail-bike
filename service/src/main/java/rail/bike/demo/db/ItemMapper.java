@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface ItemMapper {
     List<Map<String, Object>> selectItem();
     int insertItem(Map<String, Object> itemInfo);
-    int deleteItem(Map<String, Object> itemInfo);
+    int deleteItem(String itemCode);
 
     List<Map<String, Object>> selectOrderList();
     List<Map<String, String>> selectUnitList();

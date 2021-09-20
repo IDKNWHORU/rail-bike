@@ -16,13 +16,9 @@
         const tBodySelector = '.item-table>tbody';
         const unitNameSelector = 'input[role="unit_name"]';
 
-        const addComboBoxEvent = unitName => unitName.addEventListener('dblclick', comboDblClick);
-
-        const comboDblClick = dblClickEvent => dblClickEvent.target.blur();
-
-        const deleteItemInfo = button => makeRequest(getItemInfo, 'DELETE', url, requestHeader, deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector)));
-
-        const deleteQueryStr = itemCode => `item_code=${itemCode.value}`;
+        const deleteItemInfo = button => makeFetch(`${url}/${deleteQueryStr(button.closest('tr').querySelector(itemCodeSelector))}`, {method:'DELETE'}, getItemInfo);
+        
+        const deleteQueryStr = itemCode => itemCode.value;
 
         const saveItemInfo = (button) => {
             let queryStr = "";
@@ -45,12 +41,9 @@
                 
                 addItemRow(tableBody, cloneRecord);
 
-                const { textFieldSelector, numberFieldSelector, unitFieldSelector } = getFieldsSelector(prefix);
-                const unitComboBox = document.querySelector(unitFieldSelector);
+                const { textFieldSelector, numberFieldSelector } = getFieldsSelector(prefix);
                 const columns = Array.from(document.querySelectorAll(`${textFieldSelector}, ${numberFieldSelector}`));
                 const itemMap = itemList[index];
-
-                addComboBoxEvent(unitComboBox);
 
                 columns.forEach(column => searchItemList(column, itemMap));
             }
@@ -60,12 +53,10 @@
         }
 
         window.onload = () => {
-            const unitComboBox = document.querySelector(unitNameSelector);
             myRowTag = document.querySelector(itemRowSelector);
 
             getItemInfo();
             getUnitInfo('/unit');
-            addComboBoxEvent(unitComboBox);
         }
     </script>
     <title>품목등록</title>

@@ -13,7 +13,6 @@ const getFieldsSelector = prefix => {
     return {
         textFieldSelector : `${prefix}input[type="text"]`,
         numberFieldSelector : `${prefix}input[type="number"]`,
-        unitFieldSelector : `${prefix}${unitNameSelector}`
     }
 }
 
