@@ -9,14 +9,14 @@ const appendDataListOption = (unitMap, dataList, option) => {
 
 const changeAttributeReadOnly = itemCode => itemCode.readOnly = true;
 
-const deleteTarget = button => {
+const deleteItemInfo = button => makeFetch(`${url}/${findTarget(button)}`, {method:'DELETE'}, getItemInfo);
+
+const findTarget = button => {
     const row = button.closest('tr');
     const itemCode = row.querySelector(itemCodeSelector)
     
     return itemCode.value;
 }
-
-const deleteItemInfo = button => makeFetch(`${url}/${deleteTarget(button)}`, {method:'DELETE'}, getItemInfo);
 
 const getFieldsSelector = prefix => {
     return {

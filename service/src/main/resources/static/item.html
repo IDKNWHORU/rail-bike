@@ -10,20 +10,37 @@
         let myRowTag;
         const requestHeader = 'application/x-www-form-urlencoded';
         const url = '/item';
-        const inputSelector = 'input[type="text"],input[type="number"]';
+        const dataQuerySelector = 'input[query="true"]';
         const itemCodeSelector = 'input[role="item_code"]';
         const itemRowSelector = '.item-rows';
         const tBodySelector = '.item-table>tbody';
         const unitNameSelector = 'input[role="unit_name"]';
         
+        const createDataObject = tag => {
+            const result = {};
+            const objectKey = tag.getAttribute('role');
+            const objectValue = tag.value;
+            
+            result[objectKey] = objectValue;
+
+            return result;
+        };
+
         const saveItemInfo = (button) => {
             let queryStr = "";
+            const dataObject = {};
+            const row = button.closest('tr');
+            const inputTags = row.querySelectorAll(dataQuerySelector);
 
-            Array.from(button.closest('tr').querySelectorAll(inputSelector))
-                .forEach(tag => queryStr += `${tag.getAttribute('role')}=${encodeURIComponent(tag.value)}&`);
+            Array.from(inputTags).forEach(tag => {
+                const result = createDataObject(tag);
 
-            makeRequest(getItemInfo, 'PUT', url, requestHeader, queryStr.substring(0, queryStr.length - 1));
+                Object.assign(dataObject, result);
+            });
+
+            makeFetch(`${url}/${findTarget(button)}`, {method: 'PUT', headers: {"Content-Type": "application/json"}, body:JSON.stringify(dataObject)}, getItemInfo);
         }
+
 
         const search = (itemList) => {
             const itemRows = Array.from(document.querySelectorAll(itemRowSelector)).slice(1);
@@ -70,10 +87,10 @@
         </tr>
         <tr class="item-rows">
             <td><input class="item-code" type="text" role="item_code"></td>
-            <td><input type="text" role="item_name"></td>
-            <td><input type="text" role="unit_name" list="unit_list"></td>
-            <td><input type="number" min="0" value="0" role="price"></td>
-            <td><input type="number" min="0" value="0" role="order"></td>
+            <td><input type="text" role="item_name" query="true"></td>
+            <td><input type="text" role="unit_name" list="unit_list" query="true"></td>
+            <td><input type="number" min="0" value="0" role="price" query="true"></td>
+            <td><input type="number" min="0" value="0" role="order" query="true"></td>
             <td><input class="function-button" type="button" onclick="saveItemInfo(this)" value="저장"></td>
             <td><input class="function-button" type="button" onclick="deleteItemInfo(this)" value="삭제"></td>
         </tr>
