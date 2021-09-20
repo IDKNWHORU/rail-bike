@@ -55,6 +55,10 @@ const removeRows = (row) => {
 }
 
 const saveItemInfo = (button) => {
+    const fetchObject = {
+        method : 'PUT'
+        ,headers : requestHeader
+    };
     const dataObject = {};
     const row = button.closest('tr');
     const inputTags = row.querySelectorAll(dataQuerySelector);
@@ -65,7 +69,9 @@ const saveItemInfo = (button) => {
         Object.assign(dataObject, result);
     });
 
-    makeFetch(`${url}/${findTarget(button)}`, {method: 'PUT', headers: requestHeader, body:JSON.stringify(dataObject)}, getItemInfo);
+    fetchObject.body = JSON.stringify(dataObject);
+
+    makeFetch(`${url}/${findTarget(button)}`, fetchObject, getItemInfo);
 }
 
 const searchItemList = (inputTag, itemMap) => {
