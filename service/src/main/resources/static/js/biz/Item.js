@@ -1,13 +1,23 @@
 const addItemRow = (tableBody, rowNode)  => tableBody.appendChild(rowNode);
 
 const appendDataListOption = (unitMap, dataList, option) => {
-    option.value = unitMap.code;
-    option.label = unitMap.name;
+    option.label = unitMap.code;
+    option.value = unitMap.name;
 
     dataList.appendChild(option);
 };
 
 const changeAttributeReadOnly = itemCode => itemCode.readOnly = true;
+
+const createDataObject = tag => {
+    const result = {};
+    const objectKey = tag.getAttribute('role');
+    const objectValue = tag.value;
+    
+    result[objectKey] = objectValue;
+
+    return result;
+};
 
 const deleteItemInfo = button => makeFetch(`${url}/${findTarget(button)}`, {method:'DELETE'}, getItemInfo);
 
@@ -42,6 +52,20 @@ const removeRows = (row) => {
     const parentElement = row.parentElement;
 
     parentElement.removeChild(row)
+}
+
+const saveItemInfo = (button) => {
+    const dataObject = {};
+    const row = button.closest('tr');
+    const inputTags = row.querySelectorAll(dataQuerySelector);
+
+    Array.from(inputTags).forEach(tag => {
+        const result = createDataObject(tag);
+
+        Object.assign(dataObject, result);
+    });
+
+    makeFetch(`${url}/${findTarget(button)}`, {method: 'PUT', headers: requestHeader, body:JSON.stringify(dataObject)}, getItemInfo);
 }
 
 const searchItemList = (inputTag, itemMap) => {
