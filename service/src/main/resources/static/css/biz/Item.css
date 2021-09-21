@@ -7,3 +7,4 @@ input[type="text"]:hover, input[type="number"]:hover{cursor: pointer;}
 .item-table>tbody>tr:nth-child(1){background-color: #ffdf;}
 .item-code:read-only{background-color:#dddddd;}
 .item-code:read-only:focus{background-color:#dddddd;}
+.item-caption{border:solid 1px; background-color:bisque;}

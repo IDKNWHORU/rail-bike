@@ -26,14 +26,14 @@ const findTarget = button => {
     const itemCode = row.querySelector(itemCodeSelector)
     
     return itemCode.value;
-}
+};
 
 const getFieldsSelector = prefix => {
     return {
         textFieldSelector : `${prefix}input[type="text"]`,
         numberFieldSelector : `${prefix}input[type="number"]`,
-    }
-}
+    };
+};
 
 const getItemInfo = () => makeFetch(url, {method: 'GET'}, search);
 
@@ -44,15 +44,15 @@ const putUnitOptions = unitList => {
     const option = document.querySelector('datalist>option').cloneNode(true);
 
     unitList.forEach(unitMap => appendDataListOption(unitMap, dataList, option));
-}
+};
 
 const removeItemList = itemRows => {itemRows.forEach(removeRows)};
 
 const removeRows = (row) => {
     const parentElement = row.parentElement;
 
-    parentElement.removeChild(row)
-}
+    parentElement.removeChild(row);
+};
 
 const saveItemInfo = (button) => {
     const fetchObject = {
@@ -78,4 +78,4 @@ const searchItemList = (inputTag, itemMap) => {
     const role = inputTag.getAttribute('role');
 
     inputTag.value = itemMap[role];
-}
+};
