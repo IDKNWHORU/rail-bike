@@ -41,4 +41,8 @@
         select *
           from vw_unit_info
     </select>
+
+    <select id="putOrderInfo" parameterType="hashMap" resultType="int">
+        select fn_put_order(#{bike_number}, #{order_date}, #{item_code}, #{labor}, #{count})
+    </select>
 </mapper>
