@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link href="./css/biz/add.css" rel="stylesheet">
     <script src="./js/ajax/Ajax.js"></script>
+    <script src="./js/biz/Add.js"></script>
     <script>
         const url = "/order";
 
@@ -12,33 +13,6 @@
             makeFetch(url, {
                 method: 'GET'
             }, putOrderList);
-        }
-
-        const putOrderList = (orderList) => {
-            const rowSelector = ".order-row";
-            const tableTag = document.querySelector('table');
-            const orderNode = document.querySelector(rowSelector);
-
-            orderList.forEach(orderObject => putOrderInfo(orderObject, tableTag, orderNode));
-        }
-
-        const putOrderInfo = (orderObject, orderTable, orderNode) => {
-            const orderRecord = copyRecord(orderNode);
-            const orderColumns = Array.from(orderRecord.children);
-
-            orderColumns.forEach(column=> putOrderColumn(column, orderObject));
-
-            orderTable.appendChild(orderRecord);
-        }
-
-        const putOrderColumn = (column, orderObject) => {
-            const objectKey = column.dataset.role;
-
-            column.innerText = orderObject[objectKey];
-        }
-
-        const copyRecord = node => {
-            return node.cloneNode(true);
         }
 
         window.onload = () => {
