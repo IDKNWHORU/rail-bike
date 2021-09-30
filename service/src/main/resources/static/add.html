@@ -1,23 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
     <head>
         <meta charset="UTF-8">
-        <style>
-            .menu-title{border-bottom:solid 1px; width:75px;}
-            .left-area{float:left; box-sizing: border-box;}
-            .right-area{float:right; box-sizing: border-box;}
-            .number-field{text-align:right}
-            .date-field{text-align:center;}
-            .hyper-field{color: blue; text-decoration: underline; cursor:pointer;}
-            .input-box-area{border: solid 1px; width:230px;}
-            .label-field{text-align:right;}
-            .label-area{width:70px;}
-            .list-area{width:75vw;}
-            .input-area{width:calc(230px - 80px);}
-            div.input-area>div>input{width:125px;}
-            .total-field{border: none; text-align: right;}
-            .save-button{width:100%;}
-        </style>
+        <link href="./css/biz/add.css" rel="stylesheet">
         <script>
             const makeRequest = () => {
                 httpRequest = new XMLHttpRequest();
@@ -70,8 +55,8 @@
             window.onload = () =>{
                 makeRequest();
             }
-
         </script>
+        <title>전표등록</title>
     </head>
     <body>
         <div class="menu-title">전표등록</div>
