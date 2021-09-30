@@ -3,57 +3,38 @@
     <head>
         <meta charset="UTF-8">
         <link href="./css/biz/add.css" rel="stylesheet">
+        <script src="./js/ajax/Ajax.js"></script>
         <script>
-            const makeRequest = () => {
-                httpRequest = new XMLHttpRequest();
+            const url="/order";
 
-                if(!httpRequest){
-                    console.error(`Can't make XMLHTTP instance.`);
-                    return false;
-                }
-
-                httpRequest.onreadystatechange = alertContents;
-                httpRequest.open('GET', '/order');
-                httpRequest.send();
+            const getListInfo = () => {
+                makeFetch(url, {method: 'GET'}, putOrderList);
             }
 
-            const alertContents = () => {
-                try {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            const resultList = JSON.parse(httpRequest.responseText);
-                            const order = document.querySelector('.order_row');
+            const putOrderList = (orderList) => {
+                const order = document.querySelector('.order_row');
 
-                            const orderField = document.querySelector('.order-field');
-                            const dateField     = document.querySelector('.date-field');
-                            const carField      = document.querySelector('.car-field');
-                            const itemField     = document.querySelector('.item-field');
-                            const quantityField = document.querySelector('.quantity-field');
-                            const priceField    = document.querySelector('.price-field');
-                            const overpayField  = document.querySelector('.overpay-field');
-                            const sumField      = document.querySelector('.sum-field');
+                const orderField = document.querySelector('.order-field');
+                const dateField     = document.querySelector('.date-field');
+                const carField      = document.querySelector('.car-field');
+                const itemField     = document.querySelector('.item-field');
+                const quantityField = document.querySelector('.quantity-field');
+                const priceField    = document.querySelector('.price-field');
+                const overpayField  = document.querySelector('.overpay-field');
+                const sumField      = document.querySelector('.sum-field');
 
-                            orderField.innerText = resultList[0].order_seq;
-                            dateField.innerText = resultList[0].order_date;
-                            carField.innerText = resultList[0].bike_number;
-                            itemField.innerText = resultList[0].item_name;
-                            quantityField.innerText = resultList[0].count;
-                            priceField.innerText = resultList[0].item_price;
-                            overpayField.innerText = resultList[0].labor;
-                            sumField.innerText = resultList[0].total_price;
-                            
-                        } else {
-                            console.error('request에 뭔가 문제가 있어요.');
-                        }
-                    }
-                } catch (error) {
-                    console.error(`Caught Exception : ${error.message}`);
-                }
+                orderField.innerText = orderList[0].order_seq;
+                dateField.innerText = orderList[0].order_date;
+                carField.innerText = orderList[0].bike_number;
+                itemField.innerText = orderList[0].item_name;
+                quantityField.innerText = orderList[0].count;
+                priceField.innerText = orderList[0].item_price;
+                overpayField.innerText = orderList[0].labor;
+                sumField.innerText = orderList[0].total_price;
             }
-
 
             window.onload = () =>{
-                makeRequest();
+                getListInfo();
             }
         </script>
         <title>전표등록</title>
