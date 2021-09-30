@@ -13,10 +13,71 @@
             makeFetch(url, {
                 method: 'GET'
             }, putOrderList);
-        }
+        };
 
         window.onload = () => {
             getListInfo();
+        };
+
+        const saveOrderInfo = (button) => {
+            const inputFieldsNode = document.querySelector('.input-area').children;
+            const inputFields = Array.from(inputFieldsNode);
+            const orderObject = {};
+            let isValid = true;
+
+            inputFields.some((fieldWrapper) => {
+                const inputField = fieldWrapper.firstChild;
+
+                if(validField(inputField)){
+                    inputOrderInfo(inputField, orderObject);
+                }else{
+                    isValid = false;
+                    
+                    return true;
+                }
+            });
+
+            (isValid) ? makeFetch(url, {method: 'PUT', headers: {"Content-Type": "application/json"}, body:JSON.stringify(orderObject)}, returnedMethod) : returnedMethod({msg : '필수값을 입력하세요'});
+        }
+
+        const returnedMethod = (resultMap) => {
+            putMessage(resultMap.msg);
+
+            getListInfo();
+        }
+
+        const inputOrderInfo = (field, orderObject) => {
+            const objectKey = field.dataset.role;
+
+            orderObject[objectKey] = field.value;
+        };
+
+        const putMessage = message => {
+            const modal = document.querySelector('.modal')
+            
+            modal.innerHTML = message;
+            visibleModal(modal, true);
+
+            setTimeout(visibleModal, 1500, modal, false)
+        }
+
+        const validField = field => {
+            const result = true;
+            if(field.required){
+                if(field.value === ''){
+                    return false;
+                }
+            }
+            
+            return result;
+        }
+
+        const visibleModal = (modal, visible) => {
+            if(visible){
+                modal.classList.add('visible');
+            }else{
+                modal.classList.remove('visible');
+            }
         }
     </script>
     <title>전표등록</title>
@@ -37,16 +98,16 @@
                 <div class="label-field">합계</div>
             </div>
             <div class="right-area input-area">
-                <div><input type="date" required pattern="\d{2}-\d{2}-\d{2}"></div>
-                <div><input type="text"></div>
-                <div><input type="number" min="0"></div>
-                <div><input type="text"></div>
-                <div><input type="number" min="0"></div>
-                <div><input type="number" min="0"></div>
-                <div><input type="number" min="0"></div>
-                <div><input class="total-field" type="number" min="0" readonly="true" value="0"></div>
+                <div><input type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
+                <div><input type="text" required data-role="customer"></div>
+                <div><input type="number" required min="0" data-role="bike_number"></div>
+                <div><input type="text" required data-role="item_code"></div>
+                <div><input type="number" min="0" required data-role="count"></div>
+                <div><input type="number" min="0" required data-role="item_price"></div>
+                <div><input type="number" min="0" value="0" data-role="labor"></div>
+                <div><input class="total-field" type="number" min="0" readonly="true" value="0" data-role="total_price"></div>
             </div>
-            <div><input class="save-button" type="button" value="입력하기"></div>
+            <div><input class="save-button" type="button" value="입력하기" onclick="saveOrderInfo(this)"></div>
         </div>
         <div class="right-area list-area">
             <table>
@@ -74,6 +135,7 @@
             </table>
         </div>
     </div>
+    <div class="modal"></div>
 </body>
 
 </html>

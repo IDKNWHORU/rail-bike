@@ -12,3 +12,5 @@
 div.input-area>div>input{width:125px;}
 .total-field{border: none; text-align: right;}
 .save-button{width:100%;}
+.modal{position: absolute;top: 90vh;left: 90vw; display:none;}
+.visible{display:block}

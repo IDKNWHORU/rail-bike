@@ -1,5 +1,6 @@
 package rail.bike.demo.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,5 +46,30 @@ public class Controller {
     @GetMapping("/unit")
     public List<Map<String, String>> loadUnitList(){
         return itemMapper.selectUnitList();
+    }
+
+    @PutMapping("/order")
+    public Object saveOrderInfo(@RequestBody Map<String, Object> orderInfo){
+        String formatedDate = orderInfo.get("order_date").toString().replace("-", "");
+
+        orderInfo.put("order_date", formatedDate);
+
+        int queryResult = itemMapper.putOrderInfo(orderInfo);
+
+        return getMessage(queryResult);
+    }
+
+    public Map<String, Object> getMessage(int typeCode){
+        Map<String, Object> result = new HashMap<>();
+
+        if{
+            result.put("msg", "전표내용이 누락되었습니다. 빠짐없이 기록해주세요.");
+        }else if(typeCode == 1){
+            result.put("msg", "전표가 등록되었습니다.");
+        }else if(typeCode == 2){
+            result.put("msg", "해당 품목은 등록되지 않은 품목입니다.");
+        }
+
+        return result;
     }
 }
