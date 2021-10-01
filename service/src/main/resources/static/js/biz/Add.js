@@ -14,7 +14,7 @@ const putOrderInfo = (orderObject, orderTable, orderNode) => {
 
     orderColumns.forEach(column=> putOrderColumn(column, orderObject));
 
-    orderTable.appendChild(orderRecord);
+    orderTable.tBodies[0].appendChild(orderRecord);
 }
 
 const putOrderList = (orderList) => {
