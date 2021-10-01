@@ -62,7 +62,7 @@ public class Controller {
     public Map<String, Object> getMessage(int typeCode){
         Map<String, Object> result = new HashMap<>();
 
-        if{
+        if(typeCode == 0){
             result.put("msg", "전표내용이 누락되었습니다. 빠짐없이 기록해주세요.");
         }else if(typeCode == 1){
             result.put("msg", "전표가 등록되었습니다.");
