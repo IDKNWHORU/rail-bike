@@ -37,13 +37,15 @@
                 }
             });
 
-            (isValid) ? makeFetch(url, {method: 'PUT', headers: {"Content-Type": "application/json"}, body:JSON.stringify(orderObject)}, returnedMethod) : returnedMethod({msg : '필수값을 입력하세요'});
+            (isValid) ? makeFetch(url, {method: 'PUT', headers: {"Content-Type": "application/json"}, body:JSON.stringify(orderObject)}, returnedMethod) : returnedMethod({result: false, msg : '필수값을 입력하세요'});
         }
 
         const returnedMethod = (resultMap) => {
             putMessage(resultMap.msg);
 
-            getListInfo();
+            if(resultMap.result){
+                orderListRefresh();
+            }
         }
 
         const inputOrderInfo = (field, orderObject) => {
@@ -78,6 +80,17 @@
             }else{
                 modal.classList.remove('visible');
             }
+        }
+
+        const orderListRefresh = () =>{
+            const orderRecord = document.querySelectorAll('.order-row');
+            const orderTableBody = document.querySelector('tbody');
+
+            for(let index = 1; index < orderRecord.length; index++){
+                orderTableBody.removeChild(orderRecord[index]);
+            }
+
+            getListInfo();
         }
     </script>
     <title>전표등록</title>
