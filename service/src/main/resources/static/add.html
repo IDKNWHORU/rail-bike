@@ -9,10 +9,34 @@
     <script>
         const url = "/order";
 
+        const optionCloning = (node, map) => {
+            const clone = node.cloneNode();
+
+            clone.value = map.item_code;
+            clone.innerHTML = map.item_name;
+            clone.dataset.value = map.item_code;
+            clone.dataset.label = map.item_name;
+            clone.dataset.price = map.price;
+
+            return clone;
+        }
+
         const getListInfo = () => {
             makeFetch(url, {
                 method: 'GET'
             }, putOrderList);
+
+            makeFetch('/item', {
+                method: 'GET'
+            }, (list) => {
+                const optionNode = document.querySelector('datalist>option');
+
+                list.forEach((map)=>{
+                    const optionClone = optionCloning(optionNode, map);
+
+                    optionNode.parentNode.appendChild(optionClone);
+                })
+            })
         };
 
         window.onload = () => {
@@ -114,11 +138,12 @@
                 <div><input type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
                 <div><input type="text" required data-role="customer"></div>
                 <div><input type="number" required min="0" data-role="bike_number"></div>
-                <div><input type="text" required data-role="item_code"></div>
+                <div><input type="text" required data-role="item_code" list="item_list"></div>
                 <div><input type="number" min="0" required data-role="count"></div>
                 <div><input type="number" min="0" value="0" required data-role="item_price"></div>
                 <div><input type="number" min="0" value="0" data-role="labor"></div>
                 <div><input class="total-field" type="number" min="0" readonly="true" value="0" data-role="total_price"></div>
+                <datalist id="item_list"><option value=""></option></datalist>
             </div>
             <div><input class="save-button" type="button" value="입력하기" onclick="saveOrderInfo(this)"></div>
         </div>
