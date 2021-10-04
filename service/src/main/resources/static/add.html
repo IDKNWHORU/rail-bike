@@ -21,26 +21,32 @@
             return clone;
         }
 
+        const putOptionInfo = (list) => {
+            const optionNode = document.querySelector('datalist>option');
+
+            list.forEach((map)=>{
+                const optionClone = optionCloning(optionNode, map);
+
+                optionNode.parentNode.appendChild(optionClone);
+            });
+        }
+
+        const getItemList = () => {
+            makeFetch('/item', {
+                method: 'GET'
+            }, putOptionInfo);
+        };
+
         const getListInfo = () => {
             makeFetch(url, {
                 method: 'GET'
             }, putOrderList);
-
-            makeFetch('/item', {
-                method: 'GET'
-            }, (list) => {
-                const optionNode = document.querySelector('datalist>option');
-
-                list.forEach((map)=>{
-                    const optionClone = optionCloning(optionNode, map);
-
-                    optionNode.parentNode.appendChild(optionClone);
-                })
-            })
         };
 
         window.onload = () => {
             getListInfo();
+
+            getItemList();
         };
 
         const saveOrderInfo = (button) => {
