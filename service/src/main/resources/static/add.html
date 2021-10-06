@@ -9,12 +9,6 @@
     <script>
         const url = "/order";
 
-        const getItemList = () => {
-            makeFetch('/item', {
-                method: 'GET'
-            }, putOptionInfo);
-        };
-
         const getListInfo = () => {
             makeFetch(url, {
                 method: 'GET'

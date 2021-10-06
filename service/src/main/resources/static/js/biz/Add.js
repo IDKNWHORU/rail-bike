@@ -2,6 +2,12 @@ const copyRecord = node => {
     return node.cloneNode(true);
 }
 
+const getItemList = () => {
+    makeFetch('/item', {
+        method: 'GET'
+    }, putOptionInfo);
+};
+
 const optionCloning = (node, map) => {
     const clone = node.cloneNode();
 
