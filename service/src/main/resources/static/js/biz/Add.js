@@ -25,6 +25,15 @@ const optionCloning = (node, map) => {
     return clone;
 };
 
+const putMessage = message => {
+    const modal = document.querySelector('.modal')
+
+    modal.innerHTML = message;
+    visibleModal(modal, true);
+
+    setTimeout(visibleModal, 1500, modal, false)
+};
+
 const putOptionInfo = (list) => {
     const optionNode = document.querySelector('datalist>option');
 

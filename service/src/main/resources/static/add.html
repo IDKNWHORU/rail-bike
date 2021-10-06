@@ -50,15 +50,6 @@
             });
         };
 
-        const putMessage = message => {
-            const modal = document.querySelector('.modal')
-
-            modal.innerHTML = message;
-            visibleModal(modal, true);
-
-            setTimeout(visibleModal, 1500, modal, false)
-        };
-
         const validField = field => {
             const result = true;
             if (field.required) {
