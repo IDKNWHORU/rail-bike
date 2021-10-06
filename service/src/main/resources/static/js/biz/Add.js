@@ -2,6 +2,24 @@ const copyRecord = node => {
     return node.cloneNode(true);
 }
 
+const dataListChange = itemList => {
+    const options = document.querySelector('#item_list').options;
+    const priceField = document.querySelector('input[data-role="item_price"]');
+    let selectedOption;
+
+    Array.from(options).some((option) => {
+        if (option.value === itemList.value) {
+            selectedOption = option;
+
+            return true;
+        }
+    });
+
+    priceField.value = selectedOption.dataset.price;
+
+    writeTotalPrice();
+};
+
 const getItemList = () => {
     makeFetch('/item', {
         method: 'GET'
@@ -23,6 +41,17 @@ const optionCloning = (node, map) => {
     putCloneDataSet(clone, map);
 
     return clone;
+};
+
+const orderListRefresh = () => {
+    const orderRecord = document.querySelectorAll('.order-row');
+    const orderTableBody = document.querySelector('tbody');
+
+    for (let index = 1; index < orderRecord.length; index++) {
+        orderTableBody.removeChild(orderRecord[index]);
+    }
+
+    getListInfo();
 };
 
 const putMessage = message => {

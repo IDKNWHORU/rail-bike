@@ -50,35 +50,6 @@
             });
         };
 
-        const orderListRefresh = () => {
-            const orderRecord = document.querySelectorAll('.order-row');
-            const orderTableBody = document.querySelector('tbody');
-
-            for (let index = 1; index < orderRecord.length; index++) {
-                orderTableBody.removeChild(orderRecord[index]);
-            }
-
-            getListInfo();
-        };
-
-        const dataListChange = itemList => {
-            const options = document.querySelector('#item_list').options;
-            const priceField = document.querySelector('input[data-role="item_price"]');
-            let selectedOption;
-
-            Array.from(options).some((option) => {
-                if (option.value === itemList.value) {
-                    selectedOption = option;
-
-                    return true;
-                }
-            });
-
-            priceField.value = selectedOption.dataset.price;
-
-            writeTotalPrice();
-        };
-
         const writeTotalPrice = () => {
             const totalField = document.querySelector('.total-field');
             const { count, item_price, labor } = getNumberFiedlsValue();
@@ -125,10 +96,10 @@
                 <div><input type="number" min="0" value="0" required data-role="item_price" readonly></div>
                 <div><input type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
                 <div><input class="total-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
-                <datalist id="item_list">
-                    <option value=""></option>
-                </datalist>
             </div>
+            <datalist id="item_list">
+                <option value=""></option>
+            </datalist>
             <div><input class="save-button" type="button" value="입력하기" onclick="saveOrderInfo(this)"></div>
         </div>
         <div class="right-area list-area">
