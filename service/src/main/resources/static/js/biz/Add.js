@@ -91,3 +91,11 @@ const validField = field => {
 
     return result;
 };
+
+const visibleModal = (modal, visible) => {
+    if (visible) {
+        modal.classList.add('visible');
+    } else {
+        modal.classList.remove('visible');
+    }
+};

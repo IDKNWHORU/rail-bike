@@ -50,14 +50,6 @@
             });
         };
 
-        const visibleModal = (modal, visible) => {
-            if (visible) {
-                modal.classList.add('visible');
-            } else {
-                modal.classList.remove('visible');
-            }
-        };
-
         const orderListRefresh = () => {
             const orderRecord = document.querySelectorAll('.order-row');
             const orderTableBody = document.querySelector('tbody');
