@@ -24,3 +24,9 @@ const putOrderList = (orderList) => {
 
     orderList.forEach(orderObject => putOrderInfo(orderObject, tableTag, orderNode));
 }
+
+const putCloneDataSet = (clone, map) => {
+    clone.dataset.value = map.item_code;
+    clone.dataset.label = map.item_name;
+    clone.dataset.price = map.price;
+};
