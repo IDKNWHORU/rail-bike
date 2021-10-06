@@ -8,6 +8,12 @@ const getItemList = () => {
     }, putOptionInfo);
 };
 
+const inputOrderInfo = (field, orderObject) => {
+    const objectKey = field.dataset.role;
+
+    orderObject[objectKey] = field.value;
+};
+
 const optionCloning = (node, map) => {
     const clone = node.cloneNode();
 
