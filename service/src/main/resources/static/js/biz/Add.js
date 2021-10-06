@@ -139,3 +139,10 @@ const visibleModal = (modal, visible) => {
         modal.classList.remove('visible');
     }
 };
+
+const writeTotalPrice = () => {
+    const totalField = document.querySelector('.total-field');
+    const { count, item_price, labor } = getNumberFiedlsValue();
+
+    totalField.value = item_price * count + labor;
+};

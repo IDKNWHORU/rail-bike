@@ -49,14 +49,6 @@
                 msg: '필수값을 입력하세요'
             });
         };
-
-        const writeTotalPrice = () => {
-            const totalField = document.querySelector('.total-field');
-            const { count, item_price, labor } = getNumberFiedlsValue();
-
-            totalField.value = item_price * count + labor;
-        };
-
     </script>
     <title>전표등록</title>
 </head>
