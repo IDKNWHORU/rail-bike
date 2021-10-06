@@ -50,14 +50,6 @@
             });
         };
 
-        const returnedMethod = (resultMap) => {
-            putMessage(resultMap.msg);
-
-            if (resultMap.result) {
-                orderListRefresh();
-            }
-        };
-
         const inputOrderInfo = (field, orderObject) => {
             const objectKey = field.dataset.role;
 

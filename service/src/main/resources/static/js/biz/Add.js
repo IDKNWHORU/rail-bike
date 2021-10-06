@@ -57,3 +57,11 @@ const putCloneDataSet = (clone, map) => {
     clone.dataset.label = map.item_name;
     clone.dataset.price = map.price;
 };
+
+const returnedMethod = (resultMap) => {
+    putMessage(resultMap.msg);
+
+    if (resultMap.result) {
+        orderListRefresh();
+    }
+};
