@@ -9,17 +9,6 @@
     <script>
         const url = "/order";
 
-        const optionCloning = (node, map) => {
-            const clone = node.cloneNode();
-
-            clone.value = map.item_code;
-            clone.innerHTML = map.item_name;
-
-            putCloneDataSet(clone, map);
-
-            return clone;
-        };
-
         const putOptionInfo = (list) => {
             const optionNode = document.querySelector('datalist>option');
 

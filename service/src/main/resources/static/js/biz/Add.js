@@ -2,6 +2,17 @@ const copyRecord = node => {
     return node.cloneNode(true);
 }
 
+const optionCloning = (node, map) => {
+    const clone = node.cloneNode();
+
+    clone.value = map.item_code;
+    clone.innerHTML = map.item_name;
+
+    putCloneDataSet(clone, map);
+
+    return clone;
+};
+
 const putOrderColumn = (column, orderObject) => {
     const objectKey = column.dataset.role;
 
