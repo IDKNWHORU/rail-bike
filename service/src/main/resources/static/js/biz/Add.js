@@ -80,3 +80,14 @@ const returnedMethod = (resultMap) => {
         orderListRefresh();
     }
 };
+
+const validField = field => {
+    const result = true;
+    if (field.required) {
+        if (field.value === '') {
+            return false;
+        }
+    }
+
+    return result;
+};

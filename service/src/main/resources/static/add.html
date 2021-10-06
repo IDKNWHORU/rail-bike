@@ -50,17 +50,6 @@
             });
         };
 
-        const validField = field => {
-            const result = true;
-            if (field.required) {
-                if (field.value === '') {
-                    return false;
-                }
-            }
-
-            return result;
-        };
-
         const visibleModal = (modal, visible) => {
             if (visible) {
                 modal.classList.add('visible');
