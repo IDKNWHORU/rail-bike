@@ -26,6 +26,17 @@ const getItemList = () => {
     }, putOptionInfo);
 };
 
+const getNumberFiedlsValue = () => {
+    const resultObject = {};
+    const numberFields = document.querySelectorAll('input[type="number"]');
+
+    Array.from(numberFields).forEach((numberField) => {
+        resultObject[numberField.dataset.role] = Number(numberField.value);
+    });
+
+    return resultObject;
+};
+
 const inputOrderInfo = (field, orderObject) => {
     const objectKey = field.dataset.role;
 

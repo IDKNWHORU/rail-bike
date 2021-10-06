@@ -57,16 +57,6 @@
             totalField.value = item_price * count + labor;
         };
 
-        const getNumberFiedlsValue = () => {
-            const resultObject = {};
-            const numberFields = document.querySelectorAll('input[type="number"]');
-
-            Array.from(numberFields).forEach((numberField) => {
-                resultObject[numberField.dataset.role] = Number(numberField.value);
-            });
-
-            return resultObject;
-        };
     </script>
     <title>전표등록</title>
 </head>
