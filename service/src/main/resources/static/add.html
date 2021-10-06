@@ -9,16 +9,6 @@
     <script>
         const url = "/order";
 
-        const putOptionInfo = (list) => {
-            const optionNode = document.querySelector('datalist>option');
-
-            list.forEach((map) => {
-                const optionClone = optionCloning(optionNode, map);
-
-                optionNode.parentNode.appendChild(optionClone);
-            });
-        };
-
         const getItemList = () => {
             makeFetch('/item', {
                 method: 'GET'

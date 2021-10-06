@@ -13,6 +13,16 @@ const optionCloning = (node, map) => {
     return clone;
 };
 
+const putOptionInfo = (list) => {
+    const optionNode = document.querySelector('datalist>option');
+
+    list.forEach((map) => {
+        const optionClone = optionCloning(optionNode, map);
+
+        optionNode.parentNode.appendChild(optionClone);
+    });
+};
+
 const putOrderColumn = (column, orderObject) => {
     const objectKey = column.dataset.role;
 
