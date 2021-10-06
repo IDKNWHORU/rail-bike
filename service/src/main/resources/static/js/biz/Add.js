@@ -121,6 +121,36 @@ const returnedMethod = (resultMap) => {
     }
 };
 
+const saveOrderInfo = (button) => {
+    const inputFieldsNode = document.querySelector('.input-area').children;
+    const inputFields = Array.from(inputFieldsNode);
+    const orderObject = {};
+    let isValid = true;
+
+    inputFields.some((fieldWrapper) => {
+        const inputField = fieldWrapper.firstChild;
+
+        if (validField(inputField)) {
+            inputOrderInfo(inputField, orderObject);
+        } else {
+            isValid = false;
+
+            return true;
+        }
+    });
+
+    (isValid) ? makeFetch(url, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderObject)
+    }, returnedMethod): returnedMethod({
+        result: false,
+        msg: '필수값을 입력하세요'
+    });
+};
+
 const validField = field => {
     const result = true;
     if (field.required) {
