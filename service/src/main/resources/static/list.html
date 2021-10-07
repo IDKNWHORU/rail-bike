@@ -33,16 +33,18 @@
         const putInputField = (field, inputArea) => {
             const inputField = inputArea.querySelector(`input[data-role="${field.dataset.role}"]`);
             
-            if(inputField !== null){
-                let value = (inputField.dataset.role === 'order_date') ? toDate(field.innerText) : field.innerText;
-
-                inputField.value = value;
-            }
+            (inputField !== null) ? putInputValue(field, inputField) : '';
         };
 
         const toDate = (dateValue) => {
             return `${dateValue.substring(0,4)}-${dateValue.substring(4,6)}-${dateValue.substring(6)}`;
         };
+
+        const putInputValue = (field, inputField) => {
+            inputField.value = (inputField.dataset.role === 'order_date') ? toDate(field.innerText) : field.innerText;
+
+            (inputField.dataset.role === 'item_code') ? dataListChange(inputField) : '';
+        }
     </script>
     <title>전표목록</title>
 </head>
