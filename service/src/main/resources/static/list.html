@@ -1,61 +1,87 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="utf-8">
-        <link href="./css/biz/list.css" rel="stylesheet">
-        <title>전표목록</title>
-    </head>
-    <body>
-        <div class="menu-title">전표목록</div>
-        <div>
-            <div class="left-area input-box-area">
-                <div class="left-area label-area">
-                    <div class="label-field">입력일자</div>
-                    <div class="label-field">거래처</div>
-                    <div class="label-field">차대번호</div>
-                    <div class="label-field">품목</div>
-                    <div class="label-field">수량</div>
-                    <div class="label-field">금액</div>
-                    <div class="label-field">추가공임</div>
-                    <div class="label-field">합계</div>
-                </div>
-                <div class="right-area input-area">
-                    <div><input type="date"></div>
-                    <div><input type="text"></div>
-                    <div><input type="number" min="0"></div>
-                    <div><input type="text"></div>
-                    <div><input type="number" min="0"></div>
-                    <div><input type="number" min="0"></div>
-                    <div><input type="number" min="0"></div>
-                    <div><input class="total-field" type="number" min="0" readonly="true" value="0"></div>
-                </div>
-                <div class="half-left-area"><input class="save-button" type="button" value="수정하기"></div>
-                <div class="half-right-area"><input class="save-button" type="button" value="삭제하기"></div>
+
+<head>
+    <meta charset="utf-8">
+    <link href="./css/biz/list.css" rel="stylesheet">
+    <script src="./js/ajax/Ajax.js"></script>
+    <script src="./js/biz/Add.js"></script>
+    <script>
+        const url = "/order";
+
+        const getListInfo = () => {
+            makeFetch(url, {
+                method: 'GET'
+            }, putOrderList);
+        };
+
+        window.onload = () => {
+            getListInfo();
+            getItemList();
+        };
+    </script>
+    <title>전표목록</title>
+</head>
+
+<body>
+    <div class="menu-title">전표등록</div>
+    <div>
+        <div class="left-area input-box-area">
+            <div class="left-area label-area">
+                <div class="label-field">입력일자<span class="required">*</span></div>
+                <div class="label-field">거래처</div>
+                <div class="label-field">차대번호<span class="required">*</span></div>
+                <div class="label-field">품목<span class="required">*</span></div>
+                <div class="label-field">수량<span class="required">*</span></div>
+                <div class="label-field">금액<span class="required">*</span></div>
+                <div class="label-field">추가공임</div>
+                <div class="label-field">합계</div>
             </div>
-            <div class="right-area list-area">
-                <table>
-                    <tr>
-                        <th>순번</th>
-                        <th>주문일자</th>
-                        <th>차대번호</th>
-                        <th>품목</th>
-                        <th>수량</th>
-                        <th>금액</th>
-                        <th>추가공임</th>
-                        <th>합계</th>
-                    </tr>
-                    <tr>
-                        <td class="number-field">1</td>
-                        <td class="data-field">2021-07-18</td>
-                        <td>1234</td>
-                        <td class="hyper-field">CDI유니트</td>
-                        <td class="number-field">1</td>
-                        <td class="number-field">500,000</td>
-                        <td class="number-field">0</td>
-                        <td class="number-field">500,000</td>
-                    </tr>
-                </table>
+            <div class="right-area input-area">
+                <div><input type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
+                <div><input type="text" required data-role="customer"></div>
+                <div><input type="number" required min="0" data-role="bike_number"></div>
+                <div><input type="text" required data-role="item_code" list="item_list" onchange="dataListChange(this)">
+                </div>
+                <div><input type="number" min="0" value="1" required data-role="count" onchange="writeTotalPrice()">
+                </div>
+                <div><input type="number" min="0" value="0" required data-role="item_price" readonly></div>
+                <div><input type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
+                <div><input class="total-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
             </div>
+            <datalist id="item_list">
+                <option value=""></option>
+            </datalist>
+            <div class="half-left-area"><input class="save-button" type="button" value="수정하기"></div>
+            <div class="half-right-area"><input class="save-button" type="button" value="삭제하기"></div>
         </div>
-    </body>
+        <div class="right-area list-area">
+            <table>
+                <caption class="item-caption">전표 리스트</caption>
+                <tr>
+                    <th scope="col">순번</th>
+                    <th scope="col">주문일자</th>
+                    <th scope="col">차대번호</th>
+                    <th scope="col">품목</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">금액</th>
+                    <th scope="col">추가공임</th>
+                    <th scope="col">합계</th>
+                </tr>
+                <tr class="order-row">
+                    <td class="order-field number-field" data-role="order_seq"></td>
+                    <td class="date-field" data-role="order_date"></td>
+                    <td class="car-field number-field" data-role="bike_number"></td>
+                    <td class="item-field hyper-field" data-role="item_name"></td>
+                    <td class="quantity-field number-field" data-role="count"></td>
+                    <td class="price-field number-field" data-role="item_price"></td>
+                    <td class="overpay-field number-field" data-role="labor"></td>
+                    <td class="sum-field" data-role="total_price"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal"></div>
+</body>
+
 </html>
