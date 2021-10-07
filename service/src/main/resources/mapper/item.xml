@@ -22,9 +22,9 @@
     </select>
 
     <select id="selectOrderList" resultType="hashMap">
-        select row_number() over() order_seq
-             , order_info.*
+        select order_info.*
              , item_price + labor total_price
+             , row_number() over() order_seq
           from (
                 select order_uniq
                      , order_date
