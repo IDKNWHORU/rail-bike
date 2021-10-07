@@ -24,16 +24,16 @@
             const record = itemInfo.closest('tr');
             const fields = record.children;
             const inputArea = document.querySelector('.input-area');
-            
-            Array.from(fields).forEach((field)=>{
+
+            Array.from(fields).forEach((field) => {
                 putInputField(field, inputArea);
             });
         };
 
         const putInputField = (field, inputArea) => {
             const inputField = inputArea.querySelector(`input[data-role="${field.dataset.role}"]`);
-            
-            (inputField !== null) ? putInputValue(field, inputField) : '';
+
+            (inputField !== null) ? putInputValue(field, inputField): '';
         };
 
         const toDate = (dateValue) => {
@@ -43,19 +43,49 @@
         const putInputValue = (field, inputField) => {
             inputField.value = (inputField.dataset.role === 'order_date') ? toDate(field.innerText) : field.innerText;
 
-            (inputField.dataset.role === 'item_code') ? dataListChange(inputField) : '';
+            (inputField.dataset.role === 'item_code') ? dataListChange(inputField): '';
+        }
+
+        const editOrderInfo = () => {
+            const inputFieldsNode = document.querySelector('.input-area').children;
+            const inputFields = Array.from(inputFieldsNode);
+            const orderObject = {};
+            let isValid = true;
+
+            inputFields.forEach((divWrapper) => {
+                const inputField = divWrapper.firstChild;
+
+                if (validField(inputField)) {
+                    inputOrderInfo(inputField, orderObject);
+                } else {
+                    isValid = false;
+
+                    return true;
+                }
+            });
+
+            (isValid) ? makeFetch(`${url}/${orderObject.order_uniq}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(orderObject)
+            }, returnedMethod): returnedMethod({
+                result: false,
+                msg: '필수값을 입력하세요'
+            });
         }
     </script>
     <title>전표목록</title>
 </head>
 
 <body>
-    <div class="menu-title">전표등록</div>
+    <div class="menu-title">전표목록</div>
     <div>
         <div class="left-area input-box-area">
             <div class="left-area label-area">
                 <div class="label-field">입력일자<span class="required">*</span></div>
-                <div class="label-field">거래처</div>
+                <div class="label-field">거래처<span class="required">*</span></div>
                 <div class="label-field">차대번호<span class="required">*</span></div>
                 <div class="label-field">품목<span class="required">*</span></div>
                 <div class="label-field">수량<span class="required">*</span></div>
@@ -73,13 +103,15 @@
                 </div>
                 <div><input type="number" min="0" value="0" required data-role="item_price" readonly></div>
                 <div><input type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
-                <div class="total-color"><input class="total-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
+                <div class="total-color"><input class="total-field" type="number" min="0" value="0"
+                        data-role="total_price" readonly></div>
                 <div class="hidden-field"><input type="number" min="0" value="0" data-role="order_uniq" readonly></div>
             </div>
             <datalist id="item_list">
                 <option value=""></option>
             </datalist>
-            <div class="half-left-area"><input class="save-button" type="button" value="수정하기"></div>
+            <div class="half-left-area"><input class="save-button" type="button" value="수정하기" onclick="editOrderInfo()">
+            </div>
             <div class="half-right-area"><input class="save-button" type="button" value="삭제하기"></div>
         </div>
         <div class="right-area list-area">

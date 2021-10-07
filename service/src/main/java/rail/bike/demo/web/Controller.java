@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +56,18 @@ public class Controller {
         orderInfo.put("order_date", formatedDate);
 
         int queryResult = itemMapper.putOrderInfo(orderInfo);
+
+        return getMessage(queryResult);
+    }
+
+    @PostMapping("/order/{orderUniq}")
+    public Object editOrderInfo(@PathVariable int orderUniq, @RequestBody Map<String, Object> orderInfo){
+        String formatedDate = orderInfo.get("order_date").toString().replace("-", "");
+
+        orderInfo.put("order_date", formatedDate);
+        orderInfo.put("order_uniq", orderUniq);
+
+        int queryResult = itemMapper.editOrderInfo(orderInfo);
 
         return getMessage(queryResult);
     }

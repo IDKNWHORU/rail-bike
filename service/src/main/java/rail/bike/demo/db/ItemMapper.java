@@ -17,4 +17,5 @@ public interface ItemMapper {
     List<Map<String, String>> selectUnitList();
 
     int putOrderInfo(Map<String, Object> orderInfo);
+    int editOrderInfo(Map<String, Object> orderInfo);
 }
