@@ -19,6 +19,26 @@
             getListInfo();
             getItemList();
         };
+
+        const loadOrderInfo = (itemInfo) => {
+            const record = itemInfo.closest('tr');
+            const fields = record.children;
+            const inputArea = document.querySelector('.input-area')
+            
+            Array.from(fields).forEach((field)=>{
+                let inputField = inputArea.querySelector(`input[data-role="${field.dataset.role}"]`);
+
+                if(inputField !== null){
+                    let value = field.innerText;
+
+                    if(inputField.dataset.role === 'order_date') {
+                        const date = field.innerText;
+                        value = `${date.substring(0,4)}-${date.substring(4,6)}-${date.substring(6)}`;
+                    }
+                    inputField.value = value;
+                }
+            });
+        };
     </script>
     <title>전표목록</title>
 </head>
@@ -35,7 +55,7 @@
                 <div class="label-field">수량<span class="required">*</span></div>
                 <div class="label-field">금액<span class="required">*</span></div>
                 <div class="label-field">추가공임</div>
-                <div class="label-field">합계</div>
+                <div class="label-field total-color">합계</div>
             </div>
             <div class="right-area input-area">
                 <div><input type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
@@ -47,7 +67,8 @@
                 </div>
                 <div><input type="number" min="0" value="0" required data-role="item_price" readonly></div>
                 <div><input type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
-                <div><input class="total-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
+                <div class="total-color"><input class="total-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
+                <div class="hidden-field"><input type="number" min="0" value="0" data-role="order_uniq" readonly></div>
             </div>
             <datalist id="item_list">
                 <option value=""></option>
@@ -72,11 +93,13 @@
                     <td class="order-field number-field" data-role="order_seq"></td>
                     <td class="date-field" data-role="order_date"></td>
                     <td class="car-field number-field" data-role="bike_number"></td>
-                    <td class="item-field hyper-field" data-role="item_name"></td>
+                    <td class="item-field hyper-field" data-role="item_name" onclick="loadOrderInfo(this)"></td>
                     <td class="quantity-field number-field" data-role="count"></td>
                     <td class="price-field number-field" data-role="item_price"></td>
                     <td class="overpay-field number-field" data-role="labor"></td>
                     <td class="sum-field" data-role="total_price"></td>
+                    <td class="hidden-field" data-role="item_code"></td>
+                    <td class="hidden-field" data-role="order_uniq"></td>
                 </tr>
             </table>
         </div>
