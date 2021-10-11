@@ -6,15 +6,19 @@
         <script src="./js/ajax/Ajax.js"></script>
         <script>
             window.onload = () => {
-                makeFetch('report', {method : 'GET'}, (result)=> {
-                    const keys = Object.keys(result);
+                makeFetch('report', {method : 'GET'}, getSupplierInfo);
+            };
 
-                    keys.forEach((key)=>{
-                        const tag = document.querySelector(`td[data-role="${key}"]`)
+            const getSupplierInfo = (result)=> {
+                const keys = Object.keys(result);
 
-                        tag.innerHTML = result[key];
-                    })
-                })
+                keys.forEach((key) => {putSupplier(key, result)});
+            };
+
+            const putSupplier = (role, supplier)=>{
+                const tag = document.querySelector(`td[data-role="${role}"]`)
+
+                tag.innerHTML = supplier[role];
             };
         </script>
         <title>계산서 출력</title>
