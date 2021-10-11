@@ -74,6 +74,20 @@
                 result: false,
                 msg: '필수값을 입력하세요'
             });
+        };
+
+        const deleteOrderInfo = () => {
+            const uniqField = document.querySelector('input[data-role="order_uniq"]');
+
+            (uniqField.value > 0) ? makeFetch(`${url}/${uniqField.value}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            }, returnedMethod): returnedMethod({
+                result: false,
+                msg: '전표 리스트에서 삭제할 정보를 선택해주세요'
+            });
         }
     </script>
     <title>전표목록</title>
@@ -112,7 +126,7 @@
             </datalist>
             <div class="half-left-area"><input class="save-button" type="button" value="수정하기" onclick="editOrderInfo()">
             </div>
-            <div class="half-right-area"><input class="save-button" type="button" value="삭제하기"></div>
+            <div class="half-right-area"><input class="save-button" type="button" value="삭제하기" onclick="deleteOrderInfo()"></div>
         </div>
         <div class="right-area list-area">
             <table>

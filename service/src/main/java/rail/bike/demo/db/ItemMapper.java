@@ -18,4 +18,5 @@ public interface ItemMapper {
 
     int putOrderInfo(Map<String, Object> orderInfo);
     int editOrderInfo(Map<String, Object> orderInfo);
+    int deleteOrderInfo(int orderUniq);
 }

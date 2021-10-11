@@ -50,4 +50,27 @@
     <select id="editOrderInfo" parameterType="hashMap" resultType="int">
         select fn_edit_order(#{order_uniq}, #{bike_number}, #{order_date}, #{item_code}, #{labor}, #{count})
     </select>
+
+    <select id="deleteOrderInfo" parameterType="int" resultType="int">
+        select fn_delete_order(#{order_uniq})
+    </select>
+
+    <select id="selectBillInfo" resultType="hashMap">
+        select a.item_code
+             , fn_code_name(a.item_code, 'item')
+             , fn_code_name(a.unit_code, 'unit')
+             , round(((price * sum(count)) + sum(labor)) / 1.1) supply_price
+             , round(((price * sum(count)) + sum(labor)) / 11) tax_ammount
+             , (price * sum(count)) + sum(labor) total_price
+          from (
+                select item_code
+                     , price
+                     , unit_code
+                   from tb_item_mstr
+               ) a
+             , tb_order_mstr as b
+         where a.item_code = b.item_code
+         group by item_code;
+    </select>
+
 </mapper>

@@ -72,6 +72,13 @@ public class Controller {
         return getMessage(queryResult);
     }
 
+    @DeleteMapping("/order/{orderUniq}")
+    public Object deleteOrderInfo(@PathVariable int orderUniq){
+        int queryResult = itemMapper.deleteOrderInfo(orderUniq);
+
+        return getMessage(queryResult);
+    }
+
     public Map<String, Object> getMessage(int typeCode){
         Map<String, Object> result = new HashMap<>();
 
