@@ -98,4 +98,13 @@ public class Controller {
 
         return result;
     }
+
+    @GetMapping("/report")
+    public Map<String, Object> getReportInfo(){
+        Map<String, Object> result = new HashMap<>();
+
+        result = itemMapper.getSupplierInfo();
+
+        return result;
+    }
 }

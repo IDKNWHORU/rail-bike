@@ -3,9 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <link href="./css/biz/report.css" rel="stylesheet">
+        <script src="./js/ajax/Ajax.js"></script>
         <script>
             window.onload = () => {
-                debugger;
+                makeFetch('report', {method : 'GET'}, (result)=> {
+                    const keys = Object.keys(result);
+
+                    keys.forEach((key)=>{
+                        const tag = document.querySelector(`td[data-role="${key}"]`)
+
+                        tag.innerHTML = result[key];
+                    })
+                })
             };
         </script>
         <title>계산서 출력</title>
@@ -22,7 +31,7 @@
                 <div class="content-info">아래와같이계산합니다.</div>
             </div>
             <div class="content-right-area">
-                <table class="content-table">
+                <table class="content-table supplier-info">
                     <caption class="hidden-area">공급자 표</caption>
                     <tr class="hidden-area">
                         <th scope="col"></th>
@@ -30,27 +39,27 @@
                     <tr>
                         <td rowspan="5">공<br>급<br>자</td>
                         <td>등록번호</td>
-                        <td colspan="3">401-02-49739</td>
+                        <td colspan="3" data-role="comp_regi_numb">401-02-49739</td>
                     </tr>
                     <tr>
                         <td>상호</td>
-                        <td>라일오토바이</td>
+                        <td data-role="comp_name"></td>
                         <td>대표</td>
-                        <td>라명찬</td>
+                        <td data-role="owner_name"></td>
                     </tr>
                     <tr>
                         <td>사업장소재지</td>
-                        <td colspan="3">군산시 영화동 4-7</td>
+                        <td colspan="3" data-role="address"></td>
                     </tr>
                     <tr>
                         <td>업태</td>
-                        <td>서비스</td>
+                        <td data-role="busi_cond_name"></td>
                         <td>종목</td>
-                        <td>오토바이 판매 및 수리</td>
+                        <td data-role="busi_info_name"></td>
                     </tr>
                     <tr>
                         <td>전화<br>FAX</td>
-                        <td colspan="3">Tel 063)446-8281 <br> Fax 063)446-1234</td>
+                        <td colspan="3" data-role="tel_info"></td>
                     </tr>
                 </table>
             </div>

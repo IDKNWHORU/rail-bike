@@ -70,7 +70,17 @@
                ) a
              , tb_order_mstr as b
          where a.item_code = b.item_code
-         group by item_code;
+         group by item_code
     </select>
 
+    <select id="getSupplierInfo" resultType="hashMap">
+        select fn_comp_numb(comp_numb) comp_regi_numb
+            , fn_comp_name(comp_numb) comp_name
+            , fn_human_name(owner) owner_name
+            , fn_zip_info(addr) address
+            , fn_code_name(busi_cond, 'busicond') busi_cond_name
+            , fn_code_name(busi_info, 'busiinfo') busi_info_name
+            , fn_tel_info(tel_numb, fax_numb) tel_info
+         from tb_comp_info
+    </select>
 </mapper>
