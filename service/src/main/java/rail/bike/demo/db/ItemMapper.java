@@ -20,4 +20,6 @@ public interface ItemMapper {
     int editOrderInfo(Map<String, Object> orderInfo);
     int deleteOrderInfo(int orderUniq);
     Map<String, Object> getSupplierInfo();
+
+    List<Map<String, Object>> getReportList();
 }

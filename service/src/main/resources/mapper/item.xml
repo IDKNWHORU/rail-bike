@@ -83,4 +83,9 @@
             , fn_tel_info(tel_numb, fax_numb) tel_info
          from tb_comp_info
     </select>
+
+    <select id="getReportList" resultType="hashMap">
+        select *
+        from vw_order_report;
+    </select>
 </mapper>

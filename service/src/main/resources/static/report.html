@@ -7,6 +7,7 @@
         <script>
             window.onload = () => {
                 makeFetch('report', {method : 'GET'}, getSupplierInfo);
+                makeFetch('report/1234', {method : 'GET'}, getReportList);
             };
 
             const getSupplierInfo = (result)=> {
@@ -20,6 +21,9 @@
 
                 tag.innerHTML = supplier[role];
             };
+
+            const getReportList = (result) => {
+            }
         </script>
         <title>계산서 출력</title>
     </head>

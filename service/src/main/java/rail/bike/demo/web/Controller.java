@@ -1,5 +1,6 @@
 package rail.bike.demo.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,11 +101,18 @@ public class Controller {
     }
 
     @GetMapping("/report")
-    public Map<String, Object> getReportInfo(){
+    public Map<String, Object> getSupplier(){
         Map<String, Object> result = new HashMap<>();
 
         result = itemMapper.getSupplierInfo();
 
         return result;
+    }
+
+    @GetMapping("/report/{date}")
+    public Object getReport(){
+        List<Map<String, Object>> reportList = itemMapper.getReportList();
+
+        return reportList;
     }
 }
