@@ -1,0 +1,15 @@
+body{width: 1920px; height:1080px;}
+.top-area{width:100%; height:50px;}
+.top-left-area{width:100px; float:left;}
+.title-area{width:1820px; float:right; text-align:center;}
+.content-area{width:100%; height:180px;}
+.content-left-area{width:300px; float:left;}
+.content-right-area{width:1620px; float:right;}
+.content-table{border:solid 2px; border-collapse: collapse}
+.content-table>tbody>tr>td{border:solid 1px;}
+.content-info{border-bottom:solid 1px; width:200px;}
+.table-area{width:100%; height:850px;}
+.order-table{border:solid 2px; border-collapse: collapse}
+.order-table>tbody>tr>th{border:solid 1px;}
+.order-table>tbody>tr>td{border:solid 1px;}
+.hidden-area{display:none;}
