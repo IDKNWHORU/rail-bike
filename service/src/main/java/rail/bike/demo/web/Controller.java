@@ -1,6 +1,9 @@
 package rail.bike.demo.web;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,7 +115,38 @@ public class Controller {
     @GetMapping("/report/{date}")
     public Object getReport(){
         List<Map<String, Object>> reportList = itemMapper.getReportList();
+        int totalPrice = getTotalPrice(reportList);
+        
+        Map<String, Object> lastObject = createTotalMap(totalPrice);
+
+        reportList.add(lastObject);
 
         return reportList;
+    }
+
+    public int getTotalPrice(List<Map<String, Object>> list){
+        int total = 0;
+
+        for(Map<String, Object> reportObject : list){
+            int supplied_value = Integer.parseInt(reportObject.get("supplied_value").toString());
+            int tax = Integer.parseInt(reportObject.get("tax").toString());
+
+            total += supplied_value + tax;
+        }
+
+        return total;
+    }
+
+    public Map<String, Object> createTotalMap(int price){
+        Map<String, Object> totalObject = new HashMap<String, Object>();
+        BigDecimal total = new BigDecimal(price);
+        int supplied_value = total.divide(new BigDecimal("1.1"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN).intValue();
+        int tax = total.divide(new BigDecimal("11"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN).intValue();
+
+        totalObject.put("item_name", "계");
+        totalObject.put("supplied_value", NumberFormat.getIntegerInstance().format(supplied_value));
+        totalObject.put("tax", NumberFormat.getIntegerInstance().format(tax));
+
+        return totalObject;
     }
 }
