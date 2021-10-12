@@ -13,3 +13,4 @@ body{width: 1920px; height:1080px;}
 .order-table>tbody>tr>th{border:solid 1px;}
 .order-table>tbody>tr>td{border:solid 1px;}
 .hidden-area{display:none;}
+.hidden-record{display:none;}
