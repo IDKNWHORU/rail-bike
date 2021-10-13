@@ -1,10 +1,12 @@
 const addItemRow = (tableBody, rowNode)  => tableBody.appendChild(rowNode);
 
 const appendDataListOption = (unitMap, dataList, option) => {
-    option.label = unitMap.code;
-    option.value = unitMap.name;
+    const clone = option.cloneNode(true);
 
-    dataList.appendChild(option);
+    clone.label = unitMap.code;
+    clone.value = unitMap.name;
+
+    dataList.appendChild(clone);
 };
 
 const changeAttributeReadOnly = itemCode => itemCode.readOnly = true;
@@ -41,9 +43,9 @@ const getUnitInfo = (userUrl) => makeFetch(userUrl, { method: 'GET' }, putUnitOp
 
 const putUnitOptions = unitList => {
     const dataList = document.querySelector('datalist');
-    const option = document.querySelector('datalist>option').cloneNode(true);
+    const option = document.querySelector('datalist>option');
 
-    unitList.forEach(unitMap => appendDataListOption(unitMap, dataList, option));
+    unitList.forEach((unitMap) => appendDataListOption(unitMap, dataList, option));
 };
 
 const removeItemList = itemRows => {itemRows.forEach(removeRows)};
