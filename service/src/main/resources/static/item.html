@@ -6,6 +6,7 @@
     <link href="./css/biz/Item.css" rel="stylesheet">
     <script src="./js/ajax/Ajax.js"></script>
     <script src="./js/biz/Item.js"></script>
+    <script src="./json/Caption.json"></script>
     <script>
         let myRowTag;
         const dataQuerySelector = 'input[query="true"]';
@@ -40,7 +41,19 @@
             Array.from(itemCodes).slice(1).forEach(changeAttributeReadOnly);
         }
 
+        const loadCaption = () => {
+            const caption = document.querySelector('.item-caption');
+            let str = "";
+
+            Caption.Item.forEach(description => {
+                str += description;
+            });
+
+            caption.innerHTML = str;
+        }
+
         window.onload = () => {
+            loadCaption();
             myRowTag = document.querySelector(itemRowSelector);
 
             getItemInfo();
@@ -52,7 +65,7 @@
 
 <body>
     <table class="item-table" border="1">
-        <caption class="item-caption">품목 리스트</caption>
+        <caption class="item-caption"></caption>
         <tr>
             <th scope="col">품목코드</th>
             <th scope="col">품목명</th>
