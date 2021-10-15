@@ -1,16 +1,29 @@
-body{width: 1920px; height:1080px;}
+body{width:calc(100vw - 32px); height:100vh;}
 .top-area{width:100%; height:50px;}
-.top-left-area{width:100px; float:left;}
-.title-area{width:1820px; float:right; text-align:center;}
+.top-left-area{width:100px;}
+.title-area{width:calc(100% - 16px);text-align:center; position: absolute; top:8px; font-size: 10px;}
+.title-font{font-size: 28px; font-family: cursive;}
+.title-decoration-start{letter-spacing: 32px; text-decoration: underline; text-underline-offset: 2px;}
+.title-decoration-end{text-decoration: underline; text-underline-offset: 2px;}
+.left-decoration{font-size: 14px; font-family: cursive;}
+.underline-decoration{font-size: 28px; border-top: solid 2px;}
 .content-area{width:100%; height:180px;}
 .content-left-area{width:300px; float:left;}
-.content-right-area{width:1620px; float:right;}
-.content-table{border:solid 2px; border-collapse: collapse}
+.content-right-area{width:calc(100% - 300px); float:right;}
+.content-table{border:solid 2px; border-collapse:collapse}
 .content-table>tbody>tr>td{border:solid 1px;}
-.content-info{border-bottom:solid 1px; width:200px;}
+.content-info{margin-left: 15px; border-bottom:solid 2px; width:240px; font-size:16px; margin-bottom: 8px;}
 .table-area{width:100%; height:850px;}
-.order-table{border:solid 2px; border-collapse: collapse}
+.order-table{border:solid 2px; border-collapse:collapse;}
 .order-table>tbody>tr>th{border:solid 1px;}
 .order-table>tbody>tr>td{border:solid 1px;}
 .hidden-area{display:none;}
 .hidden-record{display:none;}
+.item-column{width:268px; text-align:center;}
+.unit-column{min-width:50px; text-align:center;}
+.count-column{min-width:70px; text-align:center;}
+.price-column{min-width:100px; text-align:center;}
+.supplied-value-column{min-width:110px; text-align:center;}
+.tax-column{min-width:100px; text-align:center;}
+.number-presentation{text-align: right;}
+.highlight-text{font-weight:bold; font-size: 20px;}
