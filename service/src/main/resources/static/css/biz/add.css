@@ -4,15 +4,17 @@
 .number-field{text-align:right}
 .date-field{text-align:center;}
 .hyper-field{color: blue; text-decoration: underline; cursor:pointer;}
-.input-box-area{border: solid 1px; width:230px;}
-.label-field{text-align:right; line-height: 23px;}
+.input-box-area{border: solid 1px; width:310px; padding: 5px; border-radius: 2px;}
+.label-field{text-align:right; display: inline-block; height: 25px; margin-top: 5px;}
 .label-area{width:75px;}
 .list-area{width:75vw;}
-.input-area{width:calc(230px - 80px);}
-div.input-area>div>input{width:125px;}
-.total-field{border: none; text-align: right; padding:3px 4px;}
-.save-button{width:100%;}
+.input-area{width:calc(300px - 80px);}
+div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
+.total-field{text-align: right;}
+.save-button{width:100%; margin-top: 10px; height: 32px; border-radius: 15px;}
 .modal{position: absolute;top: 90vh;left: 90vw; display:none;}
 .visible{display:block;}
 .required{color:red; font-weight:bold;}
 input[type=number]{text-align:right;}
+.input-field{height: 25px; margin-top: 5px;}
+.readonly-field{background-color: #bbbbbb;}
