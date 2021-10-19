@@ -29,7 +29,7 @@ table{border-spacing: 0px;}
 .price-field{border: none; border-top: solid 1px #000000; border-left: solid 1px #000000; width: 90px;}
 .overpay-field{border: none; border-top: solid 1px #000000; border-left: solid 1px #000000; width: 90px;}
 .sum-field{text-align: right;  border: none; border-top: solid 1px #000000; border-left: solid 1px #000000; border-right: solid 1px #000000; width: 150px;}
-caption{border: solid 1px #bbbbbb; background-color: #cecece; padding: 6px; margin-bottom: 5px;}
+caption{border: solid 1px #d3d380; background-color: #f5f5dc; padding: 6px; margin-bottom: 5px;}
 th{border: none; border-top: solid 1px #000000; border-left: solid 1px #000000; border-bottom: solid 1px #000000; padding: 4px; background-color:#aeaeae;}
 th:last-child{border-right: solid 1px #000000;}
 #input-bike-number::-webkit-outer-spin-button, #input-bike-number::-webkit-inner-spin-button{-webkit-appearance: none; margin: 0px 0px 0px 15px;}
