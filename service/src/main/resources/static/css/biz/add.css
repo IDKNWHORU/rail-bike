@@ -11,7 +11,7 @@
 .input-area{width:calc(300px - 80px);}
 div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
 .total-field{text-align: right;}
-.save-button{width:100%; margin-top: 10px; height: 32px; border-radius: 15px; border: solid 1px #666666; background-color: #cecece;}
+.save-button{width:100%; margin-top: 10px; height: 32px; border-radius: 15px; border: solid 1px #666666; background-color: #cecece; margin-bottom: 5px;}
 .modal{position: absolute;top: 90vh;left: 90vw; display:none;}
 .visible{display:block;}
 .required{color:red; font-weight:bold;}
