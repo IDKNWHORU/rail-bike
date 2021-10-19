@@ -11,7 +11,7 @@
 .input-area{width:calc(300px - 80px);}
 div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
 .total-field{text-align: right;}
-.save-button{width:50%; margin-top: 10px; height: 32px; border-radius: 15px; border: solid 1px #fb3d3d; background-color: #ff4c4c; margin-bottom: 5px; float: right; color: #ffffff; font-size: 16px; padding-bottom: 3px;}
+.save-button{width:50%; margin-top: 10px; height: 32px; border-radius: 15px; border: solid 1px #fb3d3d; background-color: #ff4c4c; margin-bottom: 5px; float: right; color: #ffffff; font-size: 16px; padding-bottom: 3px; cursor: pointer;}
 .save-button:hover{border: solid 2px #fb3d3d; background-color: #ffffff; color: #ff4c4c;}
 .modal{position: absolute;top: 90vh;left: 90vw; display:none;}
 .visible{display:block;}
