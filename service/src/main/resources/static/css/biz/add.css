@@ -19,9 +19,11 @@ div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
 input[type=number]{text-align:right;}
 .input-field{height: 25px; margin-top: 5px;}
 .readonly-field{background-color: #bbbbbb; border: solid 1px #666666; padding: 0px 1px !important; color: #464646;}
+table{border-spacing: 0px;}
 tr:nth-child(2)>td{border: none;}
 tr:last-child>td{border-bottom: solid 1px #aaaaaa; background-color: #e9e9e9;}
-table{border-spacing: 0px;}
+th{border: none; border-top: solid 2px #bbbbbb; border-left: solid 1px #bbbbbb; border-bottom: solid 1px #bbbbbb; padding: 4px;}
+th:last-child{border-right: solid 1px #bbbbbb;}
 .order-field{border: none; border-top: solid 1px #aaaaaa; border-left: solid 1px #aaaaaa; width: 50px; background-color: #e9e9e9;}
 .date-field{border: none; border-top: solid 1px #aaaaaa; border-left: solid 1px #aaaaaa; width: 90px; background-color: #e9e9e9;}
 .car-field{border: none; border-top: solid 1px #aaaaaa; border-left: solid 1px #aaaaaa; width: 70px; background-color: #e9e9e9;}
@@ -31,6 +33,4 @@ table{border-spacing: 0px;}
 .overpay-field{border: none; border-top: solid 1px #aaaaaa; border-left: solid 1px #aaaaaa; width: 90px; background-color: #e9e9e9;}
 .sum-field{text-align: right;  border: none; border-top: solid 1px #aaaaaa; border-left: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; width: 150px; background-color: #e9e9e9;}
 .item-caption{border: solid 1px #cfcf96; background-color: #f5f5dc; padding: 6px; margin-bottom: 5px; background-color: #e9e9e9; display: none;}
-th{border: none; border-top: solid 2px #bbbbbb; border-left: solid 1px #bbbbbb; border-bottom: solid 1px #bbbbbb; padding: 4px;}
-th:last-child{border-right: solid 1px #bbbbbb;}
 #input-bike-number::-webkit-outer-spin-button, #input-bike-number::-webkit-inner-spin-button{-webkit-appearance: none; margin: 0px 0px 0px 15px;}
