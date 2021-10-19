@@ -4,20 +4,21 @@
 .number-field{text-align:right}
 .data-field{text-align:center;}
 .hyper-field{color: blue; text-decoration: underline; cursor:pointer;}
-.input-box-area{border: solid 1px; width:230px;}
-.label-field{text-align:right; line-height: 23px;}
+.input-box-area{border: solid 1px; width: 310px; padding: 5px; border-radius: 2px;}
+.label-field{text-align:right; display: inline-block; height: 25px; margin-top: 5px;}
 .label-area{width:75px;}
 .list-area{width:75vw;}
-.input-area{width:calc(230px - 77px);}
-div.input-area>div>input{width:125px;}
-.total-field{border: solid 1px #555555; padding: 2px 3px; background-color:transparent;}
-.save-button{width:100%;}
-.half-left-area{width:50%; float:left;}
-.half-right-area{width:50%; float:right;}
+.input-area{width:calc(300px - 80px);}
+div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
+.function-button{width: 100%; margin-top: 10px; height: 32px; border-radius: 15px; border: solid 1px #666666; background-color: #cecece;}
+.half-left-area{width:49%; display:inline-block;}
+.half-right-area{width:49%; display:inline-block;}
 .modal{position: absolute;top: 90vh;left: 90vw; display:none;}
 .visible{display:block;}
 .required{color:red; font-weight:bold;}
 input[type=number]{text-align:right;}
 input[type=data]input[type=text]{height: 15px;}
-.total-color{background-color: rgb(136 136 136 / 53%); height:25px;}
 .hidden-field{display:none;}
+.input-field{height: 25px; margin-top: 5px;}
+.readonly-field{background-color: #bbbbbb; border: solid 1px #666666; padding: 0px 1px !important; color: #464646;}
+#input-bike-number::-webkit-outer-spin-button, #input-bike-number::-webkit-inner-spin-button{-webkit-appearance: none; margin: 0px 0px 0px 15px;}

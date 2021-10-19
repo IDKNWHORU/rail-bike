@@ -105,28 +105,25 @@
                 <div class="label-field">수량<span class="required">*</span></div>
                 <div class="label-field">금액<span class="required">*</span></div>
                 <div class="label-field">추가공임</div>
-                <div class="label-field total-color">합계</div>
+                <div class="label-field">합계</div>
             </div>
             <div class="right-area input-area">
-                <div><input type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
-                <div><input type="text" required data-role="customer"></div>
-                <div><input type="number" required min="0" data-role="bike_number"></div>
-                <div><input type="text" required data-role="item_code" list="item_list" onchange="dataListChange(this)">
-                </div>
-                <div><input type="number" min="0" value="1" required data-role="count" onchange="writeTotalPrice()">
-                </div>
-                <div><input type="number" min="0" value="0" required data-role="item_price" readonly></div>
-                <div><input type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
-                <div class="total-color"><input class="total-field" type="number" min="0" value="0"
-                        data-role="total_price" readonly></div>
+                <div class="input-field"><input type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
+                <div class="input-field"><input type="text" required data-role="customer"></div>
+                <div class="input-field"><input id="input-bike-number" type="number" required min="0" data-role="bike_number"></div>
+                <div class="input-field"><input type="text" required data-role="item_code" list="item_list" onchange="dataListChange(this)"></div>
+                <div class="input-field"><input type="number" min="0" value="1" required data-role="count" onchange="writeTotalPrice()"></div>
+                <div class="input-field"><input type="number" class="readonly-field" min="0" value="0" required data-role="item_price" readonly></div>
+                <div class="input-field"><input type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
+                <div class="input-field"><input class="readonly-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
                 <div class="hidden-field"><input type="number" min="0" value="0" data-role="order_uniq" readonly></div>
             </div>
             <datalist id="item_list">
                 <option value=""></option>
             </datalist>
-            <div class="half-left-area"><input class="save-button" type="button" value="수정하기" onclick="editOrderInfo()">
+            <div class="half-left-area"><input class="function-button" type="button" value="수정하기" onclick="editOrderInfo()">
             </div>
-            <div class="half-right-area"><input class="save-button" type="button" value="삭제하기" onclick="deleteOrderInfo()"></div>
+            <div class="half-right-area"><input class="function-button" type="button" value="삭제하기" onclick="deleteOrderInfo()"></div>
         </div>
         <div class="right-area list-area">
             <table>
