@@ -1,29 +1,85 @@
-body{width:calc(100vw - 32px); height:100vh;}
-.top-area{width:100%; height:50px;}
-.top-left-area{width:100px;}
-.title-area{width:calc(100% - 16px);text-align:center; position: absolute; top:8px; font-size: 10px;}
-.title-font{font-size: 28px; font-family: cursive;}
-.title-decoration-start{letter-spacing: 32px; text-decoration: underline; text-underline-offset: 2px;}
-.title-decoration-end{text-decoration: underline; text-underline-offset: 2px;}
-.left-decoration{font-size: 14px; font-family: cursive;}
-.underline-decoration{font-size: 28px; border-top: solid 2px;}
-.content-area{width:100%; height:180px;}
-.content-left-area{width:300px; float:left;}
-.content-right-area{width:calc(100% - 300px); float:right;}
-.content-table{border:solid 2px; border-collapse:collapse}
-.content-table>tbody>tr>td{border:solid 1px;}
-.content-info{margin-left: 15px; border-bottom:solid 2px; width:240px; font-size:16px; margin-bottom: 8px;}
-.table-area{width:100%; height:850px;}
-.order-table{border:solid 2px; border-collapse:collapse;}
-.order-table>tbody>tr>th{border:solid 1px;}
-.order-table>tbody>tr>td{border:solid 1px;}
-.hidden-area{display:none;}
-.hidden-record{display:none;}
-.item-column{width:268px; text-align:center;}
-.unit-column{min-width:50px; text-align:center;}
-.count-column{min-width:70px; text-align:center;}
-.price-column{min-width:100px; text-align:center;}
-.supplied-value-column{min-width:110px; text-align:center;}
-.tax-column{min-width:100px; text-align:center;}
-.number-presentation{text-align: right;}
-.highlight-text{font-weight:bold; font-size: 20px;}
+.input-box-area {
+  border: solid 1px #aaaaaa;
+  width: 380px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #fbfbfb;
+}
+.left-area {
+  float: left;
+  box-sizing: border-box;
+}
+.label-field {
+  text-align: right;
+  display: inline-block;
+  height: 25px;
+  margin-top: 5px;
+}
+.label-area {
+  width: 90px;
+}
+
+.right-area {
+  width : calc(100% - 400px);
+  float: right;
+  box-sizing: border-box;
+}
+
+.number-field {
+  text-align: right;
+}
+
+.input-area {
+  width: calc(370px - 95px);
+}
+.input-field {
+  height: 25px;
+  margin-top: 5px;
+}
+.required {
+  color: red;
+  font-weight: bold;
+}
+div.input-area > div > input {
+  width: 268px;
+  padding: 0px;
+  height: 20px;
+  margin-left: 2px;
+}
+.total-field {
+  text-align: right;
+}
+.function-button {
+  width: 100%;
+  margin-top: 10px;
+  height: 32px;
+  border-radius: 15px;
+  font-size: 16px;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+.red-button {
+  border: solid 1px #fb3d3d;
+  background-color: #ff4c4c;
+  color: #ffffff;
+}
+.red-button:hover {
+  border: solid 2px #fb3d3d;
+  background-color: #ffffff;
+  color: #ff4c4c;
+}
+div.input-area > div > input[type='checkbox'] {
+  width: 25px;
+  margin-left: 0px;
+}
+#input-order-date{
+    width: 125px;
+}
+.print-area {
+    width: 195mm;
+    /* height: 297mm; */
+    border: solid 2px #888888;
+    border-radius: 5px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+}

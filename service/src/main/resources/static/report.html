@@ -1,18 +1,214 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <title>계산서 출력</title>
-        <style>
-            .print-area {
-                width: 210mm;
-                height : 297mm;
-                border: solid 2px #888888;
-                border-radius: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <embed class="print-area" src="print.html">
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>계산서 출력</title>
+    <link href="./css/biz/report.css" rel="stylesheet">
+    <link href="./css/biz/print.css" rel="stylesheet">
+    <script src="./js/ajax/Ajax.js"></script>
+    <script src="./json/Local.json"></script>
+    <script>
+        const today = new Date().toISOString().slice(0, 10);
+
+        const printOrderInfo = () => {
+            const printArea = document.querySelector('.print-area');
+
+            debugger;
+        }
+
+        window.onload = () => {
+            const orderEndDateTag = document.querySelector('input[data-role="order_date_end"]');
+            const printDateTag = document.querySelector('#input-print-date');
+
+            orderEndDateTag.value = today;
+            printDateTag.value = today;
+        }
+    </script>
+    <script>
+        window.onload = () => {
+            makeFetch('report', {method : 'GET'}, getSupplierInfo);
+            makeFetch('report/1234', {method : 'GET'}, getReportList);
+        };
+
+        const getSupplierInfo = (result)=> {
+            const keys = Object.keys(result);
+
+            keys.forEach((key) => {putSupplier(key, result)});
+        };
+
+        const putSupplier = (role, supplier)=>{
+            const tag = document.querySelector(`td[data-role="${role}"]`)
+
+            tag.innerHTML = supplier[role];
+        };
+
+        const getReportList = (result) => {
+            const record = document.querySelector('.hidden-record');
+            const tbody = document.querySelector('.order-table').tBodies[0];
+
+            result.forEach((row)=>{
+                const clone = record.cloneNode(true);
+
+                
+                clone.classList.remove('hidden-record');
+                Object.keys(row).forEach((key)=>{
+                    const column = clone.querySelector(`td[data-role="${key}"]`);
+                    
+                    if(column !== null){
+                        column.innerText = row[key];
+                    }
+                });
+                
+                tbody.appendChild(clone);
+            });
+        }
+
+        const windowPrint = () => {
+            const printBottomArea = document.querySelector('.print-bottom-area');
+            const inputBoxArea = document.querySelector('.input-box-area');
+            const bodyTag = document.body;
+            const printWrap = document.querySelector('.print-wrap');
+            const printArea = document.querySelector('.print-area');
+            const printBody = document.querySelector('.print-body');
+            const parentDom = parent.document;
+            const header = parentDom.querySelector('.header');
+            const copyrightArea = parentDom.querySelector('.copyright-area')
+
+            printBottomArea.classList.add('hidden-area');
+            inputBoxArea.classList.add('hidden-area');
+            bodyTag.classList.add('margin-zero');
+            printWrap.classList.add('print-mode');
+            printArea.classList.add('margin-zero');
+            printArea.classList.add('border-zero');
+            printBody.classList.add('margin-zero');
+            header.classList.add('hidden-area');
+            copyrightArea.classList.add('hidden-area');
+
+            // setTimeout(()=>{
+            //     printBottomArea.classList.remove('hidden-area');
+            //     inputBoxArea.classList.remove('hidden-area');
+            //     bodyTag.classList.remove('margin-zero');
+                    // printWrap.classList.remove('print-mode');
+                    // printArea.classList.remove('margin-zero');
+                    // printArea.classList.remove('border-zero');
+                    // printBody.classList.remove('margin-zero');
+            // }, 3000, printBottomArea, inputBoxArea, bodyTag, printWrap, printArea, printBody);
+            
+        }
+    </script>
+</head>
+
+<body>
+    <div class="left-area input-box-area">
+        <div class="left-area label-area">
+            <div class="label-field">입력일자<span class="required">*</span></div>
+            <div class="label-field">거래처<span class="required">*</span></div>
+            <div class="label-field">차대번호</div>
+            <div class="label-field">입력대상<span class="required">*</span></div>
+            <div class="label-field">출력일자<span class="required">*</span></div>
+            <div class="label-field">부가세포함</div>
+        </div>
+        <div class="right-area input-area">
+            <div class="input-field"><input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_start">~<input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_end"></div>
+            <div class="input-field"><input type="text" required="" data-role="customer"></div>
+            <div class="input-field"><input id="input-bike-number" type="number" required="" min="0" data-role="bike_number"></div>
+            <div class="input-field"><input id="input-approver" type="text" required="" min="0" data-role="approver"></div>
+            <div class="input-field"><input id="input-print-date" type="date" required="" min="0" pattern="\d{4}-\d{2}-\d{2}" data-role="print_date"></div>
+            <div class="input-field"><input type="checkbox" required="" min="0" data-role="bike_number" checked></div>
+        </div>
+        <div class="half-left-area"><input class="function-button red-button" type="button" value="견적서 양식 보기" onclick="printOrderInfo()">
+        </div>
+    </div>
+    <div class="right-area print-wrap">
+        <div class="print-area">
+            <div class="print-body">
+                <div class="top-area">
+                    <!-- <div class="top-left-area">
+                        <div class="left-decoration">NO.1</div>
+                    </div> -->
+                    <div class="title-area">
+                        <div class="title-font">
+                            <span class="title-decoration-start">계산</span><span class="title-decoration-end">서</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <div class="content-left-area">
+                        <div class="content-info">2021년07월18일</div>
+                        <div class="content-info"><span class="highlight-text">군산우체국장님</span> 귀하</div>
+                        <div class="content-info"><span class="highlight-text">아래와 같이 계산합니다.</span></div>
+                    </div>
+                    <div class="content-right-area">
+                        <table class="content-table supplier-info">
+                            <caption class="hidden-area">공급자 표</caption>
+                            <tr class="hidden-area">
+                                <th scope="col"></th>
+                            </tr>
+                            <tr>
+                                <td rowspan="5">공<br>급<br>자</td>
+                                <td>등록번호</td>
+                                <td colspan="3" data-role="comp_regi_numb">401-02-49739</td>
+                            </tr>
+                            <tr>
+                                <td>상호</td>
+                                <td data-role="comp_name"></td>
+                                <td>대표</td>
+                                <td data-role="owner_name"></td>
+                            </tr>
+                            <tr>
+                                <td>사업장소재지</td>
+                                <td colspan="3" data-role="address"></td>
+                            </tr>
+                            <tr>
+                                <td>업태</td>
+                                <td data-role="busi_cond_name"></td>
+                                <td>종목</td>
+                                <td data-role="busi_info_name"></td>
+                            </tr>
+                            <tr>
+                                <td>전화<br>FAX</td>
+                                <td colspan="3" data-role="tel_info"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <table class="order-table"> 
+                        <caption class="hidden-area">품목 표</caption>
+                        <tr>
+                            <th scope="col">합계금액<br>(공급가액 + 세액)</th>
+                            <th colspan="5" scope="col" data-role="total">삼십만 원정 (300,000) <br>(272,727 + 27,273)</th>
+                        </tr>
+                        <tr>
+                            <td class="item-column">품목</td>
+                            <td class="unit-column">규격</td>
+                            <td class="count-column">수량</td>
+                            <td class="price-column">단가</td>
+                            <td class="supplied-value-column">공급가액</td>
+                            <td class="tax-column">세액</td>
+                        </tr>
+                        <tr class="hidden-record">
+                            <td data-role="item_name"></td>
+                            <td class="unit-column" data-role="unit_name"></td>
+                            <td class="count-column" data-role="count"></td>
+                            <td class="number-presentation" data-role="price"></td>
+                            <td class="number-presentation" data-role="supplied_value"></td>
+                            <td class="number-presentation" data-role="tax"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="print-bottom-area">
+                    <div class="paging-area">
+                        <span class="paging-number">1</span>
+                    </div>
+                    <div class="print-button-area">
+                        <input class="print-button" type="button" value="인쇄 하기" onclick="windowPrint()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
