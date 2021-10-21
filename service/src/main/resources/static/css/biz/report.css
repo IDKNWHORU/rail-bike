@@ -76,8 +76,7 @@ div.input-area > div > input[type='checkbox'] {
     width: 125px;
 }
 .print-area {
-    width: 195mm;
-    /* height: 297mm; */
+    width: 193mm;
     border: solid 2px #888888;
     border-radius: 5px;
     margin-left: 16px;
