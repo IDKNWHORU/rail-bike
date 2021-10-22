@@ -1,12 +1,102 @@
-.item-table{border-spacing: 0; width: 99vw;}
-input[type="text"], input[type="number"]{width: 80%; height:20px; margin-left: 7%;}
-input[type="text"]:focus, input[type="number"]:focus{background-color:#fffeef;}
-input[type="text"]:hover, input[type="number"]:hover{cursor: pointer;}
-.function-button{width:100%;height:26px;}
-.function-button:focus{background-color:#bbbbbb;}
-.item-table>tbody>tr:nth-child(1){background-color: #ffdf;}
-.item-code:read-only{background-color:#dddddd;}
-.item-code:read-only:focus{background-color:#dddddd;}
-.item-caption{border:solid 1px; background-color:#cfcfcf; text-align: left; margin-bottom: 8px;}
-.highlight-font{color:red; font-weight:bold;}
-.item-table>tbody>tr:nth-child(2){background-color: rgb(240, 120, 40);}
+.item-table {
+  border-spacing: 0;
+  width: 99vw;
+}
+input[type='text'],
+input[type='number'] {
+  width: 95%;
+  height: 20px;
+}
+input[type='text']:focus,
+input[type='number']:focus {
+  background-color: #fffeef;
+}
+input[type='text']:hover,
+input[type='number']:hover {
+  cursor: pointer;
+}
+.function-button {
+  width: 100%;
+  height: 26px;
+}
+.function-button:focus {
+  background-color: #bbbbbb;
+}
+.item-table > tbody > tr:nth-child(1) {
+  background-color: #ffffff;
+}
+.item-code:read-only {
+  background-color: #dddddd;
+}
+.item-code:read-only:focus {
+  background-color: #dddddd;
+}
+.item-caption {
+  text-align: left;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  padding: 5px;
+  border: solid 1px #999999;
+}
+.highlight-font {
+  color: red;
+  font-weight: bold;
+}
+.item-table > tbody > tr:nth-child(2) {
+  background-color: rgb(240, 120, 40);
+}
+th {
+    height: 32px;
+    border: none;
+    border-top: solid 2px #000000;
+    border-right: solid 1px #bbbbbb;
+    border-bottom: solid 2px #000000;
+}
+
+th:last-child {
+    border-right: none;
+}
+
+td {
+    height: 30px;
+    border: none;
+    border-right : solid 1px #bbbbbb;
+    border-bottom: solid 1px #bbbbbb;
+    padding: 3px;
+    padding-left: 10px;
+}
+
+td:nth-child(6n) {
+    background-color: #ffffff;
+    border-right: none;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+td:nth-child(7n) {
+    background-color: #ffffff;
+    border-right: none;
+    padding-left: 5px;
+}
+
+.save-button {
+    background-color : #01fd01;
+    border: solid 1px #00db00;
+}
+
+.save-button:hover{
+    background-color : #00c000;
+    border: solid 1px #299029;   
+    color: #505050;
+}
+
+.delete-button{
+    background-color: #ff3434;
+    border: solid 1px red;
+}
+
+.delete-button:hover{
+    background-color: #d11a1a;
+    border: solid 1px #990d0d;
+    color: #505050;
+}
