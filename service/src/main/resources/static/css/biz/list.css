@@ -9,6 +9,7 @@
 .label-area{width:75px;}
 .list-area{width:calc(100% - 320px); height: 98vh; padding-left: 8px;}
 .input-area{width:calc(300px - 80px);}
+.input-field{height: 25px; margin-top: 5px;}
 div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
 .total-field{text-align: right;}
 .function-button{width: 100%; margin-top: 10px; height: 32px; border-radius: 15px; font-size: 16px; padding-bottom: 3px; cursor: pointer;}
@@ -24,7 +25,6 @@ div.input-area>div>input{width:205px; padding: 0px; height: 20px;}
 input[type=number]{text-align:right;}
 input[type=data]input[type=text]{height: 15px;}
 .hidden-field{display:none;}
-.input-field{height: 25px; margin-top: 5px;}
 .readonly-field{background-color: #bbbbbb; border: solid 1px #666666; padding: 0px 1px !important; color: #464646;}
 .item-caption{border: solid 1px #cfcf96; background-color: #f5f5dc; padding: 6px; margin-bottom: 5px;}
 table{border-spacing: 0px;}
