@@ -12,32 +12,40 @@
         const today = new Date().toISOString().slice(0, 10);
 
         const printOrderInfo = () => {
+            const inputOrderDates = document.querySelectorAll('#input-order-date');
             const printArea = document.querySelector('.print-area');
+            const inputPrintDate = document.querySelector('#input-print-date');
 
-            debugger;
+            putApprover();
+            putPrintDate(inputPrintDate.value);
+            requestPrintList(inputOrderDates[0].value, inputOrderDates[1].value);
         }
-
+    </script>
+    <script>
         window.onload = () => {
+            putPrintDate();
             const orderEndDateTag = document.querySelector('input[data-role="order_date_end"]');
             const printDateTag = document.querySelector('#input-print-date');
 
             orderEndDateTag.value = today;
             printDateTag.value = today;
-        }
-    </script>
-    <script>
-        window.onload = () => {
-            makeFetch('report', {method : 'GET'}, getSupplierInfo);
-            makeFetch('report/1234', {method : 'GET'}, getReportList);
+
+            makeFetch('report', {
+                method: 'GET'
+            }, getSupplierInfo);
+
+            requestPrintList(today, today);
         };
 
-        const getSupplierInfo = (result)=> {
+        const getSupplierInfo = (result) => {
             const keys = Object.keys(result);
 
-            keys.forEach((key) => {putSupplier(key, result)});
+            keys.forEach((key) => {
+                putSupplier(key, result)
+            });
         };
 
-        const putSupplier = (role, supplier)=>{
+        const putSupplier = (role, supplier) => {
             const tag = document.querySelector(`td[data-role="${role}"]`)
 
             tag.innerHTML = supplier[role];
@@ -47,33 +55,35 @@
             const record = document.querySelector('.hidden-record');
             const tbody = document.querySelector('.order-table').tBodies[0];
 
-            result.forEach((row)=>{
+            result.forEach((row) => {
                 const clone = record.cloneNode(true);
 
-                
+
                 clone.classList.remove('hidden-record');
-                Object.keys(row).forEach((key)=>{
+                Object.keys(row).forEach((key) => {
                     const column = clone.querySelector(`td[data-role="${key}"]`);
-                    
-                    if(column !== null){
+
+                    if (column !== null) {
                         column.innerText = row[key];
                     }
                 });
-                
+
                 tbody.appendChild(clone);
             });
         }
 
         const windowPrint = () => {
-            const printBottomArea = document.querySelector('.print-bottom-area');
-            const inputBoxArea = document.querySelector('.input-box-area');
-            const bodyTag = document.body;
-            const printWrap = document.querySelector('.print-wrap');
-            const printArea = document.querySelector('.print-area');
-            const printBody = document.querySelector('.print-body');
-            const parentDom = parent.document;
-            const header = parentDom.querySelector('.header');
-            const copyrightArea = parentDom.querySelector('.copyright-area')
+            const {
+                printBottomArea,
+                inputBoxArea,
+                bodyTag,
+                printWrap,
+                printArea,
+                printBody,
+                parentDom,
+                header,
+                copyrightArea
+            } = printRelatedTags();
 
             printBottomArea.classList.add('hidden-area');
             inputBoxArea.classList.add('hidden-area');
@@ -85,16 +95,74 @@
             header.classList.add('hidden-area');
             copyrightArea.classList.add('hidden-area');
 
-            // setTimeout(()=>{
-            //     printBottomArea.classList.remove('hidden-area');
-            //     inputBoxArea.classList.remove('hidden-area');
-            //     bodyTag.classList.remove('margin-zero');
-                    // printWrap.classList.remove('print-mode');
-                    // printArea.classList.remove('margin-zero');
-                    // printArea.classList.remove('border-zero');
-                    // printBody.classList.remove('margin-zero');
-            // }, 3000, printBottomArea, inputBoxArea, bodyTag, printWrap, printArea, printBody);
-            
+            setTimeout(() => {
+                const {
+                    printBottomArea,
+                    inputBoxArea,
+                    bodyTag,
+                    printWrap,
+                    printArea,
+                    printBody,
+                    parentDom,
+                    header,
+                    copyrightArea
+                } = printRelatedTags();
+
+                printBottomArea.classList.remove('hidden-area');
+                inputBoxArea.classList.remove('hidden-area');
+                bodyTag.classList.remove('margin-zero');
+                printWrap.classList.remove('print-mode');
+                printArea.classList.remove('margin-zero');
+                printArea.classList.remove('border-zero');
+                printBody.classList.remove('margin-zero');
+                header.classList.remove('hidden-area');
+                copyrightArea.classList.remove('hidden-area');
+            }, 3000);
+
+        }
+
+        const printRelatedTags = () => {
+            const printBottomArea = document.querySelector('.print-bottom-area');
+            const inputBoxArea = document.querySelector('.input-box-area');
+            const bodyTag = document.body;
+            const printWrap = document.querySelector('.print-wrap');
+            const printArea = document.querySelector('.print-area');
+            const printBody = document.querySelector('.print-body');
+            const parentDom = parent.document;
+            const header = parentDom.querySelector('.header');
+            const copyrightArea = parentDom.querySelector('.copyright-area');
+
+            return {
+                printBottomArea,
+                inputBoxArea,
+                bodyTag,
+                printWrap,
+                printArea,
+                printBody,
+                parentDom,
+                header,
+                copyrightArea
+            }
+        }
+
+        const putPrintDate = (printDate = today) => {
+            const outputPrintDate = document.querySelector('.output-print-date');
+            const dateArray = printDate.split('-');
+
+            outputPrintDate.innerText = `${dateArray[0]}년${dateArray[1]}월${dateArray[2]}일`
+        };
+
+        const putApprover = () => {
+            const outputApprover = document.querySelector('.output-approver');
+            const inputApprover = document.querySelector('#input-approver');
+
+            outputApprover.innerText = inputApprover.value;
+        };
+
+        const requestPrintList = (startDate = today, endDate = today) => {
+            makeFetch(`report/${startDate}/${endDate}`, {
+                method: 'GET'
+            }, getReportList);
         }
     </script>
 </head>
@@ -110,14 +178,20 @@
             <div class="label-field">부가세포함</div>
         </div>
         <div class="right-area input-area">
-            <div class="input-field"><input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_start">~<input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_end"></div>
+            <div class="input-field"><input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}"
+                    data-role="order_date_start">~<input id="input-order-date" type="date" required=""
+                    pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_end"></div>
             <div class="input-field"><input type="text" required="" data-role="customer"></div>
-            <div class="input-field"><input id="input-bike-number" type="number" required="" min="0" data-role="bike_number"></div>
-            <div class="input-field"><input id="input-approver" type="text" required="" min="0" data-role="approver"></div>
-            <div class="input-field"><input id="input-print-date" type="date" required="" min="0" pattern="\d{4}-\d{2}-\d{2}" data-role="print_date"></div>
+            <div class="input-field"><input id="input-bike-number" type="number" required="" min="0"
+                    data-role="bike_number"></div>
+            <div class="input-field"><input id="input-approver" type="text" required="" min="0" data-role="approver">
+            </div>
+            <div class="input-field"><input id="input-print-date" type="date" required="" min="0"
+                    pattern="\d{4}-\d{2}-\d{2}" data-role="print_date"></div>
             <div class="input-field"><input type="checkbox" required="" min="0" data-role="bike_number" checked></div>
         </div>
-        <div class="half-left-area"><input class="function-button red-button" type="button" value="견적서 양식 보기" onclick="printOrderInfo()">
+        <div class="half-left-area"><input class="function-button red-button" type="button" value="견적서 양식 보기"
+                onclick="printOrderInfo()">
         </div>
     </div>
     <div class="right-area print-wrap">
@@ -135,8 +209,8 @@
                 </div>
                 <div class="content-area">
                     <div class="content-left-area">
-                        <div class="content-info">2021년07월18일</div>
-                        <div class="content-info"><span class="highlight-text">군산우체국장님</span> 귀하</div>
+                        <div class="content-info output-print-date">2021년07월18일</div>
+                        <div class="content-info"><span class="highlight-text output-approver"></span><span class="highlight-text">님</span> 귀하</div>
                         <div class="content-info"><span class="highlight-text">아래와 같이 계산합니다.</span></div>
                     </div>
                     <div class="content-right-area">
@@ -174,7 +248,7 @@
                     </div>
                 </div>
                 <div class="table-area">
-                    <table class="order-table"> 
+                    <table class="order-table">
                         <caption class="hidden-area">품목 표</caption>
                         <tr>
                             <th scope="col">합계금액<br>(공급가액 + 세액)</th>
