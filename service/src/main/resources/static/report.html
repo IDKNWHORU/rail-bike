@@ -54,6 +54,15 @@
         const getReportList = (result) => {
             const record = document.querySelector('.hidden-record');
             const tbody = document.querySelector('.order-table').tBodies[0];
+            const suppliedValueNumber = document.querySelector('.supplied-value-number');
+            const taxNumber = document.querySelector('.tax-number');
+            const totalNumber = document.querySelector('.total-number')
+
+            const displayRecords = document.querySelectorAll('.display-record');
+
+            Array.from(displayRecords).slice(1).forEach((displayRecord) => {
+                tbody.removeChild(displayRecord);
+            });
 
             result.forEach((row) => {
                 const clone = record.cloneNode(true);
@@ -70,9 +79,13 @@
 
                 tbody.appendChild(clone);
             });
+
+            suppliedValueNumber.innerText = result[result.length-1].supplied_value;
+            taxNumber.innerText = result[result.length-1].tax;
+            totalNumber.innerText = result[result.length-1].total;
         }
 
-        const windowPrint = () => {
+        const beforePrint = () => {
             const {
                 printBottomArea,
                 inputBoxArea,
@@ -94,31 +107,30 @@
             printBody.classList.add('margin-zero');
             header.classList.add('hidden-area');
             copyrightArea.classList.add('hidden-area');
+        };
 
-            setTimeout(() => {
-                const {
-                    printBottomArea,
-                    inputBoxArea,
-                    bodyTag,
-                    printWrap,
-                    printArea,
-                    printBody,
-                    parentDom,
-                    header,
-                    copyrightArea
-                } = printRelatedTags();
+        const afterPrint = () => {
+            const {
+                printBottomArea,
+                inputBoxArea,
+                bodyTag,
+                printWrap,
+                printArea,
+                printBody,
+                parentDom,
+                header,
+                copyrightArea
+            } = printRelatedTags();
 
-                printBottomArea.classList.remove('hidden-area');
-                inputBoxArea.classList.remove('hidden-area');
-                bodyTag.classList.remove('margin-zero');
-                printWrap.classList.remove('print-mode');
-                printArea.classList.remove('margin-zero');
-                printArea.classList.remove('border-zero');
-                printBody.classList.remove('margin-zero');
-                header.classList.remove('hidden-area');
-                copyrightArea.classList.remove('hidden-area');
-            }, 3000);
-
+            printBottomArea.classList.remove('hidden-area');
+            inputBoxArea.classList.remove('hidden-area');
+            bodyTag.classList.remove('margin-zero');
+            printWrap.classList.remove('print-mode');
+            printArea.classList.remove('margin-zero');
+            printArea.classList.remove('border-zero');
+            printBody.classList.remove('margin-zero');
+            header.classList.remove('hidden-area');
+            copyrightArea.classList.remove('hidden-area');
         }
 
         const printRelatedTags = () => {
@@ -163,6 +175,14 @@
             makeFetch(`report/${startDate}/${endDate}`, {
                 method: 'GET'
             }, getReportList);
+        };
+
+        window.onbeforeprint = () => {
+            beforePrint();
+        }
+
+        window.onafterprint = () => {
+            afterPrint();
         }
     </script>
 </head>
@@ -210,7 +230,8 @@
                 <div class="content-area">
                     <div class="content-left-area">
                         <div class="content-info output-print-date">2021년07월18일</div>
-                        <div class="content-info"><span class="highlight-text output-approver"></span><span class="highlight-text">님</span> 귀하</div>
+                        <div class="content-info"><span class="highlight-text output-approver"></span><span
+                                class="highlight-text">님</span> 귀하</div>
                         <div class="content-info"><span class="highlight-text">아래와 같이 계산합니다.</span></div>
                     </div>
                     <div class="content-right-area">
@@ -252,7 +273,7 @@
                         <caption class="hidden-area">품목 표</caption>
                         <tr>
                             <th scope="col">합계금액<br>(공급가액 + 세액)</th>
-                            <th colspan="5" scope="col" data-role="total">삼십만 원정 (300,000) <br>(272,727 + 27,273)</th>
+                            <th colspan="5" scope="col" data-role="total">삼십만 원정 (<span class="total-number"></span>) <br>(<span class="supplied-value-number"></span> + <span class="tax-number"></span>)</th>
                         </tr>
                         <tr>
                             <td class="item-column">품목</td>
@@ -262,7 +283,7 @@
                             <td class="supplied-value-column">공급가액</td>
                             <td class="tax-column">세액</td>
                         </tr>
-                        <tr class="hidden-record">
+                        <tr class="hidden-record display-record">
                             <td data-role="item_name"></td>
                             <td class="unit-column" data-role="unit_name"></td>
                             <td class="count-column" data-role="count"></td>
@@ -277,7 +298,7 @@
                         <span class="paging-number">1</span>
                     </div>
                     <div class="print-button-area">
-                        <input class="print-button" type="button" value="인쇄 하기" onclick="windowPrint()">
+                        <input class="print-button" type="button" value="인쇄 하기" onclick="window.print()">
                     </div>
                 </div>
             </div>
