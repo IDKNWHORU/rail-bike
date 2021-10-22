@@ -85,12 +85,9 @@ public class Controller {
 
     public Map<String, Object> getMessage(int typeCode) {
         Map<String, Object> result = new HashMap<>();
+        boolean typeCodeResult = getTypeCodeResult(typeCode);
 
-        if (typeCode == 1) {
-            result.put("result", true);
-        } else {
-            result.put("result", false);
-        }
+        result.put("result", typeCodeResult);
 
         if (typeCode == 0) {
             result.put("msg", "전표내용이 누락되었습니다. 빠짐없이 기록해주세요.");
@@ -103,13 +100,13 @@ public class Controller {
         return result;
     }
 
+    public boolean getTypeCodeResult(int typeCode){
+        return typeCode == 1;
+    }
+
     @GetMapping("/report")
     public Map<String, Object> getSupplier() {
-        Map<String, Object> result = new HashMap<>();
-
-        result = itemMapper.getSupplierInfo();
-
-        return result;
+        return itemMapper.getSupplierInfo();
     }
 
     @GetMapping("/report/{startDate}/{endDate}")
@@ -144,11 +141,12 @@ public class Controller {
     }
 
     public Map<String, Object> createTotalMap(int suppliedValue, int tax) {
-        Map<String, Object> totalObject = new HashMap<String, Object>();
+        Map<String, Object> totalObject = new HashMap<>();
 
         totalObject.put("item_name", "계");
-        totalObject.put("supplied_value", suppliedValue);
-        totalObject.put("tax", tax);
+        totalObject.put("supplied_value", convertNumberFormat(suppliedValue));
+        totalObject.put("tax", convertNumberFormat(tax));
+        totalObject.put("total", convertNumberFormat(suppliedValue + tax));
 
         return totalObject;
     }
