@@ -27,6 +27,7 @@ input[type='number']:hover {
 }
 .item-code:read-only {
   background-color: #dddddd;
+  border: solid 1px #888888;
 }
 .item-code:read-only:focus {
   background-color: #dddddd;
@@ -46,57 +47,49 @@ input[type='number']:hover {
   background-color: rgb(240, 120, 40);
 }
 th {
-    height: 32px;
-    border: none;
-    border-top: solid 2px #000000;
-    border-right: solid 1px #bbbbbb;
-    border-bottom: solid 2px #000000;
+  height: 32px;
+  border: none;
+  border-top: solid 2px #000000;
+  border-right: solid 1px #bbbbbb;
+  border-bottom: solid 2px #000000;
 }
-
 th:last-child {
-    border-right: none;
+  border-right: none;
 }
-
 td {
-    height: 30px;
-    border: none;
-    border-right : solid 1px #bbbbbb;
-    border-bottom: solid 1px #bbbbbb;
-    padding: 3px;
-    padding-left: 10px;
+  height: 30px;
+  border: none;
+  border-right: solid 1px #bbbbbb;
+  border-bottom: solid 1px #bbbbbb;
+  padding: 3px;
+  padding-left: 10px;
 }
-
 td:nth-child(6n) {
-    background-color: #ffffff;
-    border-right: none;
-    padding-left: 5px;
-    padding-right: 5px;
+  background-color: #ffffff;
+  border-right: none;
+  padding-left: 5px;
+  padding-right: 5px;
 }
-
 td:nth-child(7n) {
-    background-color: #ffffff;
-    border-right: none;
-    padding-left: 5px;
+  background-color: #ffffff;
+  border-right: none;
+  padding-left: 5px;
 }
-
 .save-button {
-    background-color : #01fd01;
-    border: solid 1px #00db00;
+  background-color: #01fd01;
+  border: solid 1px #00db00;
 }
-
-.save-button:hover{
-    background-color : #00c000;
-    border: solid 1px #299029;   
-    color: #505050;
+.save-button:hover {
+  background-color: #00c000;
+  border: solid 1px #299029;
+  color: #505050;
 }
-
-.delete-button{
-    background-color: #ff3434;
-    border: solid 1px red;
+.delete-button {
+  background-color: #ff3434;
+  border: solid 1px red;
 }
-
-.delete-button:hover{
-    background-color: #d11a1a;
-    border: solid 1px #990d0d;
-    color: #505050;
+.delete-button:hover {
+  background-color: #d11a1a;
+  border: solid 1px #990d0d;
+  color: #505050;
 }
