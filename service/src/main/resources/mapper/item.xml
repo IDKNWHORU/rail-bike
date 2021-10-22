@@ -85,7 +85,13 @@
     </select>
 
     <select id="getReportList" resultType="hashMap">
-        select *
-        from vw_order_report;
+        select item_name
+             , sum(count) count
+             , price
+             , sum(labor) labor
+             , unit_name
+          from vw_order_report
+         where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
+         group by item_name
     </select>
 </mapper>

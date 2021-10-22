@@ -27,34 +27,34 @@ public class Controller {
     }
 
     @GetMapping("/item")
-    public List<Map<String, Object>> loadItemList(){
+    public List<Map<String, Object>> loadItemList() {
         return itemMapper.selectItem();
     }
 
     @PutMapping("/item/{itemCode}")
-    public int saveItemInfo(@PathVariable String itemCode, @RequestBody Map<String, Object> itemInfo){
+    public int saveItemInfo(@PathVariable String itemCode, @RequestBody Map<String, Object> itemInfo) {
         itemInfo.put("item_code", itemCode);
 
         return itemMapper.insertItem(itemInfo);
     }
 
     @DeleteMapping("/item/{itemCode}")
-    public int deleteItemInfo(@PathVariable String itemCode){
+    public int deleteItemInfo(@PathVariable String itemCode) {
         return itemMapper.deleteItem(itemCode);
     }
 
     @GetMapping("/order")
-    public List<Map<String, Object>> loadOrderList(){
+    public List<Map<String, Object>> loadOrderList() {
         return itemMapper.selectOrderList();
     }
 
     @GetMapping("/unit")
-    public List<Map<String, String>> loadUnitList(){
+    public List<Map<String, String>> loadUnitList() {
         return itemMapper.selectUnitList();
     }
 
     @PutMapping("/order")
-    public Object saveOrderInfo(@RequestBody Map<String, Object> orderInfo){
+    public Object saveOrderInfo(@RequestBody Map<String, Object> orderInfo) {
         String formatedDate = orderInfo.get("order_date").toString().replace("-", "");
 
         orderInfo.put("order_date", formatedDate);
@@ -65,7 +65,7 @@ public class Controller {
     }
 
     @PostMapping("/order/{orderUniq}")
-    public Object editOrderInfo(@PathVariable int orderUniq, @RequestBody Map<String, Object> orderInfo){
+    public Object editOrderInfo(@PathVariable int orderUniq, @RequestBody Map<String, Object> orderInfo) {
         String formatedDate = orderInfo.get("order_date").toString().replace("-", "");
 
         orderInfo.put("order_date", formatedDate);
@@ -77,26 +77,26 @@ public class Controller {
     }
 
     @DeleteMapping("/order/{orderUniq}")
-    public Object deleteOrderInfo(@PathVariable int orderUniq){
+    public Object deleteOrderInfo(@PathVariable int orderUniq) {
         int queryResult = itemMapper.deleteOrderInfo(orderUniq);
 
         return getMessage(queryResult);
     }
 
-    public Map<String, Object> getMessage(int typeCode){
+    public Map<String, Object> getMessage(int typeCode) {
         Map<String, Object> result = new HashMap<>();
 
-        if(typeCode == 1){
+        if (typeCode == 1) {
             result.put("result", true);
-        }else{
+        } else {
             result.put("result", false);
         }
 
-        if(typeCode == 0){
+        if (typeCode == 0) {
             result.put("msg", "전표내용이 누락되었습니다. 빠짐없이 기록해주세요.");
-        }else if(typeCode == 1){
+        } else if (typeCode == 1) {
             result.put("msg", "전표가 등록되었습니다.");
-        }else if(typeCode == 2){
+        } else if (typeCode == 2) {
             result.put("msg", "해당 품목은 등록되지 않은 품목입니다.");
         }
 
@@ -104,7 +104,7 @@ public class Controller {
     }
 
     @GetMapping("/report")
-    public Map<String, Object> getSupplier(){
+    public Map<String, Object> getSupplier() {
         Map<String, Object> result = new HashMap<>();
 
         result = itemMapper.getSupplierInfo();
@@ -112,41 +112,58 @@ public class Controller {
         return result;
     }
 
-    @GetMapping("/report/{date}")
-    public Object getReport(){
-        List<Map<String, Object>> reportList = itemMapper.getReportList();
-        int totalPrice = getTotalPrice(reportList);
+    @GetMapping("/report/{startDate}/{endDate}")
+    public Object getReport(@PathVariable String startDate, @PathVariable String endDate) {
+        List<Map<String, Object>> reportList = itemMapper.getReportList(startDate, endDate);
+        int suppliedTotalValue = 0;
+        int taxTotalValue = 0;
         
-        Map<String, Object> lastObject = createTotalMap(totalPrice);
+        for (Map<String, Object> reportObject : reportList) {
+            int price = (int) reportObject.get("price");
+            BigDecimal count = (BigDecimal) reportObject.get("count");
+            BigDecimal labor = (BigDecimal) reportObject.get("labor");
+            
+            BigDecimal totalBigDecimal = new BigDecimal((price * count.intValue()) + labor.intValue());
+            
+            int suppliedIntValue = suppliedValue(totalBigDecimal);
+            int taxIntValue = tax(totalBigDecimal);
+            
+            suppliedTotalValue += suppliedIntValue;
+            taxTotalValue += taxIntValue;
+            
+            reportObject.put("supplied_value", convertNumberFormat(suppliedIntValue));
+            reportObject.put("tax", convertNumberFormat(taxIntValue));
+            reportObject.put("price", convertNumberFormat(price));
+        }
+
+        Map<String, Object> lastObject = createTotalMap(suppliedTotalValue, taxTotalValue);
 
         reportList.add(lastObject);
 
         return reportList;
     }
 
-    public int getTotalPrice(List<Map<String, Object>> list){
-        int total = 0;
-
-        for(Map<String, Object> reportObject : list){
-            int supplied_value = Integer.parseInt(reportObject.get("supplied_value").toString());
-            int tax = Integer.parseInt(reportObject.get("tax").toString());
-
-            total += supplied_value + tax;
-        }
-
-        return total;
-    }
-
-    public Map<String, Object> createTotalMap(int price){
+    public Map<String, Object> createTotalMap(int suppliedValue, int tax) {
         Map<String, Object> totalObject = new HashMap<String, Object>();
-        BigDecimal total = new BigDecimal(price);
-        int supplied_value = total.divide(new BigDecimal("1.1"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN).intValue();
-        int tax = total.divide(new BigDecimal("11"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN).intValue();
 
         totalObject.put("item_name", "계");
-        totalObject.put("supplied_value", NumberFormat.getIntegerInstance().format(supplied_value));
-        totalObject.put("tax", NumberFormat.getIntegerInstance().format(tax));
+        totalObject.put("supplied_value", suppliedValue);
+        totalObject.put("tax", tax);
 
         return totalObject;
+    }
+
+    public int suppliedValue(BigDecimal number) {
+        return number.divide(new BigDecimal("1.1"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN)
+                .intValue();
+    }
+
+    public int tax(BigDecimal number) {
+        return number.divide(new BigDecimal("11"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN)
+                       .intValue();
+    }
+
+    public String convertNumberFormat(int number) {
+        return NumberFormat.getIntegerInstance().format(number);
     }
 }
