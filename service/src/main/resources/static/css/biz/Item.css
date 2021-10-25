@@ -1,10 +1,9 @@
 .item-table {
   border-spacing: 0;
-  width: 99vw;
+  width: 1000px;
 }
 input[type='text'],
 input[type='number'] {
-  width: 95%;
   height: 20px;
 }
 input[type='text']:focus,
@@ -19,7 +18,7 @@ input[type='number'] {
   text-align: end;
 }
 .function-button {
-  width: 100%;
+  width: 75px;
   height: 26px;
 }
 .function-button:focus {
@@ -95,4 +94,19 @@ td:nth-child(7n) {
   background-color: #d11a1a;
   border: solid 1px #990d0d;
   color: #505050;
+}
+.item-code{
+  width: 120px;
+}
+.item-name{
+  width: 250px;
+}
+.unit-name{
+  width: 150px;
+}
+.price{
+  width: 100px;
+}
+.order{
+  width: 50px;
 }
