@@ -148,3 +148,15 @@ body {
 .border-zero {
   border: none;
 }
+.order-table>tbody>tr:nth-child(2)>td{
+  background-color: #cccccc;
+  -webkit-print-color-adjust:exact;
+}
+.order-table>tbody>tr:last-child>td{
+  background-color: #dddddd;
+  font-weight: bold;
+  -webkit-print-color-adjust:exact;
+}
+.order-table>tbody>tr:last-child>td:first-child{
+  text-align: center;
+}
