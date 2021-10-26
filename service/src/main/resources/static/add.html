@@ -18,7 +18,34 @@
         window.onload = () => {
             getListInfo();
             getItemList();
+            getPostList();
         };
+
+        const getPostList = () => {
+            makeFetch('post', {
+                method: 'GET'
+            }, putPostList);
+        };
+
+        const putPostList = (postList) => {
+            const selectTag = document.querySelector('#input-customer');
+            const optionTag = selectTag.options[0];
+
+            postList.forEach((postInfo)=>{
+                const copyOption = clonePostOption(optionTag, postInfo);
+
+                selectTag.appendChild(copyOption);
+            });
+        }
+
+        const clonePostOption = (optionTag, postInfo) => {
+            const copyOption = optionTag.cloneNode(true);
+
+            copyOption.value = postInfo.post_numb;
+            copyOption.innerText = postInfo.post_name;
+
+            return copyOption;
+        }
     </script>
     <title>전표등록</title>
 </head>
@@ -38,14 +65,23 @@
                 <label class="label-field">합계</label>
             </div>
             <div class="right-area input-area">
-                <div class="input-field"><input id="input-order-date" type="date" required pattern="\d{4}-\d{2}-\d{2}" data-role="order_date"></div>
-                <div class="input-field"><input id="input-customer" type="text" required data-role="customer"></div>
-                <div class="input-field"><input id="input-bike-number" type="number" required min="0" data-role="bike_number"></div>
-                <div class="input-field"><input id="input-item-code" type="text" required data-role="item_code" list="item_list" onchange="dataListChange(this)"></div>
-                <div class="input-field"><input id="input-count" type="number" min="0" value="1" required data-role="count" onchange="writeTotalPrice()"></div>
-                <div class="input-field"><input id="input-price" class="readonly-field" type="number" min="0" value="0" required data-role="item_price" readonly></div>
-                <div class="input-field"><input id="input-labor" type="number" min="0" value="0" data-role="labor" onchange="writeTotalPrice()"></div>
-                <div class="input-field"><input class="total-field readonly-field" type="number" min="0" value="0" data-role="total_price" readonly></div>
+                <div class="input-field"><input id="input-order-date" type="date" required pattern="\d{4}-\d{2}-\d{2}"
+                        data-role="order_date"></div>
+                <div class="input-field"><select id="input-customer" type="text" required data-role="customer">
+                        <option value=""></option>
+                    </select></div>
+                <div class="input-field"><input id="input-bike-number" type="number" required min="0"
+                        data-role="bike_number"></div>
+                <div class="input-field"><input id="input-item-code" type="text" required data-role="item_code"
+                        list="item_list" onchange="dataListChange(this)"></div>
+                <div class="input-field"><input id="input-count" type="number" min="0" value="1" required
+                        data-role="count" onchange="writeTotalPrice()"></div>
+                <div class="input-field"><input id="input-price" class="readonly-field" type="number" min="0" value="0"
+                        required data-role="item_price" readonly></div>
+                <div class="input-field"><input id="input-labor" type="number" min="0" value="0" data-role="labor"
+                        onchange="writeTotalPrice()"></div>
+                <div class="input-field"><input class="total-field readonly-field" type="number" min="0" value="0"
+                        data-role="total_price" readonly></div>
             </div>
             <datalist id="item_list">
                 <option value=""></option>
