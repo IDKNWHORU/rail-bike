@@ -74,14 +74,8 @@
     </select>
 
     <select id="getSupplierInfo" resultType="hashMap">
-        select fn_comp_numb(comp_numb) comp_regi_numb
-            , fn_comp_name(comp_numb) comp_name
-            , fn_human_name(owner) owner_name
-            , fn_zip_info(addr) address
-            , fn_code_name(busi_cond, 'busicond') busi_cond_name
-            , fn_code_name(busi_info, 'busiinfo') busi_info_name
-            , fn_tel_info(tel_numb, fax_numb) tel_info
-         from tb_comp_info
+        select *
+          from vw_supplier_info
     </select>
 
     <select id="getReportList" resultType="hashMap">
@@ -93,5 +87,11 @@
           from vw_order_report
          where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
          group by item_name
+    </select>
+
+    <select id="getPostList" resultType="hashMap">
+        select post_numb,
+               post_name
+          from vw_post_info
     </select>
 </mapper>
