@@ -10,6 +10,7 @@
     <script src="./json/Local.json"></script>
     <script>
         const today = new Date().toISOString().slice(0, 10);
+        const beginMonth = `${today.substring(0,8)}01`;
 
         const printOrderInfo = () => {
             const inputOrderDates = document.querySelectorAll('#input-order-date');
@@ -23,18 +24,14 @@
     </script>
     <script>
         window.onload = () => {
+            putDefaultDateValue();
             putPrintDate();
-            const orderEndDateTag = document.querySelector('input[data-role="order_date_end"]');
-            const printDateTag = document.querySelector('#input-print-date');
-
-            orderEndDateTag.value = today;
-            printDateTag.value = today;
 
             makeFetch('report', {
                 method: 'GET'
             }, getSupplierInfo);
 
-            requestPrintList(today, today);
+            requestPrintList(beginMonth, today);
         };
 
         const getSupplierInfo = (result) => {
@@ -183,6 +180,16 @@
 
         window.onafterprint = () => {
             afterPrint();
+        }
+
+        const putDefaultDateValue = () => {
+            const orderStartDateTag = document.querySelector('input[data-role="order_date_start"]');
+            const orderEndDateTag = document.querySelector('input[data-role="order_date_end"]');
+            const printDateTag = document.querySelector('#input-print-date');
+
+            orderStartDateTag.value = beginMonth;
+            orderEndDateTag.value = today;
+            printDateTag.value = today;
         }
     </script>
 </head>
