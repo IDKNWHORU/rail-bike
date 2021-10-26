@@ -164,4 +164,9 @@ public class Controller {
     public String convertNumberFormat(int number) {
         return NumberFormat.getIntegerInstance().format(number);
     }
+
+    @GetMapping("/post")
+    public Object getPostList(){
+        return itemMapper.getPostList();
+    }
 }

@@ -22,4 +22,6 @@ public interface ItemMapper {
     Map<String, Object> getSupplierInfo();
 
     List<Map<String, Object>> getReportList(String startDate, String endDate);
+
+    List<Map<String, Object>> getPostList();
 }
