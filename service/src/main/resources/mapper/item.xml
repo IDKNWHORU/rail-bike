@@ -22,20 +22,8 @@
     </select>
 
     <select id="selectOrderList" resultType="hashMap">
-        select order_info.*
-             , item_price + labor total_price
-             , row_number() over() order_seq
-          from (
-                select order_uniq
-                     , order_date
-                     , bike_number
-                     , item_code
-                     , fn_code_name(item_code, 'item') item_name
-                     , count
-                     , (select price from tb_item_mstr tim where tim.item_code = tom.item_code) * count item_price
-                     , labor
-                  from tb_order_mstr tom
-               ) order_info
+        select *
+          from vw_order_list
     </select>
 
     <select id="selectUnitList" resultType="hashMap">
