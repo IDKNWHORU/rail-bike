@@ -55,23 +55,20 @@ public class Controller {
 
     @PutMapping("/order")
     public Object saveOrderInfo(@RequestBody Map<String, Object> orderInfo) {
-        String formatedDate = orderInfo.get("order_date").toString().replace("-", "");
+        Map<String, Object> saveInfo = convertDateFormatToSerial(orderInfo);
 
-        orderInfo.put("order_date", formatedDate);
-
-        int queryResult = itemMapper.putOrderInfo(orderInfo);
+        int queryResult = itemMapper.putOrderInfo(saveInfo);
 
         return getMessage(queryResult);
     }
 
     @PostMapping("/order/{orderUniq}")
     public Object editOrderInfo(@PathVariable int orderUniq, @RequestBody Map<String, Object> orderInfo) {
-        String formatedDate = orderInfo.get("order_date").toString().replace("-", "");
+        Map<String, Object> editInfo = convertDateFormatToSerial(orderInfo);
 
-        orderInfo.put("order_date", formatedDate);
-        orderInfo.put("order_uniq", orderUniq);
+        editInfo.put("order_uniq", orderUniq);
 
-        int queryResult = itemMapper.editOrderInfo(orderInfo);
+        int queryResult = itemMapper.editOrderInfo(editInfo);
 
         return getMessage(queryResult);
     }
@@ -168,5 +165,14 @@ public class Controller {
     @GetMapping("/post")
     public Object getPostList(){
         return itemMapper.getPostList();
+    }
+
+    public Map<String, Object> convertDateFormatToSerial(Map<String, Object> orderInfo) {
+        String key = "order_date";
+        String serialDate = orderInfo.get(key).toString().replace("-", "");
+
+        orderInfo.put(key, serialDate);
+
+        return orderInfo;
     }
 }
