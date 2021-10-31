@@ -198,3 +198,6 @@ th:last-child {
   height: 24px;
   padding: 0px;
 }
+.hidden-field {
+  display: none;
+}

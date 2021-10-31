@@ -6,6 +6,7 @@
     <link href="./css/biz/add.css" rel="stylesheet">
     <script src="./js/ajax/Ajax.js"></script>
     <script src="./js/biz/Add.js"></script>
+    <script src="./js/biz/Main.js"></script>
     <script>
         const url = "/order";
 
@@ -20,6 +21,14 @@
             getItemList();
             getPostList();
         };
+
+        const moveEditPage = (column) => {
+            const row = column.parentElement;
+            const orderUniq = row.querySelector('td[data-role="order_uniq"]');
+            const navButton = window.parent.document.querySelector('a[data-nav="list"]');
+
+            clickNav(navButton, `order_uniq=${orderUniq.innerText}`);
+        }
     </script>
     <title>전표등록</title>
 </head>
@@ -79,11 +88,12 @@
                     <td class="order-field number-field" data-role="order_seq"></td>
                     <td class="date-field" data-role="order_date"></td>
                     <td class="car-field number-field" data-role="bike_number"></td>
-                    <td class="item-field hyper-field" data-role="item_name"></td>
+                    <td class="item-field hyper-field" data-role="item_name" onclick="moveEditPage(this)"></td>
                     <td class="quantity-field number-field" data-role="count"></td>
                     <td class="price-field number-field" data-role="item_price"></td>
                     <td class="overpay-field number-field" data-role="labor"></td>
                     <td class="sum-field" data-role="total_price"></td>
+                    <td class="hidden-field" data-role="order_uniq"></td>
                 </tr>
             </table>
         </div>

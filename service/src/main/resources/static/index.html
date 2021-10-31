@@ -57,26 +57,7 @@
                 height: 100%;
             }
         </style>
-        <script>
-            const clickNav = selection => {
-                const direction = selection.dataset.nav;
-                const beforeSeleted = document.querySelector('.active');
-
-                changeActive(beforeSeleted, selection)
-                callFile(direction);
-            };
-
-            const callFile = direction => {
-                const embedTag = document.querySelector('embed');
-
-                embedTag.setAttribute('src', `${direction}.html`);
-            }
-
-            const changeActive = (before, selected) => {
-                before.classList.remove('active');
-                selected.classList.add('active');
-            }
-        </script>
+        <script src="./js/biz/Main.js"></script>
     </head>
     <body>
         <div class="header">
