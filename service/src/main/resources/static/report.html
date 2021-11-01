@@ -8,6 +8,7 @@
     <link href="./css/biz/print.css" rel="stylesheet">
     <script src="./js/ajax/Ajax.js"></script>
     <script src="./json/Local.json"></script>
+    <script src="./js/biz/Post.js"></script>
     <script>
         const today = new Date().toISOString().slice(0, 10);
         const beginMonth = `${today.substring(0,8)}01`;
@@ -16,16 +17,18 @@
             const inputOrderDates = document.querySelectorAll('#input-order-date');
             const printArea = document.querySelector('.print-area');
             const inputPrintDate = document.querySelector('#input-print-date');
+            const postSelect = document.querySelector('#input-customer');
 
             putApprover();
             putPrintDate(inputPrintDate.value);
-            requestPrintList(inputOrderDates[0].value, inputOrderDates[1].value);
+            requestPrintList(inputOrderDates[0].value, inputOrderDates[1].value, postSelect.value);
         }
     </script>
     <script>
         window.onload = () => {
             putDefaultDateValue();
             putPrintDate();
+            getPostList();
 
             makeFetch('report', {
                 method: 'GET'
@@ -168,11 +171,21 @@
             outputApprover.innerText = inputApprover.value;
         };
 
-        const requestPrintList = (startDate = today, endDate = today) => {
-            makeFetch(`report/${startDate}/${endDate}`, {
+        const requestPrintList = (startDate = today, endDate = today, post = '') => {
+            const reportUrl = getReportUrl(`report`, startDate, endDate, post);
+
+            makeFetch(`${reportUrl}`, {
                 method: 'GET'
             }, getReportList);
         };
+
+        const getReportUrl = (url, start, end, post) =>{
+            url += `/${start}/${end}`;
+
+            url += (post == '') ? post : `/${post}`;
+
+            return url;
+        }
 
         window.onbeforeprint = () => {
             beforePrint();
@@ -208,7 +221,7 @@
             <div class="input-field"><input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}"
                     data-role="order_date_start">~<input id="input-order-date" type="date" required=""
                     pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_end"></div>
-            <div class="input-field"><input type="text" required="" data-role="customer"></div>
+            <div class="input-field"><select id="input-customer" type="text" required data-role="customer"><option value=""></option></select></div>
             <div class="input-field"><input id="input-bike-number" type="number" required="" min="0"
                     data-role="bike_number"></div>
             <div class="input-field"><input id="input-approver" type="text" required="" min="0" data-role="approver">

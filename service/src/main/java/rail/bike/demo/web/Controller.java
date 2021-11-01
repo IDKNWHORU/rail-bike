@@ -142,6 +142,37 @@ public class Controller {
         return reportList;
     }
 
+    @GetMapping("/report/{startDate}/{endDate}/{post}")
+    public Object getReportForPost(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String post) {
+        List<Map<String, Object>> reportList = itemMapper.getReportListForPost(startDate, endDate, post);
+        int suppliedTotalValue = 0;
+        int taxTotalValue = 0;
+        
+        for (Map<String, Object> reportObject : reportList) {
+            int price = (int) reportObject.get("price");
+            BigDecimal count = (BigDecimal) reportObject.get("count");
+            BigDecimal labor = (BigDecimal) reportObject.get("labor");
+            
+            BigDecimal totalBigDecimal = new BigDecimal((price * count.intValue()) + labor.intValue());
+            
+            int suppliedIntValue = suppliedValue(totalBigDecimal);
+            int taxIntValue = tax(totalBigDecimal);
+            
+            suppliedTotalValue += suppliedIntValue;
+            taxTotalValue += taxIntValue;
+            
+            reportObject.put("supplied_value", convertNumberFormat(suppliedIntValue));
+            reportObject.put("tax", convertNumberFormat(taxIntValue));
+            reportObject.put("price", convertNumberFormat(price));
+        }
+
+        Map<String, Object> lastObject = createTotalMap(suppliedTotalValue, taxTotalValue);
+
+        reportList.add(lastObject);
+
+        return reportList;
+    }
+
     public Map<String, Object> createTotalMap(int suppliedValue, int tax) {
         Map<String, Object> totalObject = new HashMap<>();
 

@@ -76,16 +76,28 @@
          where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
          group by item_name
     </select>
-
+    
     <select id="getPostList" resultType="hashMap">
         select post_numb,
-               post_name
+        post_name
           from vw_post_info
-    </select>
+        </select>
 
-    <select id="selectOrderInfo" resultType="hashMap">
-        select *
-          from vw_order_list
-         where order_uniq = #{orderUniq}
-    </select>
-</mapper>
+        <select id="selectOrderInfo" resultType="hashMap">
+            select *
+            from vw_order_list
+            where order_uniq = #{orderUniq}
+        </select>
+
+        <select id="getReportListForPost" resultType="hashMap">
+            select item_name
+                 , sum(count) count
+                 , price
+                 , sum(labor) labor
+                 , unit_name
+              from vw_order_report
+             where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
+               and customer = #{post}
+             group by item_name
+        </select>
+    </mapper>
