@@ -48,6 +48,11 @@ public class Controller {
         return itemMapper.selectOrderList();
     }
 
+    @GetMapping("/order/{orderUniq}")
+    public Map<String, Object> loadOrderInfo(@PathVariable int orderUniq){
+        return itemMapper.selectOrderInfo(orderUniq);
+    }
+
     @GetMapping("/unit")
     public List<Map<String, String>> loadUnitList() {
         return itemMapper.selectUnitList();

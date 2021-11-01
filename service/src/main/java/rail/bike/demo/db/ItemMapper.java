@@ -24,4 +24,5 @@ public interface ItemMapper {
     List<Map<String, Object>> getReportList(String startDate, String endDate);
 
     List<Map<String, Object>> getPostList();
+    Map<String, Object> selectOrderInfo(int orderUniq);
 }

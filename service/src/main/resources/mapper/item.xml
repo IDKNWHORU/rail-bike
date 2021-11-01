@@ -82,4 +82,10 @@
                post_name
           from vw_post_info
     </select>
+
+    <select id="selectOrderInfo" resultType="hashMap">
+        select *
+          from vw_order_list
+         where order_uniq = #{orderUniq}
+    </select>
 </mapper>

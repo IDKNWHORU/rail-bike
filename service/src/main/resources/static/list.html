@@ -9,17 +9,59 @@
     <script>
         const url = "/order";
 
-        const getListInfo = () => {
+        const getListInfo = (queryStr) => {
             makeFetch(url, {
                 method: 'GET'
-            }, putOrderList);
+            }, putOrderList).then(autoSelect);
+        };
+
+        const autoSelect = () => {
+            const queryStr = window.location.search;
+            const orderUniq = queryStr.split('=')[1];
+
+            if(queryStr !== ''){
+                makeFetch(`${url}/${orderUniq}`, {
+                    method: 'GET'
+                }, autoInput);
+            }
+        };
+
+        const autoInput = result =>{
+            const inputArea = document.querySelector('.input-area');
+            const record = document.querySelector('.order-row');
+
+            Array.from(record.children).forEach(field => {
+                const key = extractKey(field);
+                mappingOrderInput(inputArea, key, result[key]);
+            });
         };
 
         window.onload = () => {
             getListInfo();
-            getItemList();
             getPostList();
+            getItemList();
         };
+
+        const extractObject = field => {
+            const result = new Object();
+
+            result.key = extractKey(field);
+            result.value = field.innerText;
+
+            return result;
+        }
+
+        const extractKey = field => {
+            return field.dataset.role;
+        }
+
+        const mappingOrderInput = (inputArea, key, value)=>{
+            const inputField = findInputField(inputArea, key);
+            const selectField = findSelectField(inputArea, key);
+
+            (inputField !== null) ? putInputValue(inputField, value) : '';
+            (selectField !== null) ? putInputValue(selectField, value): '';
+        }
 
         const loadOrderInfo = (itemInfo) => {
             const record = itemInfo.closest('tr');
@@ -27,29 +69,30 @@
             const inputArea = document.querySelector('.input-area');
 
             Array.from(fields).forEach((field) => {
-                putInputField(field, inputArea);
-                putSelectField(field, inputArea);
+                const {key, value} = extractObject(field);
+
+                mappingOrderInput(inputArea, key, value);
             });
         };
 
-        const putInputField = (field, inputArea) => {
-            const inputField = inputArea.querySelector(`input[data-role="${field.dataset.role}"]`);
+        const findInputField = (inputArea, dataRole, value) => {
+            const inputField = inputArea.querySelector(`input[data-role="${dataRole}"]`);
 
-            (inputField !== null) ? putInputValue(field, inputField): '';
+            return inputField;
         };
 
-        const putSelectField = (field, inputArea) => {
-            const selectField = inputArea.querySelector(`select[data-role="${field.dataset.role}"]`);
+        const findSelectField = (inputArea, dataRole) => {
+            const selectField = inputArea.querySelector(`select[data-role="${dataRole}"]`);
 
-            (selectField !== null) ? putInputValue(field, selectField): '';
+            return selectField;
         }
 
         const toDate = (dateValue) => {
             return `${dateValue.substring(0,4)}-${dateValue.substring(4,6)}-${dateValue.substring(6)}`;
         };
 
-        const putInputValue = (field, inputField) => {
-            inputField.value = (inputField.dataset.role === 'order_date') ? toDate(field.innerText) : field.innerText;
+        const putInputValue = (inputField, value) => {
+            inputField.value = (inputField.dataset.role === 'order_date') ? toDate(value) : value;
 
             (inputField.dataset.role === 'item_code') ? dataListChange(inputField): '';
         }
@@ -96,7 +139,7 @@
                 result: false,
                 msg: '전표 리스트에서 삭제할 정보를 선택해주세요'
             });
-        }
+        };
     </script>
     <title>전표목록</title>
 </head>
