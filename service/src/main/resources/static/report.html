@@ -195,15 +195,44 @@
             outputApprover.innerText = inputApprover.value;
         };
 
-        const requestPrintList = (startDate = today, endDate = today, post = '') => {
-            const reportUrl = getReportUrl(`report`, startDate, endDate, post);
+        const putPageNumber = (size) => {
+            const pageNumber = document.querySelector('.paging-number');
+            const pageArea = pageNumber.parentNode;
+            const pageSize = Math.ceil(size/24);
+
+            for(let index=0; index< pageSize; index++){
+                const clone = pageNumber.cloneNode(true);
+
+                clone.innerText = index + 1;
+
+                pageArea.appendChild(clone);
+            }
+        }
+
+        const cleanPageNumber = () => {
+            const pageArea = document.querySelector('.paging-area');
+            const pageNumbers = pageArea.children;
+
+            for(let index = pageNumbers.length; index > 1; index--){
+                pageArea.removeChild(pageNumbers[index-1]);
+            }
+        }
+
+        const getReportResult = (result) => {
+            cleanPageNumber();
+            putPageNumber(result.size);
+            getReportList(result.list);
+        }
+
+        const requestPrintList = (startDate = today, endDate = today, post = '', page = 0) => {
+            const reportUrl = getReportUrl(`report`, startDate, endDate, post, page);
 
             makeFetch(`${reportUrl}`, {
                 method: 'GET'
-            }, getReportList);
+            }, getReportResult);
         };
 
-        const getReportUrl = (url, start, end, post, page = 0) => {
+        const getReportUrl = (url, start, end, post, page) => {
             url += `/${start}/${end}`;
 
             url += (post == '') ? post : `/${post}`;
@@ -229,6 +258,13 @@
             orderStartDateTag.value = beginMonth;
             orderEndDateTag.value = today;
             printDateTag.value = today;
+        }
+
+        const callReportForPage = (pageNumber) => {
+            const inputOrderDates = document.querySelectorAll('#input-order-date');
+            const postSelect = document.querySelector('#input-customer');
+
+            requestPrintList(inputOrderDates[0].value, inputOrderDates[1].value, postSelect.value, pageNumber - 1);
         }
     </script>
 </head>
@@ -345,7 +381,7 @@
                 </div>
                 <div class="print-bottom-area">
                     <div class="paging-area">
-                        <span class="paging-number">1</span>
+                        <span class="paging-number" onclick="callReportForPage(this.innerText);"></span>
                     </div>
                     <div class="print-button-area">
                         <input class="print-button" type="button" value="인쇄 하기" onclick="window.print()">

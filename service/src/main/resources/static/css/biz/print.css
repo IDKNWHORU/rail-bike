@@ -130,6 +130,13 @@ body {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
+  margin-left: 11px;
+}
+.paging-number:first-child {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0px;
 }
 .print-button-area {
   width: calc(14% - 10px);

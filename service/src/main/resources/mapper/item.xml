@@ -72,6 +72,7 @@
              , price
              , sum(labor) labor
              , unit_name
+             , count(1) over() page_size
           from vw_order_report
          where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
          group by item_name
@@ -96,6 +97,7 @@
                  , price
                  , sum(labor) labor
                  , unit_name
+                 , count(1) over() page_size
               from vw_order_report
              where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
                and customer = #{post}
