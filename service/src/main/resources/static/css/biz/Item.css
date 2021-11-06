@@ -78,35 +78,36 @@ td:nth-child(7n) {
   padding-left: 5px;
 }
 .save-button {
-  /* background-color: #01fd01;
-  border: solid 1px #00db00; */
+  background-color: #3d854d;
+  border: solid 2px #4c8057;
+  border-radius: 5 px;
+  color: #ffffff;
 }
 .save-button:hover {
-  /* background-color: #00c000;
-  border: solid 1px #299029; */
-  color: #505050;
+  background-color: #ffffff;
+  color: #3d854d;
 }
 .delete-button {
-  /* background-color: #ff3434;
-  border: solid 1px red; */
+  background-color: #ff3434;
+  border: solid 2px red;
+  color: #ffffff;
 }
 .delete-button:hover {
-  /* background-color: #d11a1a;
-  border: solid 1px #990d0d; */
-  color: #505050;
+  background-color: #ffffff;
+  color: red;
 }
-.item-code{
+.item-code {
   width: 120px;
 }
-.item-name{
+.item-name {
   width: 250px;
 }
-.unit-name{
+.unit-name {
   width: 150px;
 }
-.price{
+.price {
   width: 100px;
 }
-.order{
+.order {
   width: 50px;
 }
