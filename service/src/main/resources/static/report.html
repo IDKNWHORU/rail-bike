@@ -203,10 +203,12 @@
             }, getReportList);
         };
 
-        const getReportUrl = (url, start, end, post) => {
+        const getReportUrl = (url, start, end, post, page = 0) => {
             url += `/${start}/${end}`;
 
             url += (post == '') ? post : `/${post}`;
+
+            url += `/${page}`;
 
             return url;
         }

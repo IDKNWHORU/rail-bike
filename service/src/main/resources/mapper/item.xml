@@ -75,6 +75,7 @@
           from vw_order_report
          where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
          group by item_name
+         limit #{page}, 24
     </select>
     
     <select id="getPostList" resultType="hashMap">
@@ -99,5 +100,6 @@
              where str_to_date(order_date, '%Y%m%d') between #{startDate} and #{endDate}
                and customer = #{post}
              group by item_name
+             limit #{page}, 24
         </select>
     </mapper>

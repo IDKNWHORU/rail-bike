@@ -49,7 +49,7 @@ public class Controller {
     }
 
     @GetMapping("/order/{orderUniq}")
-    public Map<String, Object> loadOrderInfo(@PathVariable int orderUniq){
+    public Map<String, Object> loadOrderInfo(@PathVariable int orderUniq) {
         return itemMapper.selectOrderInfo(orderUniq);
     }
 
@@ -102,7 +102,7 @@ public class Controller {
         return result;
     }
 
-    public boolean getTypeCodeResult(int typeCode){
+    public boolean getTypeCodeResult(int typeCode) {
         return typeCode == 1;
     }
 
@@ -111,25 +111,26 @@ public class Controller {
         return itemMapper.getSupplierInfo();
     }
 
-    @GetMapping("/report/{startDate}/{endDate}")
-    public Object getReport(@PathVariable String startDate, @PathVariable String endDate) {
-        List<Map<String, Object>> reportList = itemMapper.getReportList(startDate, endDate);
+    @GetMapping("/report/{startDate}/{endDate}/{page}")
+    public Object getReport(@PathVariable String startDate, @PathVariable String endDate, @PathVariable int page) {
+        int pageStart = page * 24;
+        List<Map<String, Object>> reportList = itemMapper.getReportList(startDate, endDate, pageStart);
         int suppliedTotalValue = 0;
         int taxTotalValue = 0;
-        
+
         for (Map<String, Object> reportObject : reportList) {
             int price = (int) reportObject.get("price");
             BigDecimal count = (BigDecimal) reportObject.get("count");
             BigDecimal labor = (BigDecimal) reportObject.get("labor");
-            
+
             BigDecimal totalBigDecimal = new BigDecimal((price * count.intValue()) + labor.intValue());
-            
+
             int suppliedIntValue = suppliedValue(totalBigDecimal);
             int taxIntValue = tax(totalBigDecimal);
-            
+
             suppliedTotalValue += suppliedIntValue;
             taxTotalValue += taxIntValue;
-            
+
             reportObject.put("supplied_value", convertNumberFormat(suppliedIntValue));
             reportObject.put("tax", convertNumberFormat(taxIntValue));
             reportObject.put("price", convertNumberFormat(price));
@@ -142,25 +143,26 @@ public class Controller {
         return reportList;
     }
 
-    @GetMapping("/report/{startDate}/{endDate}/{post}")
-    public Object getReportForPost(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String post) {
-        List<Map<String, Object>> reportList = itemMapper.getReportListForPost(startDate, endDate, post);
+    @GetMapping("/report/{startDate}/{endDate}/{post}/{page}")
+    public Object getReportForPost(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String post, @PathVariable int page) {
+        int pageStart = page * 24;
+        List<Map<String, Object>> reportList = itemMapper.getReportListForPost(startDate, endDate, post, pageStart);
         int suppliedTotalValue = 0;
         int taxTotalValue = 0;
-        
+
         for (Map<String, Object> reportObject : reportList) {
             int price = (int) reportObject.get("price");
             BigDecimal count = (BigDecimal) reportObject.get("count");
             BigDecimal labor = (BigDecimal) reportObject.get("labor");
-            
+
             BigDecimal totalBigDecimal = new BigDecimal((price * count.intValue()) + labor.intValue());
-            
+
             int suppliedIntValue = suppliedValue(totalBigDecimal);
             int taxIntValue = tax(totalBigDecimal);
-            
+
             suppliedTotalValue += suppliedIntValue;
             taxTotalValue += taxIntValue;
-            
+
             reportObject.put("supplied_value", convertNumberFormat(suppliedIntValue));
             reportObject.put("tax", convertNumberFormat(taxIntValue));
             reportObject.put("price", convertNumberFormat(price));
@@ -191,7 +193,7 @@ public class Controller {
 
     public int tax(BigDecimal number) {
         return number.divide(new BigDecimal("11"), MathContext.DECIMAL32).setScale(0, RoundingMode.HALF_EVEN)
-                       .intValue();
+                .intValue();
     }
 
     public String convertNumberFormat(int number) {
@@ -199,7 +201,7 @@ public class Controller {
     }
 
     @GetMapping("/post")
-    public Object getPostList(){
+    public Object getPostList() {
         return itemMapper.getPostList();
     }
 

@@ -21,9 +21,9 @@ public interface ItemMapper {
     int deleteOrderInfo(int orderUniq);
     Map<String, Object> getSupplierInfo();
 
-    List<Map<String, Object>> getReportList(String startDate, String endDate);
+    List<Map<String, Object>> getReportList(String startDate, String endDate, int page);
 
     List<Map<String, Object>> getPostList();
     Map<String, Object> selectOrderInfo(int orderUniq);
-    List<Map<String, Object>> getReportListForPost(String startDate, String endDate, String post);
+    List<Map<String, Object>> getReportListForPost(String startDate, String endDate, String post, int page);
 }
