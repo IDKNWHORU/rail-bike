@@ -154,6 +154,7 @@ public class Controller {
 
     @GetMapping("/report/{startDate}/{endDate}/{post}/{page}")
     public Object getReportForPost(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String post, @PathVariable int page) {
+        Map<String, Object> result = new HashMap<>();
         int pageStart = page * 24;
         List<Map<String, Object>> reportList = itemMapper.getReportListForPost(startDate, endDate, post, pageStart);
         int suppliedTotalValue = 0;
@@ -177,11 +178,18 @@ public class Controller {
             reportObject.put("price", convertNumberFormat(price));
         }
 
+        if(reportList.isEmpty())
+            result.put("size", 0);
+        else
+            result.put("size", reportList.get(0).get("page_size"));
+
         Map<String, Object> lastObject = createTotalMap(suppliedTotalValue, taxTotalValue);
         
         reportList.add(lastObject);
 
-        return reportList;
+        result.put("list", reportList);
+
+        return result;
     }
 
     public Map<String, Object> createTotalMap(int suppliedValue, int tax) {
