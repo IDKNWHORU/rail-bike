@@ -51,12 +51,34 @@
             tag.innerHTML = supplier[role];
         };
 
+        const convertKorean = num => {
+            let result = "";
+            let str = "";
+            let han = "";
+
+            if(num === '0')
+                return "영";
+
+            for (i = 0; i < num.length; i++) {
+                str = "";
+                han = KR.number[num.charAt(num.length - (i + 1))];
+                str += (han !== "") ? han + KR.unit[i] : "";
+                str += (i === 4) ? "만" : "";
+                str += (i === 8) ? "억" : "";
+                str += (i === 12) ? "조" : "";
+                result = str + result;
+            }
+            
+            return result;
+        };
+
         const getReportList = (result) => {
             const record = document.querySelector('.hidden-record');
             const tbody = document.querySelector('.order-table').tBodies[0];
             const suppliedValueNumber = document.querySelector('.supplied-value-number');
             const taxNumber = document.querySelector('.tax-number');
-            const totalNumber = document.querySelector('.total-number')
+            const totalNumber = document.querySelector('.total-number');
+            const totalString = document.querySelector('.total-string');
 
             const displayRecords = document.querySelectorAll('.display-record');
 
@@ -80,9 +102,11 @@
                 tbody.appendChild(clone);
             });
 
-            suppliedValueNumber.innerText = result[result.length-1].supplied_value;
-            taxNumber.innerText = result[result.length-1].tax;
-            totalNumber.innerText = result[result.length-1].total;
+            suppliedValueNumber.innerText = result[result.length - 1].supplied_value;
+            taxNumber.innerText = result[result.length - 1].tax;
+            totalNumber.innerText = result[result.length - 1].total;
+
+            totalString.innerText = convertKorean(result[result.length - 1].total.replaceAll(',', ''));
         }
 
         const beforePrint = () => {
@@ -179,7 +203,7 @@
             }, getReportList);
         };
 
-        const getReportUrl = (url, start, end, post) =>{
+        const getReportUrl = (url, start, end, post) => {
             url += `/${start}/${end}`;
 
             url += (post == '') ? post : `/${post}`;
@@ -221,7 +245,9 @@
             <div class="input-field"><input id="input-order-date" type="date" required="" pattern="\d{4}-\d{2}-\d{2}"
                     data-role="order_date_start">~<input id="input-order-date" type="date" required=""
                     pattern="\d{4}-\d{2}-\d{2}" data-role="order_date_end"></div>
-            <div class="input-field"><select id="input-customer" type="text" required data-role="customer"><option value=""></option></select></div>
+            <div class="input-field"><select id="input-customer" type="text" required data-role="customer">
+                    <option value=""></option>
+                </select></div>
             <div class="input-field"><input id="input-bike-number" type="number" required="" min="0"
                     data-role="bike_number"></div>
             <div class="input-field"><input id="input-approver" type="text" required="" min="0" data-role="approver">
@@ -293,7 +319,9 @@
                         <caption class="hidden-area">품목 표</caption>
                         <tr>
                             <th scope="col">합계금액<br>(공급가액 + 세액)</th>
-                            <th colspan="5" scope="col" data-role="total">삼십만 원정 (<span class="total-number"></span>) <br>(<span class="supplied-value-number"></span> + <span class="tax-number"></span>)</th>
+                            <th colspan="5" scope="col" data-role="total"><span class="total-string">영</span> 원정 (<span class="total-number"></span>)
+                                <br>(<span class="supplied-value-number"></span> + <span class="tax-number"></span>)
+                            </th>
                         </tr>
                         <tr>
                             <td class="item-column">품목</td>
