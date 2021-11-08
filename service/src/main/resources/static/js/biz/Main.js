@@ -4,13 +4,13 @@ const clickNav = (selection, queryStr = '') => {
   const beforeSeleted = dom.querySelector('.active');
 
   changeActive(beforeSeleted, selection);
-  callFile(direction, queryStr, dom);
+  callFile(`biz/${direction}`, queryStr, dom);
 };
 
 const callFile = (direction, queryStr, dom) => {
   const embedTag = dom.querySelector('embed');
 
-  embedTag.setAttribute('src', `${direction}.html?${queryStr}`);
+  embedTag.setAttribute('src', `${direction}?${queryStr}`);
 };
 
 const changeActive = (before, selected) => {

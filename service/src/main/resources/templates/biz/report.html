@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>계산서 출력</title>
-    <link href="./css/biz/report.css" rel="stylesheet">
-    <link href="./css/biz/print.css" rel="stylesheet">
-    <script src="./js/ajax/Ajax.js"></script>
-    <script src="./json/Local.json"></script>
-    <script src="./js/biz/Post.js"></script>
+    <link th:href="@{/static/css/biz/report.css}" rel="stylesheet">
+    <link th:href="@{/static/css/biz/print.css}" rel="stylesheet">
+    <script th:src="@{/static/js/ajax/Ajax.js}"></script>
+    <script th:src="@{/static/json/Local.js}"></script>
+    <script th:src="@{/static/js/biz/Post.js}"></script>
     <script>
         const today = new Date().toISOString().slice(0, 10);
         const beginMonth = `${today.substring(0,8)}01`;
@@ -30,7 +30,7 @@
             putPrintDate();
             getPostList();
 
-            makeFetch('report', {
+            makeFetch('/report', {
                 method: 'GET'
             }, getSupplierInfo);
 
@@ -225,7 +225,7 @@
         }
 
         const requestPrintList = (startDate = today, endDate = today, post = '', page = 0) => {
-            const reportUrl = getReportUrl(`report`, startDate, endDate, post, page);
+            const reportUrl = getReportUrl(`/report`, startDate, endDate, post, page);
 
             makeFetch(`${reportUrl}`, {
                 method: 'GET'
