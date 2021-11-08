@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko">
 
 <head>
     <meta charset="utf-8">
-    <link href="./css/biz/Item.css" rel="stylesheet">
-    <script src="./js/ajax/Ajax.js"></script>
-    <script src="./js/biz/Item.js"></script>
-    <script src="./json/Caption.json"></script>
+    <link th:href="@{/static/css/biz/Item.css}" rel="stylesheet">
+    <script th:src="@{/static/js/ajax/Ajax.js}"></script>
+    <script th:src="@{/static/js/biz/Item.js}"></script>
+    <script th:src="@{/static/json/Caption.js}"></script>
     <script>
         let myRowTag;
         const dataQuerySelector = 'input[query="true"]';

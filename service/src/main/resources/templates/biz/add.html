@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <link href="./css/biz/add.css" rel="stylesheet">
-    <script src="./js/ajax/Ajax.js"></script>
-    <script src="./js/biz/Add.js"></script>
-    <script src="./js/biz/Main.js"></script>
-    <script src="./js/biz/Post.js"></script>
+    <script src="static/js/ajax/Ajax.js"></script>
+    <script src="static/js/biz/Add.js"></script>
+    <script src="static/js/biz/Main.js"></script>
+    <script src="static/js/biz/Post.js"></script>
     <script>
         const url = "/order";
 
@@ -22,7 +22,7 @@
             getItemList();
             getPostList();
         };
-
+ 
         const moveEditPage = (column) => {
             const row = column.parentElement;
             const orderUniq = row.querySelector('td[data-role="order_uniq"]');
