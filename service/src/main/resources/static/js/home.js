@@ -1,3 +1,3 @@
 const redirectPage = () => {
-    location.href="/hello";
+    location.href="/main";
 }
