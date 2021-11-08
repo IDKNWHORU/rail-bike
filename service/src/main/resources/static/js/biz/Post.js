@@ -1,5 +1,5 @@
 const getPostList = () => {
-    makeFetch('post', {
+    makeFetch('/post', {
         method: 'GET'
     }, putPostList);
 };

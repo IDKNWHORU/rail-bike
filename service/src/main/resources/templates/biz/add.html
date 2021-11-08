@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <link href="./css/biz/add.css" rel="stylesheet">
-    <script src="static/js/ajax/Ajax.js"></script>
-    <script src="static/js/biz/Add.js"></script>
-    <script src="static/js/biz/Main.js"></script>
-    <script src="static/js/biz/Post.js"></script>
+    <link th:href="@{/static/css/biz/add.css}" rel="stylesheet">
+    <script th:src="@{/static/js/ajax/Ajax.js}"></script>
+    <script th:src="@{/static/js/biz/Add.js}"></script>
+    <script th:src="@{/static/js/biz/Main.js}"></script>
+    <script th:src="@{/static/js/biz/Post.js}"></script>
     <script>
         const url = "/order";
 
