@@ -16,16 +16,16 @@ public class McvConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         addBizViewControllers(registry);
     }
-
+    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCachePeriod(20);
     }
-
+    
     public void addBizViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/biz/add").setViewName("/biz/add");
-        registry.addViewController("/biz/item").setViewName("/biz/item");
-        registry.addViewController("/biz/list").setViewName("/biz/list");
-        registry.addViewController("/biz/report").setViewName("/biz/report");
+        registry.addViewController("/biz/add").setViewName("biz/add");
+        registry.addViewController("/biz/item").setViewName("biz/item");
+        registry.addViewController("/biz/list").setViewName("biz/list");
+        registry.addViewController("/biz/report").setViewName("biz/report");
     }
 }
