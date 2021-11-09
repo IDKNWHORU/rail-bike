@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
     AccountRepository accounts;
     
     @GetMapping("/create")
-    public Account createAccount() {
+    public Account createAccount(String username, String password) {
         Account account = new Account();
-        account.setEmail("email@mail.com");
-        account.setPassword("password");
+        account.setEmail(username);
+        account.setPassword(password);
 
-        return accounts.save(account);
+        return accountService.save(account);
     }
 }
