@@ -1,84 +1,99 @@
 <!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <link href="../static/css/biz/main.css" rel="stylesheet">
-        <link href="../static/icon/bike.png" rel="icon">
-        <link href="../static/icon/bike.png" rel="shortcut icon">
-        <title>차계부</title>
-        <style>
-            body {
-                margin: 0px;
-            }
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-                position: -webkit-sticky; /* Safari */
-                position: sticky;
-                top: 0;
-            }
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko">
 
-            li {
-                float: left;
-            }
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/biz/main.css" rel="stylesheet">
+    <link href="../static/icon/bike.png" rel="icon">
+    <link href="../static/icon/bike.png" rel="shortcut icon">
+    <title>차계부</title>
+    <style>
+        body {
+            margin: 0px;
+        }
 
-            li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                cursor: pointer;
-            }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            top: 0;
+        }
 
-            li a:hover {
-                background-color: #4CAF50;
-            }
+        li {
+            float: left;
+        }
 
-            .active {
-                background-color: #4CAF50;
-            }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-            .header {
-                width: 100vw;
-                height: 6vh;
-            }
+        li a:hover {
+            background-color: #4CAF50;
+        }
 
-            .body{
-                width: 100vw;
-                height: calc(94vh - 21px);
-            }
+        .active {
+            background-color: #4CAF50;
+        }
 
-            embed{
-                width: 100%;
-                height: 100%;
-            }
-        </style>
-        <script src="./js/biz/Main.js"></script>
-    </head>
-    <body>
-        <div class="header">
-            <ul>
-                <li>
-                    <a class="active" data-nav="item" onclick="clickNav(this)">품목등록</a>
-                </li>
-                <li>
-                    <a data-nav="add" onclick="clickNav(this)">전표등록</a>
-                </li>
-                <li>
-                    <a data-nav="list" onclick="clickNav(this)">전표수정</a>
-                </li>
-                <li>
-                    <a data-nav="report" onclick="clickNav(this)">전표출력</a>
-                </li>
-            </ul>
-        </div>
-        <div class="body">
-            <embed src="biz/item">
-        </div>
-        <div class="copyright-area">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-    </body>
+        .header {
+            width: 100vw;
+            height: 6vh;
+        }
+
+        .body {
+            width: 100vw;
+            height: calc(94vh - 21px);
+        }
+
+        embed {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="./js/biz/Main.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <ul>
+            <li>
+                <a class="active" data-nav="item" onclick="clickNav(this)">품목등록</a>
+            </li>
+            <li>
+                <a data-nav="add" onclick="clickNav(this)">전표등록</a>
+            </li>
+            <li>
+                <a data-nav="list" onclick="clickNav(this)">전표수정</a>
+            </li>
+            <li>
+                <a data-nav="report" onclick="clickNav(this)">전표출력</a>
+            </li>
+            <li class="user-container" th:inline="text">
+                <div class="user-info">
+                    안녕하세요, [[${#httpServletRequest.remoteUser}]] 님
+                    <form class="logout-form" th:action="@{/logout}" method="post">
+                        <input class="logout-btn" type="submit" value="LOGOUT" />
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="body">
+        <embed src="biz/item">
+    </div>
+    <div class="copyright-area">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+            href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+</body>
+
 </html>

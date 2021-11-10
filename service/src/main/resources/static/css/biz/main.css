@@ -24,3 +24,21 @@
 .hidden-area {
   display: none;
 }
+.user-container {
+  position: absolute;
+  left: calc(100vw - 340px);
+  width: 340px;
+}
+.user-info {
+  width: 300px;
+  color: #fff;
+  padding: 7px 16px;
+}
+.logout-form {
+  display: contents;
+}
+.logout-btn {
+  width: 120px;
+  height: 35px;
+  margin-left: 15px;
+}
