@@ -39,6 +39,10 @@ public class AccountService implements UserDetailsService {
         return accounts.save(account); 
     }
 
+    public Account findByUsername(String username) {
+        return accounts.findByEamil(username);
+    }
+
     @PostConstruct
     public void callDB(){
         accounts.callDB();

@@ -6,6 +6,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko"
     <title>Spring Security Example </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/static/css/biz/login.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/static/js/ajax/Ajax.js}"></script>
 </head>
 
 <body>
@@ -32,12 +33,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko"
                     </form>
                 </div>
                 <div class="form signupForm">
-                    <form th:action="@{/create}" method="post">
+                    <form th:action="@{/create}" method="post" onsubmit="return false">
                         <h3>Sign Up</h3>
                         <input type="text" placeholder="Username" name="username" />
                         <input type="password" placeholder="Password" name="password" />
                         <input type="password" placeholder="Confirm Password" name="confirm-password" />
-                        <div><input type="submit" value="Register" /></div>
+                        <div><input class="signupSbm" type="submit" value="Register" /></div>
                     </form>
                 </div>
             </div>
@@ -46,22 +47,58 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko"
                 const signupBtn = document.querySelector('.signupBtn');
                 const formBx = document.querySelector('.formBx');
                 const body = document.querySelector('body');
-
-                signupBtn.onclick = () => {
-                    formBx.classList.add('active');
-                    body.classList.add('active');
-                }
-
-                signinBtn.onclick = () => {
-                    formBx.classList.remove('active');
-                    body.classList.remove('active');
-                }
+                const signupSbm = document.querySelector('.signupSbm');
 
                 const popup = () => {
                     const noti = document.querySelector('.notiArea');
 
                     (noti === null ) ? false : noti.classList.add('hidden');
+                };
+
+                const formData = (form) => {
+                    const result = new FormData();
+
+                    result.append('username', form.username.value);
+                    result.append('password', form.password.value);
+
+                    return result;
+                };
+
+                const userInfo = () => {
+                    const userForm = document.querySelector('.signupForm>form');
+
+                    return formData(userForm);
+                };
+
+                const autoLogin = () => {
+                    const loginForm = document.querySelector('.signinForm>form');
+                    const createdInfo = userInfo();
+
+                    loginForm.username.value = createdInfo.get('username');
+                    loginForm.password.value = createdInfo.get('password');
+
+                    loginForm.submit();
                 }
+
+                const putErrorMessage = (message) => {
+                    return message;
+                }
+
+                signupBtn.onclick = () => {
+                    formBx.classList.add('active');
+                    body.classList.add('active');
+                };
+
+                signinBtn.onclick = () => {
+                    formBx.classList.remove('active');
+                    body.classList.remove('active');
+                };
+
+                signupSbm.onclick = () => {
+                    makeFetch('/create', {method: 'POST', body:userInfo()}, (result)=>{
+                        (result.success) ? autoLogin() : putErrorMessage(result.message);
+                    });
+                };
 
                 window.onload = () => {
                     setTimeout(popup, 3000);
