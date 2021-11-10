@@ -12,7 +12,6 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko"
     <div class="container">
         <div class="notiArea" th:if="${param.error}"><h3 class="yellow">사용자명 혹은 비밀번호가 틀렸습니다.</h3></div>
         <div class="notiArea" th:if="${param.logout}"><h3 class="red">로그아웃 되었습니다.</h3></div>
-        <div class="notiArea" th:if="${param.create}"><h3 class="green">계정이 생성되었습니다.</h3></div>
         <div class="blueBg">
             <div class="box signin">
                 <h2>계정이 이미 있으신가요 ?</h2>
@@ -29,7 +28,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko"
                         <input type="text" placeholder="Username" name="username" />
                         <input type="password" placeholder="Password" name="password" />
                         <div><input type="submit" value="Login" /></div>
-                        <a href="#" class="forgot">비밀번호를 잃어버리셨나요 ?</a>
+                        <!-- <a href="#" class="forgot">비밀번호를 잃어버리셨나요 ?</a> -->
                     </form>
                 </div>
                 <div class="form signupForm">
@@ -56,6 +55,16 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="ko"
                 signinBtn.onclick = () => {
                     formBx.classList.remove('active');
                     body.classList.remove('active');
+                }
+
+                const popup = () => {
+                    const noti = document.querySelector('.notiArea');
+
+                    (noti === null ) ? false : noti.classList.add('hidden');
+                }
+
+                window.onload = () => {
+                    setTimeout(popup, 3000);
                 }
             </script>
         </div>

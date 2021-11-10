@@ -171,3 +171,6 @@ body.active{
 .notiArea .green{
     color: #63b175;
 }
+.hidden{
+    display: none;
+}
