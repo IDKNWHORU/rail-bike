@@ -1,0 +1,15 @@
+header {
+  background-color: tomato;
+}
+
+div > div:first-child {
+  background-color: blue;
+}
+
+div > div:nth-child(2) {
+  background-color: yellow;
+}
+
+footer {
+  background-color: green;
+}
