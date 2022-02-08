@@ -1,15 +1,36 @@
-header {
+@import "reset.css";
+
+.menu-bar {
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+  height: 50px;
   background-color: tomato;
 }
 
-div > div:first-child {
+.item-screen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+.user-component:first-child {
   background-color: blue;
 }
 
-div > div:nth-child(2) {
+.user-component:nth-child(2) {
   background-color: yellow;
 }
 
-footer {
+.user-component__title {
+  font-size: 22px;
+}
+
+.status-bar {
+  position: fixed;
+  bottom: 0px;
+  width: 100vw;
+  height: 40px;
   background-color: green;
 }
