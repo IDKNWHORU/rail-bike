@@ -1,6 +1,9 @@
+.user-component {
+  margin-top: 10px;
+}
+
 .user-component:first-child {
   width: 420px;
-  margin-top: 10px;
   margin-left: 20px;
   height: 100%;
 }
@@ -20,4 +23,9 @@
 
 .user-component__title span {
   padding: 12px;
+}
+
+.user-component .label {
+  width: 200px;
+  text-align: center;
 }
