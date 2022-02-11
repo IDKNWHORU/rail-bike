@@ -1,0 +1,9 @@
+.item-screen {
+  position: absolute;
+  top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: calc(100vh - 90px);
+}
