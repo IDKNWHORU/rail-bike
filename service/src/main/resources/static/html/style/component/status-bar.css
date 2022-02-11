@@ -3,5 +3,6 @@
   bottom: 0px;
   width: 100vw;
   height: 40px;
-  background-color: green;
+  background-color: rgb(40, 40, 40);
+  color: #ebebeb;
 }
