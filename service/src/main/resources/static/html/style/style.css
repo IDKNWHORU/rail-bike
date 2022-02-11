@@ -23,6 +23,19 @@ body {
   flex-direction: row;
 }
 
-.item-grid_column {
+.item-grid__column {
   border: solid 1px;
+  width: 90px;
+}
+
+.item-grid__column:nth-child(2n + 1):not(:nth-child(3)):nth-child(-n + 6) {
+  width: 50px;
+}
+
+.item-grid__column:nth-child(3) {
+  width: 70px;
+}
+
+.item-grid__column:nth-child(4n) {
+  width: 200px;
 }
