@@ -1,0 +1,80 @@
+.item-form {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px 60px;
+  border-right: solid 1px;
+}
+
+.item-form__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.item-form__list:first-child {
+  align-items: flex-end;
+}
+
+.item-form__input_submit {
+  display: flex;
+  margin-right: 20px;
+}
+
+.item-form__input-submit__text {
+  border: none;
+  background-color: #ffffff;
+  font-size: 20px;
+  padding: 4px 8px;
+  color: #0066ff;
+  cursor: pointer;
+}
+
+.item-form__label {
+  align-self: flex-start;
+  margin: 12px 0px;
+  margin-left: 20px;
+  width: 100px;
+}
+
+.item-form__text {
+  font-size: 18px;
+}
+
+.item-form__input {
+  width: 350px;
+  border-bottom: solid 1px;
+}
+
+.item-form__input input,
+select {
+  width: 100%;
+  padding: 0px;
+  border: 0px;
+  height: 30px;
+  padding-left: 8px;
+  font-size: 18px;
+}
+
+.item-form__input input::placeholder,
+.item-form__input input[type="date"]:invalid,
+.item-form__input-select:required:invalid {
+  color: #999;
+}
+
+.item-form__input-select option[value=""][disabled] {
+  display: none;
+}
+
+.item-form__input.readonly {
+  border: none;
+}
+
+.item-form__input input:focus,
+select:focus {
+  outline: 1px ridge #0066ff;
+}
+
+.item-form__input.readonly input:focus {
+  outline: none;
+}
