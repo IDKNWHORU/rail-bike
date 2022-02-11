@@ -1,0 +1,20 @@
+.user-component:first-child {
+  width: 420px;
+  height: 100%;
+}
+
+.user-component:nth-child(2) {
+  background-color: yellow;
+}
+
+.user-component__title {
+  font-size: 22px;
+  padding: 14px 0px;
+  background-color: #3b89ff;
+  color: #ffffff;
+  border-right: solid 1px #000000;
+}
+
+.user-component__title span {
+  padding: 12px;
+}
