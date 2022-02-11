@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,8 +44,15 @@
     </header>
     <main class="item-screen">
       <div class="user-component">
-        <span class="user-component__title">입력폼</span>
+        <h1 class="user-component__title">
+          <span>전표 입력 폼</span>
+        </h1>
         <form action="" class="item-form">
+          <div class="item-form__list">
+            <div class="item-form__input_submit">
+              <input type="submit" class="item-form__input-submit__text" value="입력하기">
+            </div>
+          </div>
           <div class="item-form__list">
             <div class="item-form__label">
               <span class="item-form__text">입력일자</span>
@@ -59,7 +66,8 @@
               <span class="item-form__text">거래처</span>
             </div>
             <div class="item-form__input">
-              <select class="item-form__input_select" placeholder="거래처를 입력해주세요" required>
+              <select class="item-form__input-select" placeholder="거래처를 입력해주세요" required>
+                <option value="" disabled selected>거래처를 선택해주세요</option>
               </select>
             </div>
           </div>
@@ -84,15 +92,15 @@
               <span class="item-form__text">수량</span>
             </div>
             <div class="item-form__input">
-              <input type="number" class="item-form__input-number" placeholder="수량을 입력해주세요">
+              <input type="number" class="item-form__input-number" placeholder="수량을 입력해주세요" min=0 required>
             </div>
           </div>
           <div class="item-form__list">
             <div class="item-form__label">
               <span class="item-form__text">부품금액</span>
             </div>
-            <div class="item-form__input">
-              <input type="number" class="item-form__input-number" placeholder="부품금액이 표시됩니다">
+            <div class="item-form__input readonly">
+              <input type="text" class="item-form__input-number" placeholder="부품금액이 표시됩니다" readonly>
             </div>
           </div>
           <div class="item-form__list">
@@ -107,13 +115,8 @@
             <div class="item-form__label">
               <span class="item-form__text">합계</span>
             </div>
-            <div class="item-form__input">
-              <input type="number" class="item-form__input-number" placeholder="합계 금액이 표시됩니다">
-            </div>
-          </div>
-          <div class="item-form__list">
-            <div class="item-form__input">
-              <input type="button" value="저장하기">
+            <div class="item-form__input readonly">
+              <input type="text" class="item-form__input-number" placeholder="합계 금액이 표시됩니다" readonly>
             </div>
           </div>
         </form>
