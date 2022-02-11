@@ -22,6 +22,12 @@
   font-family: "Italianno", cursive;
 }
 
+.menu-bar__logo a,
+.menu-bar__list a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .menu-bar__nav {
   display: flex;
 }
