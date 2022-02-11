@@ -16,6 +16,7 @@ body {
 .item-grid {
   display: flex;
   flex-direction: column;
+  font-size: 22px;
 }
 
 .item-grid__row {
@@ -24,18 +25,40 @@ body {
 }
 
 .item-grid__column {
+  width: 115px;
+}
+
+.item-grid__column:nth-child(odd) {
   border: solid 1px;
-  width: 90px;
+}
+
+.item-grid__column:nth-child(even) {
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+}
+
+.item-grid__column:last-child {
+  border-right: solid 1px;
 }
 
 .item-grid__column:nth-child(2n + 1):not(:nth-child(3)):nth-child(-n + 6) {
-  width: 50px;
+  width: 75px;
 }
 
 .item-grid__column:nth-child(3) {
-  width: 70px;
+  width: 95px;
 }
 
 .item-grid__column:nth-child(4n) {
-  width: 200px;
+  width: 225px;
+}
+
+.item-grid__row:nth-child(n + 2) .item-grid__column {
+  border: none;
+  border-left: solid 1px;
+  border-bottom: solid 1px;
+}
+
+.item-grid__row:nth-child(n + 2) .item-grid__column:last-child {
+  border-right: solid 1px;
 }
