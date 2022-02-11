@@ -4,6 +4,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  height: calc(100vh - 90px);
+  width: calc(100vw - 20px);
+  height: 100vh;
 }
