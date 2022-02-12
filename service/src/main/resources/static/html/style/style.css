@@ -9,6 +9,8 @@
 @import "screen/item-screen.css";
 
 body {
+  background-color: #ffffff;
+  color: #000;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -25,40 +27,39 @@ body {
 }
 
 .item-grid__column {
-  width: 115px;
+  min-width: 115px;
+  padding: 15px 0px;
+  text-align: center;
 }
 
-.item-grid__column:nth-child(odd) {
-  border: solid 1px;
-}
-
-.item-grid__column:nth-child(even) {
-  border-top: solid 1px;
-  border-bottom: solid 1px;
-}
-
-.item-grid__column:last-child {
-  border-right: solid 1px;
+.item-grid__column {
+  border: none;
+  border-bottom: solid 2px rgb(122, 122, 122);
+  cursor: pointer;
 }
 
 .item-grid__column:nth-child(2n + 1):not(:nth-child(3)):nth-child(-n + 6) {
-  width: 75px;
+  min-width: 75px;
 }
 
 .item-grid__column:nth-child(3) {
-  width: 95px;
+  min-width: 95px;
 }
 
 .item-grid__column:nth-child(4n) {
-  width: 225px;
+  min-width: 225px;
 }
 
 .item-grid__row:nth-child(n + 2) .item-grid__column {
   border: none;
-  border-left: solid 1px;
-  border-bottom: solid 1px;
+  border-left: solid 1px rgba(0, 0, 0, 0.2);
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+.item-grid__row:nth-child(n + 2) .item-grid__column:first-child {
+  border-left: none;
 }
 
 .item-grid__row:nth-child(n + 2) .item-grid__column:last-child {
-  border-right: solid 1px;
+  border-left: solid 1px rgba(0, 0, 0, 0.2);
 }
