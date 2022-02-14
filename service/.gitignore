@@ -32,4 +32,28 @@ build/
 ### VS Code ###
 .vscode/
 
-!**/src/main/resources/static/cra/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+**/src/main/resources/static/cra/node_modules
+**/src/main/resources/static/cra/.pnp
+**/src/main/resources/static/cra/.pnp.js
+
+# testing
+**/src/main/resources/static/cra/coverage
+
+# production
+**/src/main/resources/static/cra/build
+
+# misc
+**/src/main/resources/static/cra/.DS_Store
+**/src/main/resources/static/cra/.env
+**/src/main/resources/static/cra/.env.local
+**/src/main/resources/static/cra/.env.development.local
+**/src/main/resources/static/cra/.env.test.local
+**/src/main/resources/static/cra/.env.production.local
+
+**/src/main/resources/static/cra/npm-debug.log*
+**/src/main/resources/static/cra/yarn-debug.log*
+**/src/main/resources/static/cra/yarn-error.log*
