@@ -1,11 +1,9 @@
 import InputForm from "./InputForm";
 
-const SideBar = () => {
+const SideBar = ({ title }) => {
   return (
     <div>
-      <h1>
-        <span>전표 입력 폼</span>
-      </h1>
+      <h1>{title}</h1>
       <InputForm></InputForm>
     </div>
   );

@@ -9,7 +9,7 @@ function App() {
         <MenuBar></MenuBar>
       </header>
       <main>
-        <SideBar></SideBar>
+        <SideBar title="전표 입력 폼"></SideBar>
       </main >
     </div >
   );
