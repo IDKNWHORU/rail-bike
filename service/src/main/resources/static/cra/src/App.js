@@ -1,18 +1,15 @@
-import InputForm from "./component/InputForm";
 import MenuBar from "./component/MenuBar";
+import SideBar from "./component/SideBar";
 
 
 function App() {
   return (
     <div className="App">
-      <MenuBar></MenuBar>
+      <header>
+        <MenuBar></MenuBar>
+      </header>
       <main>
-        <div>
-          <h1>
-            <span>전표 입력 폼</span>
-          </h1>
-          <InputForm></InputForm>
-        </div>
+        <SideBar></SideBar>
       </main >
     </div >
   );
