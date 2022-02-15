@@ -1,6 +1,5 @@
-import Content from "./component/Content";
 import MenuBar from "./component/MenuBar";
-import SideBar from "./component/SideBar";
+import Calculator from "./screen/Calculator";
 
 
 function App() {
@@ -10,8 +9,7 @@ function App() {
         <MenuBar></MenuBar>
       </header>
       <main>
-        <SideBar title="전표 입력 폼"></SideBar>
-        <Content title="전표 목록"></Content>
+        <Calculator></Calculator>
       </main >
     </div >
   );
