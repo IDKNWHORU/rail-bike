@@ -3,9 +3,9 @@ import React from "react";
 const MenuList = ({ title }) => {
   return (
     <li>
-      <a href="#">
+      <button>
         <span>{title}</span>
-      </a>
+      </button>
     </li>
   );
 };

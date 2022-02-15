@@ -2,9 +2,9 @@ import React from "react";
 
 const Logo = ({ text }) => {
   return (
-    <a href="#">
+    <button>
       <span>{text}</span>
-    </a>
+    </button>
   );
 };
 
