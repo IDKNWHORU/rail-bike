@@ -1,9 +1,9 @@
 import React from "react";
-import DataList from "./DataList";
-import DateField from "./DateField";
-import DisplayField from "./DisplayField";
-import NumberField from "./NumberField";
-import Select from "./Select";
+import DataList from "./field/DataList";
+import DateField from "./field/DateField";
+import DisplayField from "./field/DisplayField";
+import NumberField from "./field/NumberField";
+import Select from "./field/Select";
 import Submit from "./Submit";
 
 const InputForm = () => {
