@@ -8,7 +8,7 @@ const Select = ({ label, placeholder }) => {
       </div>
       <div>
         <select required>
-          <option value="" disabled selected>
+          <option value="" disabled defaultValue>
             {placeholder}
           </option>
           <option value="1">1</option>
