@@ -1,11 +1,11 @@
-const DataList = () => {
+const DataList = ({ label, placeholder }) => {
   return (
     <div>
       <div>
-        <span>품목</span>
+        <label>{label}</label>
       </div>
       <div>
-        <input type="datalist" placeholder="품목을 선택해주세요" required />
+        <input type="datalist" placeholder={placeholder} required />
       </div>
     </div>
   );

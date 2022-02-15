@@ -1,10 +1,10 @@
 import React from "react";
 
-const DateField = () => {
+const DateField = ({ label }) => {
   return (
     <div>
       <div>
-        <span>입력일자</span>
+        <label>{label}</label>
       </div>
       <div>
         <input type="date" required></input>

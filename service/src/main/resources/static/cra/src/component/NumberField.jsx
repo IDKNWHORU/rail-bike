@@ -1,13 +1,13 @@
 import React from "react";
 
-const NumberField = () => {
+const NumberField = ({ label, placeholder, min }) => {
   return (
     <div>
       <div>
-        <span>차대번호</span>
+        <label>{label}</label>
       </div>
       <div>
-        <input type="number" placeholder="차대번호를 입력해주세요" required />
+        <input type="number" placeholder={placeholder} min={min} required />
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import React from "react";
 
-const Submit = () => {
+const Submit = ({ text }) => {
   return (
     <div>
       <div>
-        <input type="submit" value="입력하기" />
+        <input type="submit" value={text} />
       </div>
     </div>
   );

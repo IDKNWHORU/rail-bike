@@ -1,16 +1,17 @@
 import React from "react";
 
-const Select = () => {
+const Select = ({ label, placeholder }) => {
   return (
     <div>
       <div>
-        <span>거래처</span>
+        <label>{label}</label>
       </div>
       <div>
         <select required>
           <option value="" disabled selected>
-            거래처를 선택해주세요
+            {placeholder}
           </option>
+          <option value="1">1</option>
         </select>
       </div>
     </div>
