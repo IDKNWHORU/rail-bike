@@ -9,7 +9,7 @@ const MenuBar = ({ setActivate }) => {
       <Logo text="Logo" setActivate={setActivate}></Logo>
       <nav>
         <ul>
-          <MenuList title="Items" setActivate={setActivate}></MenuList>
+          <MenuList title="Item" setActivate={setActivate}></MenuList>
           <MenuList title="Calculator" setActivate={setActivate}></MenuList>
           <MenuList title="Editor" setActivate={setActivate}></MenuList>
           <MenuList title="Printer" setActivate={setActivate}></MenuList>
