@@ -3,16 +3,16 @@ import Logo from "./Logo";
 import MenuList from "./MenuList";
 import Profile from "./Profile";
 
-const MenuBar = () => {
+const MenuBar = ({ setActivate }) => {
   return (
     <>
       <Logo text="Logo"></Logo>
       <nav>
         <ul>
-          <MenuList title="Items"></MenuList>
-          <MenuList title="Calculator"></MenuList>
-          <MenuList title="Editor"></MenuList>
-          <MenuList title="Printer"></MenuList>
+          <MenuList title="Items" setActivate={setActivate}></MenuList>
+          <MenuList title="Calculator" setActivate={setActivate}></MenuList>
+          <MenuList title="Editor" setActivate={setActivate}></MenuList>
+          <MenuList title="Printer" setActivate={setActivate}></MenuList>
         </ul>
       </nav>
       <Profile source="avatar.png"></Profile>
