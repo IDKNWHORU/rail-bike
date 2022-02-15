@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MenuBar from "./component/MenuBar";
 import Calculator from "./screen/Calculator";
+import Editor from "./screen/Editor";
 import Index from "./screen/Index";
 
 
@@ -12,7 +13,9 @@ function App() {
         <MenuBar setActivate={setActivate}></MenuBar>
       </header>
       <main>
-        {activate === 'Calculator' ? <Calculator></Calculator> : <Index></Index>}
+        {activate === 'index' ? <Index></Index> : ''}
+        {activate === 'Calculator' ? <Calculator></Calculator> : ''}
+        {activate === 'Editor' ? <Editor></Editor> : ''}
       </main >
     </div >
   );

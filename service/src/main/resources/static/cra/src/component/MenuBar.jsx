@@ -6,7 +6,7 @@ import Profile from "./Profile";
 const MenuBar = ({ setActivate }) => {
   return (
     <>
-      <Logo text="Logo"></Logo>
+      <Logo text="Logo" setActivate={setActivate}></Logo>
       <nav>
         <ul>
           <MenuList title="Items" setActivate={setActivate}></MenuList>
