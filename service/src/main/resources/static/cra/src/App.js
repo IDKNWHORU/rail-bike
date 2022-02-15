@@ -3,6 +3,7 @@ import MenuBar from "./component/MenuBar";
 import Calculator from "./screen/Calculator";
 import Editor from "./screen/Editor";
 import Index from "./screen/Index";
+import Printer from "./screen/Printer";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         {activate === 'index' ? <Index></Index> : ''}
         {activate === 'Calculator' ? <Calculator></Calculator> : ''}
         {activate === 'Editor' ? <Editor></Editor> : ''}
+        {activate === 'Printer' ? <Printer></Printer> : ''}
       </main >
     </div >
   );
