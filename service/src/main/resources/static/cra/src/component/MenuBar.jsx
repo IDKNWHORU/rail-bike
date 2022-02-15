@@ -5,7 +5,7 @@ import Profile from "./Profile";
 
 const MenuBar = () => {
   return (
-    <header>
+    <>
       <Logo text="Logo"></Logo>
       <nav>
         <ul>
@@ -16,7 +16,7 @@ const MenuBar = () => {
         </ul>
       </nav>
       <Profile source="avatar.png"></Profile>
-    </header>
+    </>
   );
 };
 
