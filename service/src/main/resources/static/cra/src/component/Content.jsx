@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "./Grid";
+import Grid from "./grid/Grid";
 
 const Content = ({ title }) => {
   return (

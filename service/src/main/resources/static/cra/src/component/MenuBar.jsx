@@ -1,18 +1,18 @@
 import React from "react";
-import Logo from "./Logo";
-import MenuList from "./MenuList";
+import Logo from "./navigation/Logo";
+import MenuList from "./navigation/MenuList";
 import Profile from "./Profile";
 
-const MenuBar = ({ setActivate }) => {
+const MenuBar = () => {
   return (
     <>
-      <Logo text="Logo" setActivate={setActivate}></Logo>
+      <Logo text="Logo"></Logo>
       <nav>
         <ul>
-          <MenuList title="Item" setActivate={setActivate}></MenuList>
-          <MenuList title="Calculator" setActivate={setActivate}></MenuList>
-          <MenuList title="Editor" setActivate={setActivate}></MenuList>
-          <MenuList title="Printer" setActivate={setActivate}></MenuList>
+          <MenuList title="Item"></MenuList>
+          <MenuList title="Calculator"></MenuList>
+          <MenuList title="Editor"></MenuList>
+          <MenuList title="Printer"></MenuList>
         </ul>
       </nav>
       <Profile source="avatar.png"></Profile>

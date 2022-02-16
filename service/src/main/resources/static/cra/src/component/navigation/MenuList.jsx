@@ -1,9 +1,7 @@
 import React from "react";
 
-const MenuList = ({ title, setActivate }) => {
-  const activeMenu = (btn) => {
-    setActivate(title);
-  };
+const MenuList = ({ title }) => {
+  const activeMenu = (btn) => {};
   return (
     <li>
       <button onClick={activeMenu}>

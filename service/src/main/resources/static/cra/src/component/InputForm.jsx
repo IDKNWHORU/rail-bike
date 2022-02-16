@@ -4,7 +4,7 @@ import DateField from "./field/DateField";
 import DisplayField from "./field/DisplayField";
 import NumberField from "./field/NumberField";
 import Select from "./field/Select";
-import Submit from "./Submit";
+import Submit from "./field/Submit";
 
 const InputForm = () => {
   return (

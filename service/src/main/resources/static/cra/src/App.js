@@ -5,21 +5,24 @@ import Editor from "./screen/Editor";
 import Index from "./screen/Index";
 import Item from "./screen/Item";
 import Printer from "./screen/Printer";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [activate, setActivate] = useState("index");
   return (
     <div className="App">
       <header>
-        <MenuBar setActivate={setActivate}></MenuBar>
+        <MenuBar></MenuBar>
       </header>
       <main>
-        {activate === 'index' ? <Index></Index> : ''}
-        {activate === 'Item' ? <Item></Item> : ''}
-        {activate === 'Calculator' ? <Calculator></Calculator> : ''}
-        {activate === 'Editor' ? <Editor></Editor> : ''}
-        {activate === 'Printer' ? <Printer></Printer> : ''}
+        <Router>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/Item" element={<Item />} />
+            <Route path="/Calculator" element={<Calculator />} />
+            <Route path="Editor" element={<Editor />} />
+            <Route path="Printer" element={<Printer />} />
+          </Routes>
+        </Router>
       </main >
     </div >
   );

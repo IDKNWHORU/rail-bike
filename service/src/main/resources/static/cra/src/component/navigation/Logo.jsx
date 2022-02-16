@@ -1,8 +1,8 @@
 import React from "react";
 
-const Logo = ({ text, setActivate }) => {
+const Logo = ({ text }) => {
   return (
-    <button onClick={() => setActivate("index")}>
+    <button>
       <span>{text}</span>
     </button>
   );
