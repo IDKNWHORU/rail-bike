@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuBar from "./component/MenuBar";
 import Calculator from "./screen/Calculator";
 import Editor from "./screen/Editor";
 import Index from "./screen/Index";
 import Item from "./screen/Item";
 import Printer from "./screen/Printer";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
