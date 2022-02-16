@@ -1,12 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MenuList = ({ title }) => {
   const activeMenu = (btn) => {};
   return (
     <li>
-      <button onClick={activeMenu}>
-        <span>{title}</span>
-      </button>
+      <Link to={title}>
+        <button onClick={activeMenu}>
+          <span>{title}</span>
+        </button>
+      </Link>
     </li>
   );
 };

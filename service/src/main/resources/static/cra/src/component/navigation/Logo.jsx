@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Logo = ({ text }) => {
   return (
-    <button>
-      <span>{text}</span>
-    </button>
+    <Link to="/">
+      <button>
+        <span>{text}</span>
+      </button>
+    </Link>
   );
 };
 

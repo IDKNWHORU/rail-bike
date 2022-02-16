@@ -9,11 +9,11 @@ import Printer from "./screen/Printer";
 function App() {
   return (
     <div className="App">
-      <header>
-        <MenuBar></MenuBar>
-      </header>
-      <main>
-        <Router>
+      <Router>
+        <header>
+          <MenuBar></MenuBar>
+        </header>
+        <main>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/Item" element={<Item />} />
@@ -21,8 +21,8 @@ function App() {
             <Route path="Editor" element={<Editor />} />
             <Route path="Printer" element={<Printer />} />
           </Routes>
-        </Router>
-      </main >
+        </main >
+      </Router>
     </div >
   );
 }
