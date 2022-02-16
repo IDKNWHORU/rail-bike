@@ -8,7 +8,7 @@ import Printer from "./screen/Printer";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <header>
           <MenuBar></MenuBar>
